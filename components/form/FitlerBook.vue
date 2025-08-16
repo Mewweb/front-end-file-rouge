@@ -1,54 +1,40 @@
 <template>
-    <form class="text-right p-[2em] max-w-[1280px] m-auto">
-        <div>
-            <fieldset  class="relative inline-block" tabindex="100">
-                <span @click="visibleDropdown = !visibleDropdown" class="relative hover:opacity-50 transition duration-300 cursor-pointer rounded-l-md inline-block p-[.8em_1em] bg-[#CC3399] text-white">Filtrer <IconAngleRight :class="visibleDropdown ? 'rotate-90' : ''" class="w-[1.3em] transition fill-white duration-300 h-[1.3em] inline-block" /></span>
-                <Transition>
-                    <div v-if="visibleDropdown"  class="p-[2px] m-0 absolute rounded-b-md text-left w-full bg-white border-1 border-t-0">
-                        <div class="list-none p-[.2em]" v-for="element in items">
-                            <label class="w-full block cursor-pointer hover:opacity-50 transition duration-300">{{ element.label }} <input type="checkbox" :value="element.checked" /></label>
-                        </div>
+    <!-- Formulaire de recherche -->
+    <form class="flex flex-col md:flex-row gap-4 items-center justify-between bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-lg shadow">
+        <!-- Dropdown avec checkboxes -->
+        <UDropdown>
+            <UButton @click="showFilter = !showFilter" color="gray" class="cursor-pointer " variant="soft" icon="i-heroicons-adjustments-horizontal">Filtres</UButton>
+            <Transition>
+                <template v-if="showFilter">
+                    <div class="p-4 space-y-2 absolute bg-white shadow-lg rounded border border-gray-200">
+                        <label for="dateInput" class="flex items-center gap-2">
+                            <input id="dateInput" name="dateInput" type="checkbox" v-model="filters.date" class="rounded border-gray-300" /> Date
+                        </label>
+                        <label for="authorInput" class="flex items-center gap-2">
+                            <input id="authorInput" name="authorInput" type="checkbox" v-model="filters.author" class="rounded border-gray-300" /> Auteur
+                        </label>
+                        <label for="titleInput" class="flex items-center gap-2">
+                            <input name="titleInput" id="titleInput" type="checkbox" v-model="filters.title" class="rounded border-gray-300" /> Titre
+                        </label>
                     </div>
-                </Transition>
-
-            </fieldset>
-            <fieldset class="inline-block">
-                <UInput icon="i-lucide-search" class="text-base searchInput" variant="outline" placeholder="Rechercher..." />
-            </fieldset>
+                </template>
+            </Transition>
+        </UDropdown>
+        <!-- Barre de recherche -->
+        <div class="flex w-full md:w-auto flex-1 gap-2">
+            <label for="searchInput" class="absolute w-1 h-1 overflow-hidden">Chercher un livre</label>
+            <UInput v-model="search" placeholder="Rechercher un livre..." name="searchInput" id="searchInput" icon="i-heroicons-magnifying-glass" class="flex-1" />
+            <UButton class="px-6 py-2 bg-[#cc3399] text-white rounded hover:bg-[#cc3399] transition cursor-pointer" variant="solid" @click="applySearch">Rechercher</UButton>
         </div>
-        <Button class="mt-[1em]" :icon="IconFilter">Chercher</Button>
     </form>
-
 </template>
-
-<style>
-    .formListBook form .searchInput input{
-        font-size:1em;
-        border-radius:0 .5em .5em .0;
-        padding-block:.8em
-    }
-    .v-enter-active,.v-leave-active{transition:opacity .3s ease}
-    .v-enter-from,.v-leave-to{opacity:0}
-</style>
-<script setup >
-import IconAngleRight from '~/public/svg/IconAngleRight.vue';
-import IconFilter from '~/public/svg/IconFilter.vue';
-import Button from '../element/Button.vue';
-let visibleDropdown = ref(false);
-const items = [
-    {
-        label: 'Date',
-        checked: false,
-    },
-    {
-        label: 'Titre',
-        checked: false,
-
-    },
-    {
-        label: 'Auteur',
-        checked:false
-    }
-]
-
+<script setup>
+import { ref } from 'vue'
+const showFilter = ref(false),
+    search = ref(''),
+    filters = ref({
+        date: true,
+        author: true,
+        title: true
+    })
 </script>
