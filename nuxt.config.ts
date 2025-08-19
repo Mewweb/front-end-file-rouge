@@ -5,7 +5,19 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   
-  modules: ['nuxt-csurf', '@nuxt/image', '@nuxt/fonts','@nuxt/ui', '@tailwindcss/vite'],
+  modules: [
+    'nuxt-csurf',
+    '@nuxt/image',
+    '@nuxt/fonts',
+    '@nuxt/ui',
+    '@tailwindcss/vite',
+    'nuxt-echarts'
+  ],
+  echarts:{
+    renderer:'svg',
+    charts: ['BarChart'],
+    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
+  },
   fonts:{
     defaults:{
       weights:[500,700,900],
