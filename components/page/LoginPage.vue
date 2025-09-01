@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-white m-auto max-w-[1200px] mx-w-[90%] py-10">
+    <section class="m-auto max-w-[1200px] mx-w-[90%] py-10">
         <div class="container mx-auto space-y-8">
             <!-- Titre -->
             <h1 class="text-3xl md:text-4xl font-extrabold text-purple-900 uppercase mb-8">Connexion à votre espace</h1>
@@ -14,11 +14,11 @@
     </section>
 </template>
 <script setup>
-import { ref } from 'vue'
-const email = ref('')
-const password = ref('')
-const login = ()=>{
-    console.log('Email:', email.value)
-    console.log('Mot de passe:', password.value)
-}
+import {ref} from 'vue'
+const email = ref(''),
+    password = ref(''),
+    login = ()=>{
+        console.log('Email:',email.value)
+        console.log('Mot de passe:',password.value)
+    }
 </script>

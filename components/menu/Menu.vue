@@ -4,9 +4,9 @@
             <div class="m-auto max-w-[1200px] mx-w-[90%]">
                 <div class="container flex items-center justify-between px-6 py-3 mx-auto">
                     <!-- Logo -->
-                    <NuxtLink to="/" class="flex items-center gap-2">
-                        <NuxtImg src="img/logo.png" alt="Logo de 2I Library" class="h-10 w-auto" />
-                        <span class="text-xl sm:inline-block hidden font-bold text-purple-800">2IAcademy</span>
+                    <NuxtLink to="/" class="flex items-center hover:opacity-50 transition duration-300 gap-2">
+                        <NuxtImg src="img/logo.webp" alt="Logo de 2I Library" class="h-10 w-auto" />
+                        <span class="text-xl sm:inline-block hidden font-bold text-purple-800">2I Library</span>
                     </NuxtLink>
                     <!-- Barre de recherche -->
                     <div class="flex-1 mx-6 hidden md:flex">
@@ -15,10 +15,10 @@
                     <!-- Actions à droite -->
                     <div class="flex items-center gap-4">
                         <!-- Lien gestion panier -->
-                        <NuxtLink to="/panier" class="text-purple-700 font-medium hover:text-purple-900 transition">Gestion de panier</NuxtLink>
+                        <NuxtLink to="/shopping" class="text-purple-700 font-medium hover:opacity-50 duration-300 transition">Gestion de panier</NuxtLink>
                         <!-- Dropdown utilisateur -->
-                        <UDropdownMenu :items="userMenu" :popper="{placement:'bottom-end'}">
-                            <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle" class="rounded-full" />
+                        <UDropdownMenu class="cursor-pointer" :items="userMenu" :popper="{placement:'bottom-end'}">
+                            <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle" title="Voir le compte utilisateur" class="rounded-full hover:opacity-50 transition duration-300" />
                         </UDropdownMenu>
                     </div>
                 </div>
@@ -31,23 +31,9 @@
     </div>
 </template>
 <script setup>
-    import {ref} from "vue"
-    const search = ref(""),
+import{ref} from "vue"
+const search = ref(""),
     // Dropdown utilisateur
-        userMenu = [
-        [
-            {
-                label:"Modifier les données personnelles",
-                icon:"i-heroicons-pencil-square",
-                click:()=>console.log("Modifier profil"),
-            },
-        ],
-        [
-            {
-                label:"Consulter les commandes",
-                icon:"i-heroicons-archive-box",
-                click:()=>console.log("Consulter commandes"),
-            },
-        ],
-    ]
+    userMenu = [[{label:"Modifier les données personnelles",icon:"i-heroicons-pencil-square",to:"/account/edit"},],[{label:"Consulter les commandes",icon:"i-heroicons-archive-box",to:"/shopping"},],]
+ 
 </script>

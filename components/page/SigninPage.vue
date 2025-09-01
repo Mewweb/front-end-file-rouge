@@ -1,24 +1,23 @@
 <template>
-    <section class="bg-white m-auto max-w-[1200px] mx-w-[90%] py-10">
-        <div class="container mx-auto space-y-8">
+    <section class="m-auto max-w-[1200px] mx-w-[90%] py-12">
+        <div class="container mx-auto px-6 lg:px-12 text-center">
             <!-- Titre -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-purple-900 uppercase mb-8">Inscrire un compte</h1>
-            <!-- Carte principale -->
-            <UCard class="shadow-lg rounded-xl border border-gray-100 bg-gradient-to-br from-indigo-50 to-purple-50">
-                <!-- Boutons sociaux -->
+            <h1 class="text-3xl md:text-4xl font-extrabold text-purple-900 uppercase mb-8">Créez votre compte</h1>
+            <!-- Options sociales -->
+            <div class=" gap-4 mb-6">
                 <FormButtonSocialForm />
-                <!-- Formulaire -->
-                <FormSigninPage />
+            </div>
+            <!-- Séparateur -->
+            <div class="relative flex items-center my-6">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="px-4 text-gray-500 text-sm">ou avec votre email</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            <!-- Formulaire -->
+            <UCard
+                class="shadow-lg rounded-xl border border-gray-100 p-6 bg-gradient-to-br from-indigo-50 to-purple-50">
+                <FormSigninForm />
             </UCard>
         </div>
     </section>
 </template>
-<script setup>
-import { ref } from 'vue'
-const email = ref('')
-const password = ref('')
-const login = ()=>{
-    console.log('Email:', email.value)
-    console.log('Mot de passe:', password.value)
-}
-</script>
