@@ -1,5 +1,5 @@
 <template>
-    <section class=" m-auto max-w-[1200px] mx-w-[90%] py-12">
+    <section class=" m-auto max-w-[1200px] w-[90%] py-12">
         <div class="container shadow-md bg-white mx-auto py-12 rounded-lg px-6 lg:px-12 flex md:flex-row flex-col justify-between gap-10 items-center">
             <!-- Image du livre (toujours à gauche) -->
             <div class="flex justify-center w-full md:w-[48%] order-1">

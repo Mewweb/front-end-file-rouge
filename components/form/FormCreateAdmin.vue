@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] mx-w-[90%]  py-10">
+    <section class="m-auto max-w-[1200px] w-[90%]  py-10">
         <div class="container mx-auto px-6 py-6 lg:px-12 w-full bg-white shadow-lg rounded-2xl">
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Créer un administrateur</h2>

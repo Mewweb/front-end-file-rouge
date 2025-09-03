@@ -1,5 +1,5 @@
 <template>
-    <section class="py-8 m-auto max-w-[1200px] mx-w-[90%]">
+    <section class="py-8 m-auto max-w-[1200px] w-[90%]">
         <div class="container  py-6 px-12 clr mx-auto">
             <UCarousel :items="books" dots :ui="{item:'basis-full',container:'align-stretch',prev:'sm:right-auto sm:left-[1em] sm:-space-0',next:'sm:right-[1em] sm:left-auto sm:-space-0',dot: 'text-purple-900'}" loop :autoplay="{delay:5000,stopOnMouseEnter:true}" class="rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 overflow-hidden shadow-lg">
                 <!-- Slide principal -->

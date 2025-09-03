@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] mx-w-[90%] sectionAccountEdit py-10">
+    <section class="m-auto max-w-[1200px] w-[90%] sectionAccountEdit py-10">
         <div class="container mx-auto px-6 lg:px-12">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Modifier mes données personnelles</h2>

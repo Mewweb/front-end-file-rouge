@@ -1,7 +1,7 @@
 <template>
     <div class="h-[4em]">
         <nav class="bg-white  fixed z-99999 w-full shadow-md border-b border-gray-200">
-            <div class="m-auto max-w-[1200px] mx-w-[90%]">
+            <div class="m-auto max-w-[1200px] w-[90%]">
                 <div class="container flex items-center justify-between px-6 py-3 mx-auto">
                     <!-- Logo -->
                     <NuxtLink to="/" class="flex items-center hover:opacity-50 transition duration-300 gap-2">

@@ -21,7 +21,7 @@ useSeoMeta({
 })
 </script>
 <template>
-  <section class="py-10 m-auto max-w-[1200px] mx-w-[90%]">
+  <section class="py-10 m-auto max-w-[1200px] w-[90%]">
     <div class="container mx-auto px-12 space-y-8">
       <!-- Titre -->
       <h2 class="text-3xl md:text-4xl font-extrabold text-purple-900 text-center">Statistiques des ventes</h2>

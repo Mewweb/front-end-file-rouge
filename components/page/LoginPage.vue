@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] mx-w-[90%] py-10">
+    <section class="m-auto max-w-[1200px] w-[90%] py-10">
         <div class="container mx-auto space-y-8">
             <!-- Titre -->
             <h1 class="text-3xl md:text-4xl font-extrabold text-purple-900 uppercase mb-8">Connexion à votre espace</h1>

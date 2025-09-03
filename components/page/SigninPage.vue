@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] mx-w-[90%] py-12">
+    <section class="m-auto max-w-[1200px] w-[90%] py-12">
         <div class="container mx-auto px-6 lg:px-12 text-center">
             <!-- Titre -->
             <h1 class="text-3xl md:text-4xl font-extrabold text-purple-900 uppercase mb-8">Créez votre compte</h1>
