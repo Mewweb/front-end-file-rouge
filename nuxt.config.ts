@@ -1,29 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite"; 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true},
-  css: ["~/assets/css/main.css"],
-  
-  modules: [
-    'nuxt-csurf',
-    '@nuxt/image',
-    '@nuxt/fonts',
-    '@nuxt/ui',
-    '@tailwindcss/vite',
-    'nuxt-echarts'
+  compatibilityDate:'2025-07-15',
+  devtools:{enabled:true},
+  css:["~/assets/css/main.css"],
+  modules:[
+   'nuxt-csurf',
+   '@nuxt/image',
+   '@nuxt/fonts',
+   '@nuxt/ui',
+   '@tailwindcss/vite',
+   'nuxt-charts'
   ],
-  echarts:{
-    renderer:'svg',
-    charts: ['BarChart'],
-    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
- },
   runtimeConfig:{
     session:{
       password:"",
       name:"front-end-file-rouge-session",
       cookie:{
-        maxAge: 60 * 60 * 24 * 7, // 1 week
+        maxAge:60 * 60 * 24 * 7,// 1 week
      }
    }
  },
@@ -40,7 +34,7 @@ export default defineNuxtConfig({
    ui:{
     colorMode:false
   },
-  vite: {
+  vite:{
     plugins:[
       tailwindcss()
     ]
@@ -48,16 +42,16 @@ export default defineNuxtConfig({
   app:{
     head:{
       charset:'utf-8',
-      viewport:'width=device-width, initial-scale=1',
+      viewport:'width=device-width,initial-scale=1',
       title:'File Rouge - E-commerce',
       meta:[
-        { name: 'description', content: 'Projet de fin d\'études - E-commerce' }
+        {name:'description',content:'Projet de fin d\'études - E-commerce'}
       ],
       htmlAttrs:{
         lang:'fr'
       },
       link:[
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        {rel:'icon',type:'image/x-icon',href:'/favicon.ico'}
       ]
     }
   }
