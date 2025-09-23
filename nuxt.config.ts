@@ -21,6 +21,12 @@ export default defineNuxtConfig({
      }
    }
  },
+ csurf:{
+  https:false,
+  methodsToProtect:['POST','PUT','PATCH'],
+  addCsrfTokenToEventCtx: true,
+  headerName:'csrf-token'
+ },
   fonts:{
     defaults:{
       weights:[500,700,900],
