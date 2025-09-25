@@ -1,3 +1,15 @@
+<script setup>
+import {ref} from 'vue'
+import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+const books = ref([{id:1,title:'L’IA en pratique',author:'Alice Dupont',publishDate:'2025-07-15',image:'/img/example.webp'},{id:2,title:'Nuxt 4 pour les développeurs',author:'Jean Martin',publishDate:'2025-08-01',image:'/img/example.webp'},{id:3,title:'Tailwind avancé',author:'Claire Bernard',publishDate:'2025-08-05',image:'/img/example.webp'}]),
+    formatDate = (isoDate)=>{
+        return new Date(isoDate).toLocaleDateString('fr-FR',{
+            year:'numeric',
+            month:'long',
+            day:'numeric'
+        })
+    }
+</script>
 <template>
     <section class="py-8 m-auto max-w-[1200px] w-[90%]">
         <div class="container  py-6 px-12 clr mx-auto">
@@ -29,15 +41,3 @@
         </div>
     </section>
 </template>
-<script setup>
-import {ref} from 'vue'
-import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
-const books = ref([{id:1,title:'L’IA en pratique',author:'Alice Dupont',publishDate:'2025-07-15',image:'/img/example.webp'},{id:2,title:'Nuxt 4 pour les développeurs',author:'Jean Martin',publishDate:'2025-08-01',image:'/img/example.webp'},{id:3,title:'Tailwind avancé',author:'Claire Bernard',publishDate:'2025-08-05',image:'/img/example.webp'}]),
-    formatDate = (isoDate)=>{
-        return new Date(isoDate).toLocaleDateString('fr-FR',{
-            year:'numeric',
-            month:'long',
-            day:'numeric'
-        })
-    }
-</script>

@@ -1,7 +1,7 @@
 <template>
     <!-- Catalogue de livres -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="book in allBook" :key="book.id" class="bg-gradient-to-r h-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
+        <div v-for="book in allBook.content" :key="book.id" class="bg-gradient-to-r h-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
             <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />
             <div class="mt-4 flex-1 flex flex-col justify-between">
                 <div class="space-y-1">
@@ -15,17 +15,27 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </template>
 <script setup>
-import{ref,computed} from 'vue'
-    const books = ref([{id:1,title:'L’IA en pratique',author:'Alice Dupont',publishDate:'2025-07-15',image:'/img/example.webp'},{id:2,title:'Nuxt 4 pour les développeurs',author:'Jean Martin',publishDate:'2025-08-01',image:'/img/example.webp'},{id:3,title:'Tailwind avancé',author:'Claire Bernard',publishDate:'2025-08-05',image:'/img/example.webp'},{id:3,title:'Tailwind avancé',author:'Claire Bernard',publishDate:'2025-08-05',image:'/img/example.webp'}]),
-        search = ref(''),
+    import{ref,computed} from 'vue'
+
+    const search = ref(''),
         filters = ref({date:true,author:true,title:true}),
-        props = defineProps(['allBook']),
-        allBook = props.allBook.content,
+        props = defineProps(['allBook','offsetPage']),
+        contentAllBook = props.allBook.content,
+        filteredBooks = computed(() => {
+            return contentAllBook.filter(book =>{
+                const searchTerm = search.value.toLowerCase();
+                let match = false;
+                if (filters.value.title && book.title.toLowerCase().includes(searchTerm)) match = true
+                if (filters.value.date && formatDate(book.date).toLowerCase().includes(searchTerm)) match = true;
+                return match || searchTerm === '';
+            })
+        }),
         // Filtrage
-        filteredBooks = computed(() =>{
+        /*filteredBooks = computed(() =>{
             return books.value.filter(book =>{
                 const searchTerm = search.value.toLowerCase()
                 let match = false
@@ -34,14 +44,16 @@ import{ref,computed} from 'vue'
                 if (filters.value.date && formatDate(book.publishDate).toLowerCase().includes(searchTerm)) match = true
                 return match || searchTerm === ''
             })
-        }),
+        }),*/
         formatDate = (isoDate) =>{
             return new Date(isoDate).toLocaleDateString('fr-FR',{
                 year:'numeric',
                 month:'long',
                 day:'numeric'
             })
-        }
-    console.log(allBook);
+        };
+        watch(props.allBook, (newBook) => {
+            console.log(newBook);
+        });
 
 </script>
