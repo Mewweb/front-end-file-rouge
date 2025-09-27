@@ -3,15 +3,14 @@
     import ElementListBook from './ElementListBook.vue';
 
     const filters = ref({date:false,author:false,title:true, search:""});
-        const basicAuth = btoa("user:5352bbc7-0433-4f72-93e4-1ad3b2b9885a");
-        let offsetPage = ref(1);
+    const basicAuth = inject("basicAuth");    
+    let offsetPage = ref(1);
     
     const data = ref();
     const errorReport = ref();
     const loading = ref(true);
     async function test(offset:number){
         try{
-            console.log(offset);
             const apiData = ref(await $fetch(`http://localhost:8080/m2l/books/${offset}/9`, {
                 headers:{
                     Authorization: `Basic ${basicAuth}`
@@ -21,7 +20,6 @@
             if(apiData.value){
                 data.value = apiData.value;
             }
-            console.log(data.value);
             loading.value = false;
         }catch(e){
             console.log(e);
@@ -31,7 +29,6 @@
     test(offsetPage.value-1);
     watch(offsetPage, (newOffset) => {
         test(newOffset-1);
-        console.log(newOffset-1);
     })
 
 </script>
