@@ -20,7 +20,7 @@
 </template>
 <script setup>
     import{ref,computed} from 'vue'
-
+    
     const search = ref(''),
         filters = ref({date:true,author:true,title:true}),
         props = defineProps(['allBook','offsetPage']),
@@ -52,7 +52,7 @@
                 day:'numeric'
             })
         };
-        watch(props.allBook, (newBook) => {
+        watch(props.allBook,(newBook)=>{
             console.log(newBook);
         });
 

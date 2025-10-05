@@ -36,8 +36,8 @@ try{
         <div v-else-if="error==true">
             <p>Erreur de chargement</p>
         </div>
-        <div v-else class="container  py-6 px-12 clr mx-auto">
-            <UCarousel class="rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 shadow-lg" :items="data.content" auto-height arrows dots :autoplay="{delay:5000,stopOnMouseEnter:true}" loop v-slot="item" :ui="{container:'transition-[height]',controls:'h-[2em] flex justify-center items-center inset-x-12',dots:'initial!',dot:'w-6 h-3'}">
+        <div v-else class="container py-6 px-12 clr mx-auto">
+            <UCarousel class="rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 shadow-lg" :items="data.content" auto-height dots :autoplay="{delay:5000,stopOnMouseEnter:true}" loop v-slot="item" :ui="{container:'transition-[height]',controls:'h-[2em] flex justify-center items-center inset-x-12',dots:'initial!',dot:'w-6 h-3'}">
                 <!-- Slide principal -->
                 <div class="flex flex-col py-[2em] md:flex-row-reverse items-center h-full">
                     <!-- Image -->
