@@ -10,12 +10,11 @@
         twitterCard:"summary_large_image"
     })
     const basicAuth = inject("basicAuth");
-    console.log(useRoute().params.id);
     const data = ref();
     const errorReport = ref();
     const loading = ref(true);
     try{
-        const apiData = ref(await $fetch(`http://localhost:8080/m2l/books/${useRoute().params.id}`,{
+        const apiData = ref(await $fetch(`http://localhost:8080/m2l/articles/${useRoute().params.id}`,{
             headers:{
                 Authorization:`Basic ${basicAuth}`
             },
@@ -29,24 +28,23 @@
         console.log(e);
         errorReport.value = true;
     }
-    console.log(data.value);
 </script>
 <template>
     <div class="px-12 py-6">
-        
         <BookDetails 
-        :image="data.image" 
-        :title="data.title" 
-        :authors="data.authors"
-        :date="data.date"
-        :description="data.synopsis" />
+        :image="data.book.image" 
+        :title="data.book.title" 
+        :authors="data.book.authors"
+        :date="data.book.date"
+        :description="data.book.synopsis" />
         <BookCaracteristic
-        :editor="data.editor"
-        :authors="data.authors"
-        :number_isbn="data.number_isbn"
-        :style="data.style"
-        :date="data.date"
-        :article="data.article"
+        :editor="data.editor.title"
+        :authors="data.book.authors"
+        :number_isbn="data.book.number_isbn"
+        :style="data.book.style"
+        :date="data.book.date"
+        :article="data.title"
+        :format="data.format"
         />
     </div>
 </template>

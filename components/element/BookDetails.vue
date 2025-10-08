@@ -3,14 +3,14 @@
         <div class="container shadow-md bg-white mx-auto py-12 rounded-lg px-6 lg:px-12 flex md:flex-row flex-col justify-between gap-10 items-center">
             <!-- Image du livre (toujours à gauche) -->
             <div class="flex justify-center w-full md:w-[48%] order-1">
-                <NuxtImg :src="book.image" alt="Couverture du livre" class="rounded-xl shadow-lg max-h-[450px] object-cover" />
+                <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="rounded-xl shadow-lg max-h-[450px] object-cover" />
             </div>
             <!-- Détails (toujours à droite) -->
             <div class="order-2 w-full md:w-[48%]">
                 <!-- Titre -->
                 <h1 class="text-2xl md:text-3xl md:text-4xl font-extrabold text-purple-900 mb-4">{{props.title}}</h1>
                 <!-- Auteur + Date -->
-                <p class="text-gray-600 mb-2"><span class="font-semibold text-purple-700"><template v-for="(author,index) in authors">{{ author.lastname + " " + author.firstname + (author.length == index-1?"": "") }} </template></span> • {{props.date}}</p>
+                <p class="text-gray-600 mb-2"><span class="font-semibold text-purple-700"><template v-for="(author,index) in authors">{{ author.lastname + " " + author.firstname + (author.length == index-1?"": "") }} </template></span> • {{formatDate(props.date)}}</p>
                 <!-- Description -->
                 <p class="text-gray-700 leading-relaxed mb-6">{{props.description}}</p>
                 <!-- Boutons -->
@@ -26,5 +26,11 @@
     import IconCartShopping from '~/public/svg/IconCartShopping.vue';
     import IconsArrowRight from '~/public/svg/IconsArrowRight.vue';
     const props = defineProps(["image","title","authors","date","description"]);
-    const book = {title:"Les Secrets de Nuxt 4",author:"Jean Dupont",date:"Publié le 12 août 2025",description:"Un guide complet pour maîtriser Nuxt 4, TailwindCSS et les composants modernes avec NuxtUI. Parfait pour les développeurs souhaitant créer des applications performantes et élégantes.",image:"/img/example.webp"}
+    const formatDate = (isoDate) => {
+        return new Date(isoDate).toLocaleDateString('fr-FR', {
+            year:'numeric',
+            month:'long',
+            day:'numeric'
+        })
+    }
 </script>

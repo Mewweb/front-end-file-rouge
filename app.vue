@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import Menu from './components/menu/Menu.vue';
   import Footer from './components/footer/Footer.vue';
-  provide("basicAuth", btoa("user:c48fe594-c124-4440-adcb-f4913b80a351"));
+  provide("basicAuth", btoa("user:8afcab31-4197-4f24-a260-5ba0f9f1f388"));
 </script>
 <template>
   <div class="flex flex-col justify-between min-h-screen bg-gray-50">

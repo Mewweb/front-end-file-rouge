@@ -10,7 +10,7 @@
                         <!-- Date -->
                         <tr>
                             <td class="px-6 py-4 font-semibold text-purple-700 w-1/3">Date</td>
-                            <td class="px-6 py-4 text-gray-700">{{date}}</td>
+                            <td class="px-6 py-4 text-gray-700">{{formatDate(date)}}</td>
                         </tr>
                         <!-- Genre -->
                         <tr>
@@ -29,12 +29,12 @@
                         </tr>
                         <tr>
                             <td class="px-6 py-4 font-semibold text-purple-700">Article</td>
-                            <td class="px-6 py-4 text-gray-700">{{article.title}}</td>
+                            <td class="px-6 py-4 text-gray-700">{{article}}</td>
                         </tr>
                         <!-- Format -->
                         <tr>
                             <td class="px-6 py-4 font-semibold text-purple-700 w-1/3">Format</td>
-                            <td class="px-6 py-4 text-gray-700">{{article.format}}</td>
+                            <td class="px-6 py-4 text-gray-700">{{format}}</td>
                         </tr>
                         <!-- ISBN -->
                         <tr>
@@ -48,5 +48,12 @@
     </section>
 </template>
 <script setup>
-    const props = defineProps(["editor","authors","number_isbn","style","date","article"]);
+    const props = defineProps(["editor","authors","number_isbn","style","date","article","format"]);
+    const formatDate = (isoDate) => {
+        return new Date(isoDate).toLocaleDateString('fr-FR',{
+            year:'numeric',
+            month:'long',
+            day:'numeric'
+        })
+    }
 </script>

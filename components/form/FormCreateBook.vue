@@ -4,7 +4,7 @@
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Ajouter un livre</h2>
             <!-- Formulaire -->
-            <form @submit.prevent="handleSubmit" class="space-y-6 flex justify-between flex-wrap">
+            <form v-if="loading == false" @submit.prevent="handleSubmit" class="space-y-6 flex justify-between flex-wrap">
                 <!-- Titre -->
                 <UFormField class="w-full md:w-[48%]" label="Titre du livre" required>
                     <UInput class="w-full" v-model="form.titre" placeholder="Titre du livre" size="lg" />
@@ -16,7 +16,7 @@
                 <!-- Auteur -->
                 <!---->
                 <UFormField class="w-full md:w-[48%]" label="Auteur" required>
-                    <USelectMenu class="w-full" v-model="form.auteur" :items="auteurs" placeholder="Rechercher un auteur" />
+                    <USelectMenu class="w-full" v-model="form.auteur" :items="author.content" placeholder="Rechercher un auteur" />
                 </UFormField>
                 <!-- Image -->
                 <UFormField class="w-full md:w-[48%]" label="Image du livre" required>
@@ -43,18 +43,49 @@
                     <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] transition cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
                 </div>
             </form>
+            <div v-else class="space-y-6 flex justify-between flex-wrap">
+                <div v-for="n in 6" class="p-5 bg-gray-50 animate-pulse rounded-md w-full md:w-[48%]">
+                    <div class="h-5 mb-5 rounded-md bg-gray-100"></div>
+                    <div class="h-10 rounded-md bg-gray-100"></div>
+                </div>
+            </div>
         </div>
     </section>
 </template>
 <script setup>
 import {ref} from "vue"
 // Exemples d’options (normalement tu les récupères depuis ton backend)
+const basicAuth = inject("basicAuth");
+const author = ref();
+const errorReport = ref();
+const loading = ref();
 const styles = ref(["Roman","Science-Fiction","Essai","Biographie","Manga"]),
     editeurs = ref(["Gallimard","Hachette","Flammarion","Pocket","Fayard"]),
     auteurs = ref(["Victor Hugo","Jules Verne","George Orwell","Albert Camus"]),
     form = ref({isbn:"",style:"",image:null,format:"",stock:0,titre:"",editeur:"",auteur:""})
-function applySearch(){
-    console.log("Recherche appliquée avec les critères :",form.value);
+
+    async function callAuthor(){
+        const errorReport = ref(false);
+        try{
+            const apiData = ref();
+            loading.value = true;
+            apiData.value = await $fetch('http://localhost:8080/m2l/author/all',{
+                headers:{
+                    Authorization:`Basic ${basicAuth}`
+                },
+                credentials:'include'
+            });
+            if(apiData.value) author.value = apiData.value;
+            loading.value = false;
+        }
+        catch(e){
+            console.log(e);
+            errorReport.value = true;
+        }
+    }
+    callAuthor();
+    function applySearch(){
+        console.log("Recherche appliquée avec les critères :",form.value);
     alert("Recherche appliquée avec succès !");
 }
 // Upload image
