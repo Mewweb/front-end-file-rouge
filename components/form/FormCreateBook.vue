@@ -5,44 +5,44 @@
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Ajouter un livre</h2>
             <!-- Formulaire -->
             <form v-if="loading == false" @submit.prevent="handleSubmit" class="space-y-6 flex justify-between flex-wrap">
-                <!-- Titre -->
+                <!--Titre du livre-->
                 <UFormField class="w-full md:w-[48%]" label="Titre du livre" required>
                     <UInput class="w-full" v-model="form.titre" placeholder="Titre du livre" size="lg" />
                 </UFormField>
-                <!-- Style -->
-                <UFormField class="w-full md:w-[48%]" label="Style du livre" required>
-                    <USelectMenu class="w-full" v-model="form.style" :items="styles" placeholder="Choisissez un style" />
+                <!--Le nombre de stock du livre-->
+                <UFormField class="w-full md:w-[48%]" label="Le nombre de stock du livre" required>
+                    <UInputNumber class="w-full" v-model="form.stock" placeholder="Le nombre de stock du livre" size="lg" :min="0" :max="100" />
                 </UFormField>
-                <!-- Auteur -->
-                <!---->
-                <UFormField class="w-full md:w-[48%]" label="Auteur" required>
-                    <USelectMenu class="w-full" v-model="form.auteur" :items="author.content" placeholder="Rechercher un auteur" />
+                <!--Le genre du livre-->
+                <UFormField class="w-full md:w-[48%]" label="Le genre du livre" required>
+                    <USelectMenu class="w-full" v-model="form.style" :items="style" placeholder="Choisissez un genre" size="lg" />
                 </UFormField>
-                <!-- Image -->
-                <UFormField class="w-full md:w-[48%]" label="Image du livre" required>
-                    <UInput type="file" accept="image/*" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg p-2" @change="handleFileUpload" />
+                <!--La date du livre-->
+                <UFormField class="w-full md:w-[48%]" label="La date du livre" required>
+                    <UInput class="w-full" v-model="form.date" placeholder="La date du livre" size="lg" />
                 </UFormField>
-                <!-- Editeur -->
-                <UFormField class="w-full md:w-[48%]" label="Éditeur" required>
-                    <USelectMenu class="w-full" v-model="form.editeur" :items="editeurs" placeholder="Rechercher un éditeur" />
+                <!--L'image du livre-->
+                <UFormField class="w-full md:w-[48%]" label="L'image du livre" required>
+                    <UInput class="w-full" v-model="form.image" placeholder="L'image du livre" siez="lg" />
                 </UFormField>
-                <!-- Format -->
-                <UFormField class="w-full md:w-[48%]" label="Format du livre" required>
-                    <UInput class="w-full" v-model="form.format" placeholder="ex:Broché, Ebook..." size="lg" />
+                <!--Les auteurs du livre-->
+                <UFormField class="w-full md:w-[48%]" label="Les auteurs du livre" required>
+                    <USelectMenu v-model:search-term="authorSearch" :items="authors.content" :loading="loadingAuthor == true" ignore-filter icon="i-lucide-user" placeholder="Auteur" class="w-full"></USelectMenu>
                 </UFormField>
-                <!-- Stock -->
-                <UFormField class="w-full md:w-[48%]" label="Nombre de stock" required>
-                    <UInput class="w-full" v-model="form.stock" type="number" min="0" size="lg" />
+                <!--Synopsis du livre-->
+                <UFormField class="w-full" label="Synopsis du livre" required>
+                    <UTextarea class="w-full" :rows="7" v-model="form.synopsis" placeholder="Synopsis du livre" size="lg" autoresize="" />
                 </UFormField>
-                <!-- ISBN -->
-                <UFormField class="w-full md:w-[48%]" label="Numéro ISBN" required>
-                    <UInput class="w-full" v-model="form.isbn" placeholder="978-1234567890" size="lg" />
-                </UFormField>
+   
                 <!-- Bouton -->
                 <div class="pt-4 text-right w-full">
-                    <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] transition cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
+                    <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] transition cursor-pointer" variant="solid" @click="applySearch"> Ajouter un livre</UButton>
                 </div>
             </form>
+            <div v-else-if="errorReport">
+                <p>Erreur de chargement des données</p>
+                <p>{{errorReport}}</p>
+            </div>
             <div v-else class="space-y-6 flex justify-between flex-wrap">
                 <div v-for="n in 6" class="p-5 bg-gray-50 animate-pulse rounded-md w-full md:w-[48%]">
                     <div class="h-5 mb-5 rounded-md bg-gray-100"></div>
@@ -53,51 +53,105 @@
     </section>
 </template>
 <script setup>
-import {ref} from "vue"
-// Exemples d’options (normalement tu les récupères depuis ton backend)
-const basicAuth = inject("basicAuth");
-const author = ref();
-const errorReport = ref();
-const loading = ref();
-const styles = ref(["Roman","Science-Fiction","Essai","Biographie","Manga"]),
-    editeurs = ref(["Gallimard","Hachette","Flammarion","Pocket","Fayard"]),
-    auteurs = ref(["Victor Hugo","Jules Verne","George Orwell","Albert Camus"]),
-    form = ref({isbn:"",style:"",image:null,format:"",stock:0,titre:"",editeur:"",auteur:""})
-
-    async function callAuthor(){
-        const errorReport = ref(false);
+import{ref}from "vue"
+// Exemples d’options(normalement tu les récupères depuis ton backend)
+const basicAuth = inject("basicAuth"),
+    authors = ref(),
+    editors = ref(),
+    errorReport = ref(),
+    loading = ref(),
+    loadingAuthor = ref(),
+    loadingEditor = ref(),
+    article = ref(["Grand format", "Livre de poche"]),
+    styles = ref(["Roman","Science-Fiction","Essai","Biographie","Manga"]),
+    form = ref({isbn:"",style:"",image:null,date:"",format:"",stock:0,titre:"",editeur:"",auteur:""}),
+    authorSearch = ref(),
+    editorSearch = ref();
+let authorDelay = null;
+let editorDelay = null;
+watch(authorSearch,(newSearch)=>{
+    clearTimeout(authorDelay);
+    authorDelay = setTimeout(async function(){
         try{
-            const apiData = ref();
-            loading.value = true;
-            apiData.value = await $fetch('http://localhost:8080/m2l/author/all',{
+            const apiData = ref(),
+                url = "http://localhost:8080/m2l/author" +(newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
+            loadingAuthor.value = true;
+            apiData.value = await $fetch(url,{
                 headers:{
                     Authorization:`Basic ${basicAuth}`
                 },
                 credentials:'include'
             });
-            if(apiData.value) author.value = apiData.value;
-            loading.value = false;
-        }
-        catch(e){
+            if(apiData.value)authors.value = apiData.value;
+            loadingAuthor.value = false;
+        }catch(e){
             console.log(e);
             errorReport.value = true;
         }
+    })
+});
+watch(editorSearch,(newSearch)=>{
+    clearTimeout(editorDelay);
+    editorDelay = setTimeout(async function(){
+        try{
+            const apiData = ref(),
+                url = "http://localhost:8080/m2l/editor" +(newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
+            loadingEditor.value = true;
+            apiData.value = await $fetch(url,{
+                headers:{
+                    Authorization:`Basic ${basicAuth}`
+                },
+                credentials:'include'
+            });
+            if(apiData.value)editors.value = apiData.value;
+            loadingEditor.value = false;
+        }catch(e){
+            console.log(e);
+            errorReport.value = true;
+        }
+    })
+})
+async function callAll(){
+    const errorReport = ref(false);
+    try{
+        const apiData = ref();
+        loading.value = true;
+        apiData.value = await $fetch('http://localhost:8080/m2l/author/all',{
+            headers:{
+                Authorization:`Basic ${basicAuth}`
+            },
+            credentials:'include'
+        });
+        if(apiData.value)authors.value = apiData.value;
+        apiData.value = await $fetch('http://localhost:8080/m2l/editor/all',{
+            headers:{
+                Authorization:`Basic ${basicAuth}`
+            },
+            credentials:'include'
+        })
+        if(apiData.value)editors.value = apiData.value;
+        loading.value = false;
     }
-    callAuthor();
-    function applySearch(){
-        console.log("Recherche appliquée avec les critères :",form.value);
+    catch(e){
+        console.log(e);
+        errorReport.value = true;
+    }
+}
+callAll();
+function applySearch(){
+    console.log("Recherche appliquée avec les critères :",form.value);
     alert("Recherche appliquée avec succès !");
 }
 // Upload image
-const handleFileUpload = (e)=>form.value.image = e.target.files[0],
+const handleFileUpload =(e)=> form.value.image = e.target.files[0],
 
-// Validation simple
-    handleSubmit = ()=>{
-    if(!form.value.isbn || !form.value.titre){
-        alert("❌ Merci de remplir tous les champs obligatoires.")
-        return
+    // Validation simple
+    handleSubmit =()=>{
+        if(!form.value.isbn || !form.value.titre){
+            alert("❌ Merci de remplir tous les champs obligatoires.")
+            return
+        }
+        console.log("✅ Livre ajouté :",form.value)
+        alert("Livre ajouté avec succès !")
     }
-    console.log("✅ Livre ajouté :",form.value)
-    alert("Livre ajouté avec succès !")
-}
 </script>

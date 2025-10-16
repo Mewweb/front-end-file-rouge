@@ -10,7 +10,8 @@ export default defineNuxtConfig({
    '@nuxt/fonts',
    '@nuxt/ui',
    '@tailwindcss/vite',
-   'nuxt-charts'
+   'nuxt-charts',
+   '@vueuse/nuxt'
   ],
   runtimeConfig:{
     session:{
