@@ -4,44 +4,52 @@
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Ajouter un livre</h2>
             <!-- Formulaire -->
-            <form v-if="loading == false" @submit.prevent="handleSubmit" class="space-y-6 flex justify-between flex-wrap">
+            <UForm v-if="loading == false" :schema="schema" :state="form" @submit="handleSubmit"
+                class="space-y-6 flex justify-between flex-wrap">
                 <!--Titre du livre-->
-                <UFormField class="w-full md:w-[48%]" label="Titre du livre" required>
-                    <UInput class="w-full" v-model="form.titre" placeholder="Titre du livre" size="lg" />
+                <UFormField class="w-full md:w-[48%]" name="title" id="title" label="Titre du livre" required>
+                    <UInput class="w-full" v-model="form.title" placeholder="Titre du livre" size="lg" />
                 </UFormField>
                 <!--Le nombre de stock du livre-->
-                <UFormField class="w-full md:w-[48%]" label="Le nombre de stock du livre" required>
-                    <UInputNumber class="w-full" v-model="form.stock" placeholder="Le nombre de stock du livre" size="lg" :min="0" :max="100" />
+                <UFormField class="w-full md:w-[48%]" name="stock" id="stock" label="Le nombre de stock du livre"
+                    required>
+                    <UInputNumber class="w-full" v-model="form.stock" placeholder="Le nombre de stock du livre"
+                        size="lg" :min="0" :max="100" />
                 </UFormField>
                 <!--Le genre du livre-->
-                <UFormField class="w-full md:w-[48%]" label="Le genre du livre" required>
-                    <USelectMenu class="w-full" v-model="form.style" :items="style" placeholder="Choisissez un genre" size="lg" />
+                <UFormField class="w-full md:w-[48%]" name="style" id="style" label="Le genre du livre" required>
+                    <USelectMenu class="w-full" v-model="form.style" :items="style" placeholder="Choisissez un genre"
+                        size="lg" />
                 </UFormField>
                 <!--La date du livre-->
-                <UFormField class="w-full md:w-[48%]" label="La date du livre" required>
-                    <UInput class="w-full" v-model="form.date" placeholder="La date du livre" size="lg" />
+                <UFormField class="w-full md:w-[48%]" name="date" id="date" label="La date du livre" required>
+                    <UInput class="w-full" v-model="form.date" type="date" placeholder="La date du livre" size="lg" />
                 </UFormField>
                 <!--L'image du livre-->
-                <UFormField class="w-full md:w-[48%]" label="L'image du livre" required>
-                    <UInput class="w-full" v-model="form.image" placeholder="L'image du livre" siez="lg" />
+                <UFormField class="w-full md:w-[48%]" name="image" id="image" label="L'image du livre" required>
+                    <UInput class="w-full" type="file" v-model="form.image" placeholder="L'image du livre" siez="lg" />
                 </UFormField>
                 <!--Les auteurs du livre-->
-                <UFormField class="w-full md:w-[48%]" label="Les auteurs du livre" required>
-                    <USelectMenu v-model:search-term="authorSearch" :items="authors.content" :loading="loadingAuthor == true" ignore-filter icon="i-lucide-user" placeholder="Auteur" class="w-full"></USelectMenu>
+                <UFormField class="w-full md:w-[48%]" name="authors" id="authors" label="Les auteurs du livre" required>
+                    <USelectMenu v-model:search-term="authorSearch" multiple value-key="id" v-model="form.authorsId" :items="authors"
+                        :loading="loadingAuthor == true" ignore-filter icon="i-lucide-user" placeholder="Auteur"
+                        class="w-full"></USelectMenu>
                 </UFormField>
                 <!--Synopsis du livre-->
-                <UFormField class="w-full" label="Synopsis du livre" required>
-                    <UTextarea class="w-full" :rows="7" v-model="form.synopsis" placeholder="Synopsis du livre" size="lg" autoresize="" />
+                <UFormField class="w-full" name="synopsis" id="synopsis" label="Synopsis du livre" required>
+                    <UTextarea class="w-full" :rows="7" v-model="form.synopsis" placeholder="Synopsis du livre"
+                        size="lg" autoresize="" />
                 </UFormField>
-   
                 <!-- Bouton -->
                 <div class="pt-4 text-right w-full">
-                    <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] transition cursor-pointer" variant="solid" @click="applySearch"> Ajouter un livre</UButton>
+                    <UButton type="submit"
+                        class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] transition cursor-pointer"
+                        variant="solid"> Ajouter un livre</UButton>
                 </div>
-            </form>
+            </UForm>
             <div v-else-if="errorReport">
                 <p>Erreur de chargement des données</p>
-                <p>{{errorReport}}</p>
+                <p>{{ errorReport }}</p>
             </div>
             <div v-else class="space-y-6 flex justify-between flex-wrap">
                 <div v-for="n in 6" class="p-5 bg-gray-50 animate-pulse rounded-md w-full md:w-[48%]">
@@ -53,105 +61,130 @@
     </section>
 </template>
 <script setup>
-import{ref}from "vue"
-// Exemples d’options(normalement tu les récupères depuis ton backend)
+import * as v from 'valibot';
+const schema = v.object({
+    title: v.pipe(
+        v.string("Le titre doit être un texte")
+    ),
+    stock: v.pipe(
+        v.integer("Le stock doit être un nombre")
+    ),
+    style: v.pipe(
+        v.string("Le style doit être un texte")
+    ),
+    date: v.pipe(
+        v.date("La date doit être un date")
+    ),
+    image: v.pipe(
+        v.string("L'image doit être un texte")
+    ),
+    synopsis:v.pipe(
+        v.string("Le synopsis doit être un texte")
+    )
+})
+//type Schema = v.InferOutput;
+
 const basicAuth = inject("basicAuth"),
-    authors = ref(),
-    editors = ref(),
+    authors = ref([]),
     errorReport = ref(),
     loading = ref(),
     loadingAuthor = ref(),
-    loadingEditor = ref(),
-    article = ref(["Grand format", "Livre de poche"]),
-    styles = ref(["Roman","Science-Fiction","Essai","Biographie","Manga"]),
-    form = ref({isbn:"",style:"",image:null,date:"",format:"",stock:0,titre:"",editeur:"",auteur:""}),
-    authorSearch = ref(),
-    editorSearch = ref();
+    style = ["Science-fiction", "Drame", "Fantaisie"],
+    form = ref({
+        title: "",
+        stock: 0,
+        style: "",
+        date: "",
+        image: "",
+        authorsId: [],
+        synopsis: ""
+    }),
+    authorSearch = ref();
 let authorDelay = null;
-let editorDelay = null;
-watch(authorSearch,(newSearch)=>{
+
+
+watch(authorSearch, (newSearch) => {
     clearTimeout(authorDelay);
-    authorDelay = setTimeout(async function(){
-        try{
+    authorDelay = setTimeout(async function () {
+        try {
             const apiData = ref(),
-                url = "http://localhost:8080/m2l/author" +(newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
+                url = "http://localhost:8080/m2l/author" + (newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/', '-'))}` : "/all");
             loadingAuthor.value = true;
-            apiData.value = await $fetch(url,{
-                headers:{
-                    Authorization:`Basic ${basicAuth}`
+            apiData.value = await $fetch(url, {
+                headers: {
+                    Authorization: `Basic ${basicAuth}`
                 },
-                credentials:'include'
+                credentials: 'include'
             });
-            if(apiData.value)authors.value = apiData.value;
+            if(apiData.value){
+                authors.value = [];
+                apiData.value.content.forEach((value) => {
+                    authors.value.push({
+                        id:value[0],
+                        label:value[1]
+                    })
+                })
+            }
+            //if (apiData.value) authors.value = apiData.value;
             loadingAuthor.value = false;
-        }catch(e){
+        } catch (e) {
             console.log(e);
             errorReport.value = true;
         }
-    })
-});
-watch(editorSearch,(newSearch)=>{
-    clearTimeout(editorDelay);
-    editorDelay = setTimeout(async function(){
-        try{
-            const apiData = ref(),
-                url = "http://localhost:8080/m2l/editor" +(newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
-            loadingEditor.value = true;
-            apiData.value = await $fetch(url,{
-                headers:{
-                    Authorization:`Basic ${basicAuth}`
-                },
-                credentials:'include'
-            });
-            if(apiData.value)editors.value = apiData.value;
-            loadingEditor.value = false;
-        }catch(e){
-            console.log(e);
-            errorReport.value = true;
-        }
-    })
+    }, 500)
 })
-async function callAll(){
+async function callAll() {
     const errorReport = ref(false);
-    try{
+    try {
         const apiData = ref();
         loading.value = true;
-        apiData.value = await $fetch('http://localhost:8080/m2l/author/all',{
-            headers:{
-                Authorization:`Basic ${basicAuth}`
+        apiData.value = await $fetch('http://localhost:8080/m2l/author/all', {
+            headers: {
+                Authorization: `Basic ${basicAuth}`
             },
-            credentials:'include'
+            credentials: 'include'
         });
-        if(apiData.value)authors.value = apiData.value;
-        apiData.value = await $fetch('http://localhost:8080/m2l/editor/all',{
-            headers:{
-                Authorization:`Basic ${basicAuth}`
-            },
-            credentials:'include'
-        })
-        if(apiData.value)editors.value = apiData.value;
+        if(apiData.value){
+            apiData.value.content.forEach((value) => {
+                authors.value.push({
+                    id:value[0],
+                    label:value[1]
+                })
+            })
+        }
         loading.value = false;
-    }
-    catch(e){
+    } catch (e) {
         console.log(e);
         errorReport.value = true;
     }
+    
 }
 callAll();
-function applySearch(){
-    console.log("Recherche appliquée avec les critères :",form.value);
-    alert("Recherche appliquée avec succès !");
-}
-// Upload image
-const handleFileUpload =(e)=> form.value.image = e.target.files[0],
 
-    // Validation simple
-    handleSubmit =()=>{
-        if(!form.value.isbn || !form.value.titre){
-            alert("❌ Merci de remplir tous les champs obligatoires.")
-            return
-        }
-        console.log("✅ Livre ajouté :",form.value)
-        alert("Livre ajouté avec succès !")
+function applySearch() {
+    console.log("Reacherche appliquée avec les criètres : ", form.value);
+    alert("Recherche appliquée avec succès !")
+}
+/*const handleFileUpload = (e) => {
+    form.value.image = e.target.files[0]
+    console.log("je suis un test");
+}*/
+
+async function handleSubmit(event){
+    const apiData = ref();
+    apiData.value = await $fetch('http://localhost:8080/m2l/books',{
+        method:'POST',
+        body:form.value,
+        headers:{
+            Authorization: `Basic ${basicAuth}`
+        },
+        credentials:'include'
+    });
+    
+    /*if(!form.value.title){
+        alert("Merci de remplir tous les champs obligatoires")
+        return
     }
+    console.log(event);*/
+}
 </script>

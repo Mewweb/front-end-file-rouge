@@ -24,7 +24,7 @@ export default defineNuxtConfig({
  },
  csurf:{
   https:false,
-  methodsToProtect:['POST','PUT','PATCH'],
+  /*methodsToProtect:['POST','PUT','PATCH'],*/
   addCsrfTokenToEventCtx: true,
   headerName:'csrf-token'
  },
