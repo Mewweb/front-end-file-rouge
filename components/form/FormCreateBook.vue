@@ -8,13 +8,13 @@
                 class="space-y-6 flex justify-between flex-wrap">
                 <!--Titre du livre-->
                 <UFormField class="w-full md:w-[48%]" name="title" id="title" label="Titre du livre" required>
-                    <UInput class="w-full" v-model="form.title" placeholder="Titre du livre" size="lg" />
+                    <UInput class="w-full" minlength="2" maxlength="200" v-model="form.title" placeholder="Titre du livre" size="lg" />
                 </UFormField>
                 <!--Le nombre de stock du livre-->
                 <UFormField class="w-full md:w-[48%]" name="stock" id="stock" label="Le nombre de stock du livre"
                     required>
                     <UInputNumber class="w-full" v-model="form.stock" placeholder="Le nombre de stock du livre"
-                        size="lg" :min="0" :max="100" />
+                        size="lg" :min="0" :max="1000" />
                 </UFormField>
                 <!--Le genre du livre-->
                 <UFormField class="w-full md:w-[48%]" name="style" id="style" label="Le genre du livre" required>
@@ -64,22 +64,38 @@
 import * as v from 'valibot';
 const schema = v.object({
     title: v.pipe(
-        v.string("Le titre doit être un texte")
+        v.string("Le titre doit être un texte"),
+        v.nonEmpty("Le titre est obligatoire"),
+        v.minLength(2, "Le titre doit avoir minimum 2 caractères"),
+        v.maxLength(200, "Le titre doit avoir maximum 200 caractères")
     ),
     stock: v.pipe(
-        v.integer("Le stock doit être un nombre")
+        v.integer("Le stock doit être un nombre"),
+        v.nonEmpty("Le stock est obligatoire"),
+        v.minSize(3, "La taille du stock est de minimum de 0"),
+        v.maxSize(1000,"La taille du stock est de maximum de 1000")
     ),
     style: v.pipe(
-        v.string("Le style doit être un texte")
+        v.string("Le style doit être un texte"),
+        v.nonEmpty("Le style est obligatoire"),
+        v.minLength(3, "Le genre doit avoir minimum 3 caractères"),
+        v.maxLength(255,"Le genre doit avoir maximum 255 caractères")
     ),
     date: v.pipe(
-        v.date("La date doit être un date")
+        v.string("La date doit être une date"),
+        v.nonEmpty("La date est obligatoire"),
+        v.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/, "La date n'est pas dans le bon format")
     ),
     image: v.pipe(
-        v.string("L'image doit être un texte")
+        v.string("L'image doit être un texte"),
+        v.nonEmpty("L'image est obligatoire"),
+        v.minSize(3,"L'image doit avoir minimum 3 caractères"),
+        v.maxSize(255,"L'image doit avoir 255 caractères maximum")
     ),
     synopsis:v.pipe(
-        v.string("Le synopsis doit être un texte")
+        v.string("Le synopsis doit être un texte"),
+        v.nonEmpty("Le synopsis est obligatoire"),
+        v.minSize(20, "Le synopsis doit avoir 20 minimum caractères")
     )
 })
 //type Schema = v.InferOutput;
