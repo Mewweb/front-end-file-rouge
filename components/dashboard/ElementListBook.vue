@@ -1,5 +1,4 @@
 <template>
-    <!-- Catalogue de livres -->
      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div v-for="book in allBook.content" :key="book.id" class="bg-gradient-to-r h-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
             <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />

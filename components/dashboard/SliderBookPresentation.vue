@@ -1,10 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
-const basicAuth = inject("basicAuth"),
-    data = ref(),
-    error = ref(false),
-    loading = ref(true),
+const loading = ref(true),
     formatDate = (isoDate) => {
         return new Date(isoDate).toLocaleDateString('fr-FR', {
             year: 'numeric',
@@ -12,31 +9,17 @@ const basicAuth = inject("basicAuth"),
             day: 'numeric'
         })
     }
-try {
-    const apiData = ref(await $fetch("http://localhost:8080/m2l/articles/lastArticle", {
-        headers: {
-            Authorization: `Basic ${basicAuth}`
-        },
-        credentials: 'include'
-    }));
-    if (apiData.value) {
-        data.value = apiData.value;
-    }
-    loading.value = false;
-} catch (e) {
-    console.log(e);
-    error.value = true;
-}
+const {data,error} = await useFetch("http://localhost:8080/m2l/articles/lastArticle", {
+    credentials: 'include'
+});
+
 </script>
 <template>
     <section class="py-8 m-auto max-w-[1200px] w-[90%]">
-        <div v-if="loading == true">
-            <p>Chargement du contenu</p>
-        </div>
-        <div v-else-if="error == true">
+        <div v-if="error == true">
             <p>Erreur de chargement</p>
         </div>
-        <div v-else class="container py-6 px-12 clr mx-auto">
+        <div v-else-if="data" class="container py-6 px-12 clr mx-auto">
             <UCarousel class="rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 shadow-lg" :items="data.content" auto-height dots :autoplay="{ delay: 5000, stopOnMouseEnter: true }" loop v-slot="item" :ui="{ container: 'transition-[height]', controls: 'h-[2em] flex justify-center items-center inset-x-12', dots: 'initial!', dot: 'w-6 h-3' }">
                 <!-- Slide principal -->
                 <div class="flex flex-col py-[2em] md:flex-row-reverse items-center h-full">
@@ -56,6 +39,9 @@ try {
                     </div>
                 </div>
             </UCarousel>
+        </div>
+        <div v-else>
+            <p>Chargement du contenu</p>
         </div>
     </section>
 </template>
