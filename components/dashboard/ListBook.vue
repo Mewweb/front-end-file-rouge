@@ -9,7 +9,7 @@ let offsetPage = ref(1);
 
 async function test(offset,filters){
     if(filters.search != ''){
-        let {data,error} = await useFetch(`http://localhost:8080/m2l/articles/${offset}/9/${encodeURI(filters.search.replaceAll('/','-'))}`, {
+        let {data,error} = await useFetch(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9/${encodeURI(filters.search.replaceAll('/','-'))}`, {
             credentials: 'include'
         });
         if(data.value){
@@ -22,7 +22,7 @@ async function test(offset,filters){
         loading.value = false;
     }
     else{
-        let {data,error} = await useFetch(`http://localhost:8080/m2l/articles/${offset}/9`,{
+        let {data,error} = await useFetch(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9`,{
             credentials:'include'
         });
         if(data.value){

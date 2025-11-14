@@ -11,9 +11,13 @@ export default defineNuxtConfig({
    '@nuxt/ui',
    '@tailwindcss/vite',
    'nuxt-charts',
-   '@vueuse/nuxt'
+   '@vueuse/nuxt',
+   '@sidebase/nuxt-auth'
   ],
   runtimeConfig:{
+    public:{
+      urlBackend: "http://localhost:8080/m2l"
+    },
     session:{
       password:"",
       name:"front-end-file-rouge-session",
