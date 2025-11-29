@@ -14,10 +14,12 @@
                 <div class="flex-grow border-t border-gray-300"></div>
             </div>
             <!-- Formulaire -->
-            <UCard
-                class="shadow-lg rounded-xl border border-gray-100 p-6 bg-gradient-to-br from-indigo-50 to-purple-50">
-                <FormSigninForm />
+            <UCard class="shadow-lg rounded-xl border border-gray-100 p-6 bg-gradient-to-br from-indigo-50 to-purple-50">
+                <FormSigninForm/>
             </UCard>
         </div>
     </section>
 </template>
+<script setup>
+    import FormSigninForm from '../form/FormSigninForm.vue';
+</script>

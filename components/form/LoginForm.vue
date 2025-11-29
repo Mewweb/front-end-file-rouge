@@ -2,12 +2,10 @@
     <UForm @submit.prevent="Login" :schema="schema" :state="credentials" class="flex justify-between flex-wrap">
         <!-- Email -->
         <UFormField label="Adresse mail" name="email" required class="w-full md:w-[48%]">
-            <label class="w-1 h-1 overflow-hidden absolute" for="emailInput">Adresse mail</label>
             <UInput name="emailInput" id="emailInput" v-model="credentials.email" class="w-full" type="email" placeholder="exemple@email.com" size="lg" />
         </UFormField>
         <!-- Mot de passe -->
         <UFormField label="Le mot de passe" name="password" required class="w-full md:w-[48%]">
-            <label class="w-1 h-1 overflow-hidden absolute" for="passwordInput">Le mot de passe</label>
             <UInput name="passwordInput" id="passwordInput" v-model="credentials.password" class="w-full" type="password" placeholder="********" size="lg" />
         </UFormField>
         <!-- Bouton de connexion -->
