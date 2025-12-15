@@ -12,34 +12,34 @@
         
         <!-- Input numéro de téléphone -->
         <UFormField label="Numéro de téléphone" class="w-full md:w-[48%]" name="phone" required>
-            <UInput v-model="credentials.phone_number" class="w-full" type="tel" placeholder="+33 6 12 34 56 78" size="lg" />
+            <UInput v-model="credentials.phone_number" class="w-full" type="tel" placeholder="Votre numéro de téléphone" size="lg" />
         </UFormField>
         
         <!-- Input Adresse email -->
         <UFormField label="Adresse email" class="w-full md:w-[48%]" name="email" required>
-            <UInput v-model="credentials.email" class="w-full" type="email" placeholder="exemple@email.com" size="lg" />
+            <UInput v-model="credentials.email" class="w-full" type="email" placeholder="Votr adresse email" size="lg" />
         </UFormField>
 
         <!--Input Adresse de livraison-->
         <UFormField label="Adresse de livraison" class="w-full md:w-[48%]" name="billingAddress" required>
-            <UInput v-model="credentials.billing_address" class="w-full" type="text" placeholder="66 rue des avenues" size="lg" />
+            <UInput v-model="credentials.billing_address" class="w-full" type="text" placeholder="Votre adresse de livraison" size="lg" />
         </UFormField>
 
         <!-- Input Adresse de facturation -->
         <UFormField label="Adresse de facturation" class="w-full md:w-[48%]" name="deliveryAddress" required>
-            <UInput v-model="credentials.delivery_address" class="w-full" type="text" placeholder="22 avenues des rues" size="lg" />
+            <UInput v-model="credentials.delivery_address" class="w-full" type="text" placeholder="Votre adresse de facturation" size="lg" />
         </UFormField>
 
         <!-- Input Mot de passe -->
         <div class="w-full mb-[1em] md:w-[48%]">
             <UFormField label="Mot de passe" name="password" required>
-                <UInput v-model="credentials.password" class="w-full" placeholder="Mot de passe" size="lg" :color="color" :type="showPassword ? 'text' :'password'" :aria-invalid="score < 4" aria-describedby="password-strength">
+                <UInput v-model="credentials.password" class="w-full" placeholder="Votre mot de passe" size="lg" :color="color" :type="showPassword ? 'text' :'password'" :aria-invalid="score < 4" aria-describedby="password-strength">
                     <template #trailing>
                         <UButton color="neutral" variant="link" size="sm" :icon="showPassword ? 'i-lucide-eye-off' :'i-lucide-eye'" :aria-label="showPassword ? 'Cacher le mot de passe' :'Voir le mot de passe'" :aria-pressed="showPassword" aria-controls="password"  @click="showPassword = !showPassword" />
                     </template>
                 </UInput>
             </UFormField>
-            <UProgress :color="color" :indicator="text" :model-value="score" :max="4" size="sm" />
+            <UProgress :color="color" class="my-[1em]" :indicator="text" :model-value="score" :max="4" size="sm" />
             <p id="password-strength" class="text-sm font-medium">{{text}}. Doit contenir:</p>
             <ul class="space-y-1" aria-label="Le mot de passe doit contenir">
                 <li v-for="(req,index) in strength" :key="index" class="flex items-center gap-0.5" :class="req.met ? 'text-success' :'text-muted'">
@@ -56,7 +56,7 @@
 
         <!-- Input Confirmation mot de passe -->
         <UFormField label="Confirmer le mot de passe" class="w-full md:w-[48%]" name="confirmPassword" required>
-            <UInput v-model="credentials.confirmPassword" class="w-full" :type="showConfirmPassword ? 'text' :'password'" placeholder="********" size="lg">
+            <UInput v-model="credentials.confirmPassword" class="w-full" :type="showConfirmPassword ? 'text' :'password'" placeholder="Confirmer le mot de passe" size="lg">
                 <template #trailing>
                     <UButton color="neutral" variant="link" size="sm" :icon="showConfirmPassword ? 'i-lucide-eye-off' :'i-lucide-eye'" :aria-label="showConfirmPassword ? 'Cacher le mot de passe ' :'Voir le mot de passe'" :aria-pressed="showConfirmPassword" aria-controls="password" @click="showConfirmPassword = !showConfirmPassword"></UButton>
                 </template>
@@ -161,20 +161,9 @@ const credentials = ref({
     password:"",
     confirmPassword:""
 })
-
-const test = ref({
-    lastname:"Doe",
-    firstname:"John",
-    phone_number:"01 02 03 04",
-    email:"mail@gmail.com",
-    password:"test@test.fr",
-    billing_address:"66 rue des avenues",
-    delivery_address:"55 rue des avenues",
-})
-
 const Register=async (e)=>{
     e.preventDefault();
-         console.log('Nom:', credentials.value.lastname)
+        console.log('Nom:', credentials.value.lastname)
         console.log('Prénom:',credentials.value.firstname)
         console.log('Téléphone:',credentials.value.phone_number)
         console.log('Email:',credentials.value.email)
@@ -194,19 +183,4 @@ const Register=async (e)=>{
         console.log(e);
     }
 }
-
-const register=()=>{
-        if(credentials.value.password !== credentials.value.confirmPassword){
-            alert("Les mots de passe ne correspondent pas !")
-            return
-        }
-        console.log('Nom:', credentials.value.lastname)
-        console.log('Prénom:',credentials.value.firstname)
-        console.log('Téléphone:',credentials.value.phone)
-        console.log('Email:',credentials.value.email)
-        console.log('Mot de passe:',credentials.value.password);
-        console.log('Confirmation de mot de passe',credentials.value.confirmPassword);
-        console.log('Adresse de livraison', credentials.value.billingAddress);
-        console.log("Adresse de facturation", credentials.value.deliveryAddress);
-    }
 </script>

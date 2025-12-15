@@ -1,5 +1,4 @@
 <script setup>
-import { id } from '@nuxt/ui/runtime/locale/index.js';
 import BookDetails from '~/components/element/BookDetails.vue';
 import BookCaracteristic from '~/components/table/BookCaracteristic.vue';
 
@@ -12,10 +11,7 @@ useSeoMeta({
     ogImage: "/img/seo/logo-seo.webp",
     twitterCard: "summary_large_image"
 })
-const basicAuth = inject("basicAuth");
-console.log(useRoute().params.id);
 const data = ref();
-const errorReport = ref();
 const loading = ref(true);
 /*onMounted(async () => {
     try {
@@ -42,8 +38,7 @@ const { data: apiData, error } = await useFetch(`${useRuntimeConfig().public.url
 data.value = apiData.value ?? null;
 loading.value = false;
 
-console.log(apiData.value);
-console.log(error.value);
+
 </script>
 <template>
     <div class="px-12 py-6">

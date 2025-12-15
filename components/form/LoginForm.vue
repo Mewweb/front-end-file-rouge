@@ -16,6 +16,7 @@
 </template>
 <script setup>
 import * as v from 'valibot';
+import {jwtDecode} from 'jwt-decode'
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
 const {fetch : refreshSession} = useUserSession();
 
@@ -44,6 +45,7 @@ const Login = async (e) => {
             body:credentials.value,
             credentials:'include'
         });
+        console.log(jwtDecode(data.accessToken));
         await $fetch('/api/auth/login',{
             method:'POST',
             body:data
@@ -51,7 +53,7 @@ const Login = async (e) => {
 
         await refreshSession();
 
-        navigateTo('/');
+        //navigateTo('/');
     }catch(e){
         console.log(e);
     }

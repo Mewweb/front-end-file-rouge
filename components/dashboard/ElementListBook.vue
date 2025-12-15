@@ -9,14 +9,18 @@
             </div>
             <div>
                 <NuxtLink :to="`/book/${book.book.id}`" class="mt-4 inline-block w-full px-4 py-2 bg-[#cc3399] text-white rounded hover:opacity-50 cursor-pointer transition text-center">En savoir plus</NuxtLink>
-                <NuxtLink :to="'#'" class="mt-[.5em] inline-block w-full px-4 py-2 bg-[#3B2A7F] text-white rounded hover:opacity-50 cursor-pointer transition text-center flex items-center justify-center gap-2" @click="addToCart(book)"><span>Ajouter au panier</span></NuxtLink>
+
+                <NuxtLink v-if="loggedIn" :to="'#'" class="mt-[.5em] inline-block w-full px-4 py-2 bg-[#3B2A7F] text-white rounded hover:opacity-50 cursor-pointer transition text-center flex items-center justify-center gap-2" @click="addToCart(book)"><span>Ajouter au panier</span></NuxtLink>
             </div>
         </div>
     </div>
 </template>
 <script setup>
     import{ref,computed} from 'vue'
-    
+    watch(useUserSession("loggedIn"), (newTest) => {
+        console.log("CHANGEMENT");
+    })
+    const {loggedIn} = useUserSession("loggedIn");
     const search = ref(''),
         filters = ref({date:true,author:true,title:true}),
         props = defineProps(['allBook','offsetPage']),
@@ -48,8 +52,5 @@
                 day:'numeric'
             })
         };
-        watch(props.allBook,(newBook)=>{
-            console.log(newBook);
-        });
 
 </script>

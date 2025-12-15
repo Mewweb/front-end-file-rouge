@@ -12,26 +12,16 @@ async function test(offset,filters){
         let {data,error} = await useFetch(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9/${encodeURI(filters.search.replaceAll('/','-'))}`, {
             credentials: 'include'
         });
-        if(data.value){
-            apiData.value = data.value;
-            console.log("--search--");
-            console.log(apiData.value);
-        } 
+        if(data.value) apiData.value = data.value;
         else errorReport.value = true;
-        console.log(error.value);
         loading.value = false;
     }
     else{
         let {data,error} = await useFetch(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9`,{
             credentials:'include'
         });
-        if(data.value){
-            apiData.value = data.value;
-            console.log("--no search--");
-            console.log(apiData.value);
-        } 
+        if(data.value) apiData.value = data.value;
         else errorReport.value = true;
-        console.log(error.value);
         loading.value = false;
     }
 }

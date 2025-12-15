@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
     const refreshTokenDecode:jwtDecodeInterface = jwtDecode(jwt.refreshToken);
 
     setCookie(event, 'auth:access', jwt.accessToken,{
-        httpOnly:true,
         sameSite:'strict',
         expires:new Date(AccessTokenDecode.exp * 1000),
         secure: true
@@ -24,8 +23,7 @@ export default defineEventHandler(async (event) => {
     setCookie(event, 'auth:refresh', jwt.refreshToken,{
         expires: new Date(refreshTokenDecode.exp * 1000),
         sameSite: 'strict',
-        secure:true,
-        httpOnly:true
+        secure:true
     });
 
     await setUserSession(event, {

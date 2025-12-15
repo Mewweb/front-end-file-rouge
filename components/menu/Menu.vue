@@ -32,8 +32,19 @@
 </template>
 <script setup>
 import{ref} from "vue"
-const search = ref(""),
+const search = ref("");
     // Dropdown utilisateur
-    userMenu = [[{label:"Modifier les données personnelles",icon:"i-heroicons-pencil-square",to:"/account/edit"},],[{label:"Consulter les commandes",icon:"i-heroicons-archive-box",to:"/shopping"},],]
- 
+const {loggedIn} = useUserSession();
+const {clear} = useUserSession();
+
+const userMenu = loggedIn.value ?
+    [[{label:"Modifier les données personnelles",icon:"i-lucide-square-pen",to:"/account/edit"},],[{label:"Consulter les commandes",icon:"i-lucide-archive",to:"/shopping"}],[{label:"Se déconnecter", icon:"i-lucide-log-out", onSelect: async (e) =>{
+        console.log("Se déconnecter");
+        await $fetch("/api/auth/logout");
+        clear();
+        navigateTo("/login");
+    }}]]  
+    : [[{label:"Se connecter", icon:"i-lucide-log-in", to:"/login"}]]
+
+
 </script>

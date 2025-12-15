@@ -43,14 +43,9 @@ import { ref } from 'vue'
 const props = defineProps(["filters","search"]);
 const emits = defineEmits(["search"]);
 const inputSearch = ref();
-
 function filterList(){
     emits("search", inputSearch.value);
 }
-
-
-
-
 //const genres = ref(["Science-fiction","Drame","Western","Thriller","Horreur","Fantastique","Fantasie"]);
 const genres = ref([{label:"Science-fiction"},{label:"Drame"},{label:"Western"},{label:"Thriller"},{label:"Horreur"},{label:"Fantastique"},{label:"Fantasie"}])
 //const editor = ref(["J'ai lu","Le livre de poche"]);
