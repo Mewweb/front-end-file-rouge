@@ -13,13 +13,17 @@
                         <UInput v-model="search" class="w-full" placeholder="Rechercher un livre..." icon="i-heroicons-magnifying-glass" size="lg" />
                     </div>
                     <!-- Actions à droite -->
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-4" v-if="loggedIn">
                         <!-- Lien gestion panier -->
                         <NuxtLink to="/shopping" class="text-purple-700 font-medium hover:opacity-50 duration-300 transition">Gestion de panier</NuxtLink>
                         <!-- Dropdown utilisateur -->
                         <UDropdownMenu class="cursor-pointer" :items="userMenu" :popper="{placement:'bottom-end'}">
                             <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle" title="Voir le compte utilisateur" class="rounded-full hover:opacity-50 transition duration-300" />
                         </UDropdownMenu>
+                    </div>
+                    <div class="flex items-center gap-4" v-else>
+                        <NuxtLink to="/login" class="text-purple-700 font-meium hover:opacity-50 duration-300 transition">Se connecter
+                        </NuxtLink>
                     </div>
                 </div>
             </div>
@@ -31,9 +35,37 @@
     </div>
 </template>
 <script setup>
-import{ref} from "vue"
-const search = ref(""),
-    // Dropdown utilisateur
-    userMenu = [[{label:"Modifier les données personnelles",icon:"i-heroicons-pencil-square",to:"/account/edit"},],[{label:"Consulter les commandes",icon:"i-heroicons-archive-box",to:"/shopping"},],]
- 
+import{ref}from "vue"
+const search = ref("");
+// Dropdown utilisateur
+const{loggedIn}= useUserSession();
+const{clear}= useUserSession();
+const userMenu = [
+    [
+        {
+            label:"Modifier les données personnelles",
+            icon:"i-lucide-square-pen",
+            to:"/account/edit"
+        },
+    ],
+    [
+        {
+            label:"Consulter les commandes",
+            icon:"i-lucide-archive",
+            to:"/shopping"
+        }
+    ],
+    [
+        {
+            label:"Se déconnecter",
+            icon:"i-lucide-log-out",
+            onSelect:async (e) =>{
+                console.log("Se déconnecter");
+                await $fetch("/api/auth/logout");
+                clear();
+                navigateTo("/login");
+            }
+        }
+    ]
+];
 </script>

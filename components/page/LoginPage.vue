@@ -6,19 +6,14 @@
             <!-- Carte principale -->
             <UCard class="shadow-lg rounded-xl border border-gray-100 bg-gradient-to-br from-indigo-50 to-purple-50">
                 <!-- Boutons sociaux -->
-                <FormButtonSocialForm />
+                <ButtonSocialForm />
                 <!-- Formulaire -->
-                <FormLoginForm />
+                <LoginForm />
             </UCard>
         </div>
     </section>
 </template>
 <script setup>
-import {ref} from 'vue'
-const email = ref(''),
-    password = ref(''),
-    login = ()=>{
-        console.log('Email:',email.value)
-        console.log('Mot de passe:',password.value)
-    }
+    import LoginForm from '../form/LoginForm.vue';
+    import ButtonSocialForm from '../form/ButtonSocialForm.vue';
 </script>

@@ -126,7 +126,7 @@ watch(authorSearch, (newSearch) => {
             const apiData = ref(),
                 url = "http://localhost:8080/m2l/author" + (newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/', '-'))}` : "/all");
             loadingAuthor.value = true;
-            apiData.value = await $fetch(url, {
+            apiData.value = await useFetch(url, {
                 headers: {
                     Authorization: `Basic ${basicAuth}`
                 },
@@ -154,7 +154,7 @@ async function callAll() {
     try {
         const apiData = ref();
         loading.value = true;
-        apiData.value = await $fetch('http://localhost:8080/m2l/author/all', {
+        apiData.value = await useFetch('http://localhost:8080/m2l/author/all', {
             headers: {
                 Authorization: `Basic ${basicAuth}`
             },
@@ -188,7 +188,7 @@ function applySearch() {
 
 async function handleSubmit(event){
     const apiData = ref();
-    apiData.value = await $fetch('http://localhost:8080/m2l/books',{
+    apiData.value = await useFetch('http://localhost:8080/m2l/books',{
         method:'POST',
         body:form.value,
         headers:{
