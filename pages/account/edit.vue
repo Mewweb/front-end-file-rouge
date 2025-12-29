@@ -5,6 +5,9 @@
 </template>
 <script setup>
     import FormAccount from '~/components/form/FormAccount.vue';
+    definePageMeta({
+        middleware:['authenticated']
+    })
     useSeoMeta({
         title:"Modification du compte - 2I Library",
         ogTitle:"Modification du compte - 2I Library",

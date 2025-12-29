@@ -6,7 +6,6 @@
   <div class="flex flex-col justify-between min-h-screen bg-gray-50">
       <NuxtLayout>
         <UApp>
-          
           <Menu />
           <NuxtPage />
           <Footer/>

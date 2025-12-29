@@ -15,6 +15,9 @@ useSeoMeta({
   ogImage:"/img/seo/logo-seo.webp",
   twitterCard:"summary_large_image"
 })
+definePageMeta({
+  middleware:['authenticated']
+})
 </script>
 <template>
   <section class="py-10 m-auto max-w-[1200px] w-[90%]">

@@ -3,7 +3,6 @@ interface JwtDataInterface {
     refreshToken:string
 }
 
-
 export async function refreshAuth() {
     try{
     const {fetch:refreshSession} = useUserSession();
@@ -28,6 +27,37 @@ export async function refreshAuth() {
     
 }
 
+export async function putData(url:string, cartItems:Array<Object>){
+    try{
+        const data =await $fetch(url, {
+            method:'PUT',
+            credentials:'include',
+            body:cartItems,
+            headers:{
+                authorization: `Bearer ${useCookie('auth:access').value}`
+            }
+        })
+        return true;
+    }catch(e){
+        return false;
+    }
+}
+
+export async function deleteData(url:string){
+    try{
+        const data = await $fetch(url, {
+            method:'DELETE',
+            credentials:'include',
+            headers:{
+                authorization: `Bearer ${useCookie('auth:access').value}`
+            }
+        })
+        return {data: data, error:false};
+    }catch(e){
+        return {data : [],error: true};
+    }
+}
+
 export async function accessData(url: string) {
     console.log(useCookie('auth:access'));
     try{
@@ -39,19 +69,8 @@ export async function accessData(url: string) {
             }
         })
         
-        return data;
+        return {data:data, error: false};
     }catch(e){
-        return false;
+        return {data:[], error:true};
     }
-
-    const { data, error } = await useFetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            authentication: `Bearer ${useCookie('auth:access')}`
-        }
-    })
-
-
-    return data.value;
 }

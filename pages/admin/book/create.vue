@@ -1,5 +1,8 @@
 <script setup lang="ts">
     import FormCreateBook from '~/components/form/FormCreateBook.vue';
+    definePageMeta({
+        middleware:['authenticated']
+    })
     useSeoMeta({
         title:"Création d'un livre - 2I Library",
         ogTitle:"Création d'un livre - 2I Library",
