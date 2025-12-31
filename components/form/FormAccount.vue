@@ -19,7 +19,7 @@
                                 <UInput v-model="formItem.email" class="w-full" :ui="{base:'h-10'}" type="email" placeholder="Email" />
                             </UFormField>
                             <UFormField class="w-full sm:w-[48%] inline-block" label="Numéro de téléphone" name="phone_number" required>
-                                <UInput v-model="formItem.number_phone" class="w-full" :ui="{base:'h-10'}" type="tel" placeholder="Numéro de téléphone" />
+                                <UInput v-model="formItem.phone_number" class="w-full" :ui="{base:'h-10'}" type="tel" placeholder="Numéro de téléphone" />
                             </UFormField>
                             <UButton type="submit" class="py-3 mt-[1em] w-auto block hover:opacity-50 bg-pink-500 hover:bg-pink-500 transition duration-300 cursor-pointer text-white font-semibold rounded-lg shadow-md">Sauvegarder</UButton>
                         </UForm>
@@ -96,14 +96,13 @@ import {ref,computed} from "vue"
 import * as v from 'valibot'
 const {user} = useUserSession();
 const showPassword = ref(false);
-/*console.log(user);
-let userData = await accessData(`http://localhost:8080/m2l/getUser/${user.email}`);
+let userData = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
 if(userData.error == true){
     console.log("Je suis un test");
     await refreshAuth();
-    userData = await accessData(`http://localhost:8080/m2l/getUser/${user.email}`);
+    userData = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
 }
-console.log(userData);*/
+console.log(userData.data);
 function checkStrength(str){
     const requirements = [
         {regex: /.{8,}/, text:'Le mot de passe doit contenir 8 caractères minimum'},
@@ -204,14 +203,14 @@ const items = [
     }),
     // Formulaire
     formItem = ref({
-        lastname:"",
-        firstname:"",
-        email:"",
-        phone_number:""
+        lastname:userData.data.lastname,
+        firstname:userData.data.firstname,
+        email:user.value.email,
+        phone_number:userData.data.phone_number
     }),
     formAddress = ref({
-        delivery_address:"",
-        billing_address:""
+        delivery_address:userData.data.delivery_address,
+        billing_address:userData.data.billing_address
     }),
     formPassword = ref({
         password:"",
