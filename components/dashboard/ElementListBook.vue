@@ -1,6 +1,6 @@
 <template>
      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="book in allBook.content" :key="book.id" class="bg-gradient-to-r h-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
+        <div  v-for="(book,index) in contentAllBook" :key="index" class="bg-gradient-to-r h-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
             <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />
             <div class="mt-4 flex-1 flex flex-col justify-between">
                 <h3 class="text-lg font-semibold text-gray-800">{{ book.book.title }}</h3>
@@ -23,8 +23,9 @@
     const {loggedIn} = useUserSession("loggedIn");
     const search = ref(''),
         filters = ref({date:true,author:true,title:true}),
-        props = defineProps(['allBook','offsetPage']),
-        contentAllBook = props.allBook.content,
+        props = defineProps(['allBook','offsetPage']);
+        console.log(props.allBook.content);
+        const contentAllBook = ref({}),
         filteredBooks = computed(() => {
             return contentAllBook.filter(book =>{
                 const searchTerm = search.value.toLowerCase();
@@ -52,5 +53,6 @@
                 day:'numeric'
             })
         };
+    contentAllBook.value = props.allBook.content;
 
 </script>

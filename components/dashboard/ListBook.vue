@@ -2,7 +2,7 @@
 import FitlerBook from '../form/FitlerBook.vue';
 import ElementListBook from './ElementListBook.vue';
 const filters = ref({date:false,author:false,title:true,search:"" }),
-    apiData = ref(),
+    apiData = ref({}),
     errorReport = ref(),
     loading = ref(true);
 let offsetPage = ref(1);
