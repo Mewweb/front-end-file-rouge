@@ -59,7 +59,6 @@ export async function deleteData(url:string){
 }
 
 export async function accessData(url: string) {
-    console.log(useCookie('auth:access'));
     try{
         const data = await $fetch(url,{
             method:'GET',
