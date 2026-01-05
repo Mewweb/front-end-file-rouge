@@ -100,10 +100,9 @@ const schema = v.object({
 })
 //type Schema = v.InferOutput;
 
-const basicAuth = inject("basicAuth"),
-    authors = ref([]),
+    const authors = ref([]),
     errorReport = ref(),
-    loading = ref(),
+    loading = ref(false),
     loadingAuthor = ref(),
     style = ["Science-fiction", "Drame", "Fantaisie"],
     form = ref({
@@ -118,8 +117,36 @@ const basicAuth = inject("basicAuth"),
     authorSearch = ref();
 let authorDelay = null;
 
-
 watch(authorSearch, (newSearch) => {
+    clearTimeout(authorDelay);
+    authorDelay = setTimeout(async function() {
+        try{
+            const apiData  = ref(),
+                url = "http://localhost:8080/m2l/author" + (newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/', '-'))}` : "/all");
+            loadingAuthor.value = true;
+            apiData.value = await accessData(url);
+            if(apiData.value.error){
+                await refreshAuth();
+                apiData.value = await accessData(url);
+            }
+            console.log(apiData.value.data);
+        if(!apiData.value.error){
+            authors.value = [];
+            apiData.value.data.content.forEach((value) => {
+                authors.value.push({
+                    id:value[0],
+                    label:value[1]
+                })
+            })
+        }else errorReport.value = apiData.value.error;
+            loadingAuthor.value = false;
+        }catch(e){
+            console.log(e);
+        }
+    },500)
+})
+
+/*watch(authorSearch, (newSearch) => {
     clearTimeout(authorDelay);
     authorDelay = setTimeout(async function () {
         try {
@@ -148,8 +175,8 @@ watch(authorSearch, (newSearch) => {
             errorReport.value = true;
         }
     }, 500)
-})
-async function callAll() {
+})*/
+/*async function callAll() {
     const errorReport = ref(false);
     try {
         const apiData = ref();
@@ -175,8 +202,34 @@ async function callAll() {
     }
     
 }
-callAll();
+callAll();*/
 
+
+async function callAll(){
+    const errorReport = ref(false);
+    try{
+        const apiData = ref();
+        loading.value = true;
+        apiData.value = await accessData('http://localhost:8080/m2l/author/all');
+        if(apiData.value.error){
+            await refreshAuth();
+            apiData.value = await accessData('http://localhost:8080/m2l/author/all');
+        }
+        if(!apiData.value.error){
+            apiData.value.data.content.forEach((value) => {
+                authors.value.push({
+                    id:value[0],
+                    label:value[1]
+                })
+            })
+        }else errorReport.value = apiData.value.error;
+        loading.value = false;
+    }catch(e){
+        console.log(e);
+        errorReport.value = true;
+    }
+}
+callAll();
 function applySearch() {
     console.log("Reacherche appliquée avec les criètres : ", form.value);
     alert("Recherche appliquée avec succès !")
