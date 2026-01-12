@@ -13,7 +13,7 @@
     })
 </script>
 <template>
-    <div class="px-12 py-6">
+    <div class="px-12 relative py-6">
         <FormCreateBook/>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] w-[90%] py-10">
+    <section class="m-auto max-w-300 w-[90%] py-10">
         <div class="container mx-auto ">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Caractéristiques</h2>
@@ -48,12 +48,12 @@
     </section>
 </template>
 <script setup>
-    const props = defineProps(["editor","authors","number_isbn","style","date","article","format"]);
-    const formatDate = (isoDate) => {
-        return new Date(isoDate).toLocaleDateString('fr-FR',{
-            year:'numeric',
-            month:'long',
-            day:'numeric'
-        })
-    }
+    const props = defineProps(["editor","authors","number_isbn","style","date","article","format"]),
+        formatDate=(isoDate)=>{
+            return new Date(isoDate).toLocaleDateString('fr-FR',{
+                year:'numeric',
+                month:'long',
+                day:'numeric'
+            })
+        }
 </script>

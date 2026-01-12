@@ -1,6 +1,6 @@
 <template>
-  <footer class="bg-gradient-to-r bg-indigo-900 text-white py-8">
-    <div class="container max-w-[1200px] w-[90%] m-auto py-10 px-12 flex flex-col lg:flex-row items-center justify-between gap-6">
+  <footer class="bg-linear-to-r bg-indigo-900 text-white py-8">
+    <div class="container max-w-300 w-[90%] m-auto py-10 px-12 flex flex-col lg:flex-row items-center justify-between gap-6">
       <!-- Logo -->
       <div class="flex items-center gap-3">
         <NuxtImg src="img/logo.webp" alt="Logo du site" class="w-12 h-12 rounded-lg shadow-md" />

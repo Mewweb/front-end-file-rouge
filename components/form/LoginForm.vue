@@ -9,53 +9,45 @@
             <UInput name="passwordInput" id="passwordInput" v-model="credentials.password" class="w-full" type="password" placeholder="********" size="lg" />
         </UFormField>
         <!-- Bouton de connexion -->
-        <UButton type="submit" class="w-full py-3 mt-[1em] w-auto block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-gradient-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">Se connecter
+        <UButton type="submit" class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">Se connecter
             <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" />
         </UButton>
     </UForm>
 </template>
 <script setup>
 import * as v from 'valibot';
-import {jwtDecode} from 'jwt-decode'
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
-const {fetch : refreshSession} = useUserSession();
-
-const schema = v.object({
-    email: v.pipe(
-        v.string("L'email doit être en format textuel"),
-        v.email("L'email doit être dans le format : ***@***.***"),
-        v.nonEmpty("Ce champ est obligatoire")
-    ),
-    password:v.pipe(
-        v.string("Le mot de passe doit être en format textuel"),
-        v.nonEmpty("Ce champ est obligatoire")
-    )
-})
-const credentials = ref({
-    email: "test@test.fr",
-    password:"test@test.fr",
-    grantType: "PASSWORD"
-})
-
-const Login = async (e) => {
-    e.preventDefault();
-    try{
-        const data = await $fetch('http://localhost:8080/m2l/authenticate',{
-            method:'POST',
-            body:credentials.value,
-            credentials:'include'
-        });
-        console.log(jwtDecode(data.accessToken));
-        await $fetch('/api/auth/login',{
-            method:'POST',
-            body:data
-        })
-
-        await refreshSession();
-
-        //navigateTo('/');
-    }catch(e){
-        console.log(e);
+const{fetch:refreshSession} = useUserSession(),
+    schema = v.object({
+        email:v.pipe(
+            v.string("L'email doit être en format textuel"),
+            v.email("L'email doit être dans le format :***@***.***"),
+            v.nonEmpty("Ce champ est obligatoire")
+        ),
+        password:v.pipe(
+            v.string("Le mot de passe doit être en format textuel"),
+            v.nonEmpty("Ce champ est obligatoire")
+        )
+    }),
+    credentials = ref({
+        email:"test@test.fr",
+        password:"test@test.fr",
+        grantType:"PASSWORD"
+    }),
+    Login=async(e)=>{
+        e.preventDefault();
+        try{
+            const data = await $fetch('http://localhost:8080/m2l/authenticate',{
+                method:'POST',
+                body:credentials.value,
+                credentials:'include'
+            });
+            await $fetch('/api/auth/login',{
+                method:'POST',
+                body:data
+            })
+            await refreshSession();
+            navigateTo('/');
+        }catch (e){console.log(e)}
     }
-}
 </script>

@@ -1,10 +1,6 @@
 <!--
 - Ajouter une pop-up quand les données ont changé ou non
-
 -->
-
-
-
 <template>
     <section class="sectionAccountEdit relative py-10">
         <div class="absolute top-0 left-0 text-center text-white font-bold w-full" v-if="errorPassword != null">
@@ -15,11 +11,42 @@
             <p class="bg-red-500 py-[.5em]" v-if="error == true">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
             <p class="bg-green-500 py-[.5em]" v-else>L'utilisateur a bien été mise à jour.</p>
         </div>
-        <div class="m-auto max-w-[1200px] mt-[1em] w-[90%] container mx-auto px-6 lg:px-12">
+        <div class="m-auto max-w-300 mt-[1em] w-[90%] container mx-auto px-6 lg:px-12">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Modifier mes données personnelles</h2>
             <!-- Onglets -->
-            <UTabs :items="items" variant="link" :ui="{trigger:'grow',indicator:'hidden',content:'rounded-b-lg p-6',root:'gap-0',label:'',list:'p-0'}" class="bg-white rounded-xl shadow-lg">
+            <div v-if="data.error">
+                <p>Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
+            </div>
+            <div v-else-if="loading">
+                <div class="flex animate-pulse from-indigo-50 to-purple-50 justify-between flex-wrap">
+                    <div class="w-full p-10 mb-5 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                    <div class="w-full p-10 mb-5 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                    <div class="w-full p-10 mb-5 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                    <div class="w-full p-10 mb-5 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                    <div class="w-full p-10 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                    <div class="w-full p-10 sm:w-[48%] rounded-lg inline-block bg-gray-200">
+                        <div class="w-45 h-5 bg-gray-300 rounded-lg mb-4"></div>
+                        <div class="w-full h-10 bg-gray-300 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+            <UTabs v-else :items="items" variant="link" :ui="{trigger:'grow',indicator:'hidden',content:'rounded-b-lg p-6',root:'gap-0',label:'',list:'p-0'}" class="bg-white rounded-xl shadow-lg">
                 <template #infos="{item}">
                     <!-- Onglet 1 :Infos personnelles -->
                     <div v-if="item.slot === 'infos'">
@@ -69,20 +96,18 @@
                                 <UFormField label="Nouveau mot de passe" name="newPassword" required>
                                     <UInput v-model="formPassword.newPassword" placeholder="Le nouveau mot de passe" :color="color" :type="showNewPassword ? 'text' :'password'" :aria-invalid="score < 4" aria-describedby="password-strength" :ui="{base:'h-10'}" class="w-full">
                                         <template #trailing>
-                                            <UButton color="neutral" variant="link" size="sm" :icon="showNewPassword ? 'i-lucide-eye-off' :'i-lucide-eye'" :aria-label="showNewPassword ? 'Cacher le mot de passe' :'Voir le mot de passe'" :aria-pressed="showNewPassword" aria-controls="password" @click="showNewPassword != showNewPassword"></UButton>
+                                            <UButton color="neutral" variant="link" size="sm" :icon="showNewPassword ? 'i-lucide-eye-off' :'i-lucide-eye'" :aria-label="showNewPassword ? 'Cacher le mot de passe' :'Voir le mot de passe'" :aria-pressed="showNewPassword" aria-controls="password" @click="showNewPassword = !showNewPassword"></UButton>
                                         </template>
                                     </UInput>
                                 </UFormField>
                                 <UProgress class="my-[1em]" :color="color" :indicator="text" :model-value="score" :max="4" size="sm" />
-                                <p id="password-strength" class="text-sm font-medium">{{text}}. Doit contenir: </p>
+                                <p id="password-strength" class="text-sm font-medium">{{text}}. Doit contenir:</p>
                                 <ul class="space-y-1" aria-label="Le mot de passe doit contenir">
                                     <li v-for="(req,index) in strength" :key="index" class="flex-items-center gap-0.5" :class="req.met ? 'text-success' :'text-muted'">
                                         <UIcon :name="req.met ? 'i-lucide-circle-check' :'i-lucide-circle-x'" class="size-4 align-center inline-block mr-[.5em] shrink-0" />
                                         <span class="text-xs font-light">
                                             {{req.text}}
-                                            <span class="sr-only">
-                                                {{req.met ? '- condition remplie' :'condition non remplie'}}
-                                            </span>
+                                            <span class="sr-only">{{req.met ? '- condition remplie' :'condition non remplie'}}</span>
                                         </span>
                                     </li>
                                 </ul>
@@ -116,97 +141,64 @@
 .sectionAccountEdit div button:hover{opacity:.5}
 </style>
 <script setup>
-import{ref,computed}from "vue"
+import{ref,computed} from "vue"
 import * as v from 'valibot'
-const{user}= useUserSession();
-const showNewPassword = ref(false);
-const showOldPassword = ref(false);
-const showConfirmPassword = ref(false);
-const errorPassword = ref(null);
-const error = ref(false);
-const formData = ref({
-    lastname:"",
-    firstname:"",
-    email:"",
-    phone_number:"",
-    billing_address:"",
-    delivery_address:""
-});
-let userData = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
-if (userData.error == true){
-    await refreshAuth();
-    userData = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
-}
-formData.value = userData.data;
-function checkStrength(str){
-    const requirements = [
-        {regex:/.{8,}/,text:'Le mot de passe doit contenir 8 caractères minimum'},
-        {regex:/\d/,text:'Le mot de passe doit contenir un chiffre'},
-        {regex:/[a-z]/,text:'Le mot de passe doit contenir une lettre en minuscule'},
-        {regex:/[A-Z]/,text:'Le mot de passe doit contenir une lettre en majuscule'}
-    ]
-    return requirements.map(req => ({met:req.regex.test(str),text:req.text}))
-}
-const strength = computed(() => checkStrength(formPassword.value.newPassword))
-const score = computed(() => strength.value.filter(req => req.met).length)
-const color = computed(() =>{
-    if (score.value === 0) return 'neutral'
-    if (score.value <= 1) return 'error'
-    if (score.value <= 2) return 'warning'
-    if (score.value === 3) return 'warning'
-    return 'success'
-})
-const text = computed(() =>{
-    if (score.value === 0) return ''
-    if (score.value <= 2) return 'Mot de passe faible'
-    if (score.value === 3) return 'Mot de passe moyen'
-    return 'Mot de passe fort'
-})
-async function updateUser(){
-    let dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value)
-    if (dataSend == false){
-        await refreshAuth();
-        dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value);
-    }
-    if (dataSend == false){
-        error.value = true;
-    }else{
-        error.value = false;
-    }
-
-}
-async function updatePasswordUser(){
-    if (formPassword.value.newPassword == formPassword.value.confirmPassword || score == 4){
-        let dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
-        if (dataSend == false){
-            await refreshAuth();
-            dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
+const{user} = useUserSession(),
+    showNewPassword = ref(false),
+    showOldPassword = ref(false),
+    showConfirmPassword = ref(false),
+    errorPassword = ref(null),
+    loading = ref(true),
+    data = ref({data:null,error:false}),
+    error = ref(null),
+    formData = ref({
+        lastname:"",
+        firstname:"",
+        email:"",
+        phone_number:"",
+        billing_address:"",
+        delivery_address:""
+    }),
+    // Formulaire
+    formPassword = ref({
+        id:0,
+        oldPassword:"",
+        newPassword:"",
+        confirmPassword:""
+    }),
+    strength = computed(()=>checkStrength(formPassword.value.newPassword)),
+    score = computed(()=>strength.value.filter(req => req.met).length),
+    color = computed(()=>{
+        if(score.value === 0) return 'neutral'
+        if(score.value <= 1) return 'error'
+        if(score.value <= 2) return 'warning'
+        if(score.value === 3) return 'warning'
+        return 'success'
+    }),
+    text = computed(()=>{
+        if(score.value === 0) return ''
+        if(score.value <= 2) return 'Mot de passe faible'
+        if(score.value === 3) return 'Mot de passe moyen'
+        return 'Mot de passe fort'
+    }),
+    // Définition des onglets
+    items = [
+        {
+            label:"Infos personnelles",
+            description:"Gérez vos informations personnelles ici.",
+            slot:'infos'
+        },
+        {
+            label:"Adresses",
+            description:"Gérez vos adresses de facturation et de livraison.",
+            slot:'adresses'
+        },
+        {
+            label:"Sécurité",
+            description:"Modifiez votre mot de passe et gérez la sécurité de votre compte.",
+            slot:'securite'
         }
-        if (dataSend == false){
-            errorPassword.value = true;
-        }else{
-            errorPassword.value = false;
-        }
-    }
-}
-// Définition des onglets
-const items = [
-    {
-        label:"Infos personnelles",
-        description:"Gérez vos informations personnelles ici.",
-        slot:'infos'
-    },
-    {
-        label:"Adresses",
-        description:"Gérez vos adresses de facturation et de livraison.",
-        slot:'adresses'
-    },
-    {
-        label:"Sécurité",
-        description:"Modifiez votre mot de passe et gérez la sécurité de votre compte.",
-        slot:'securite'
-    }
-],
+    ],
     schemaItem = v.object({
         lastname:v.pipe(
             v.string("Le nom de famille doit être en format textuel"),
@@ -259,11 +251,45 @@ const items = [
             v.nonEmpty("Le mot de passe de confirmation est obligatoire")
         )
     }),
-    // Formulaire
-    formPassword = ref({
-        id:userData.data.id,
-        oldPassword:"",
-        newPassword:"",
-        confirmPassword:""
-    });
+    checkStrength=(str)=>{
+        const requirements = [
+            {regex:/.{8,}/,text:'Le mot de passe doit contenir 8 caractères minimum'},
+            {regex:/\d/,text:'Le mot de passe doit contenir un chiffre'},
+            {regex:/[a-z]/,text:'Le mot de passe doit contenir une lettre en minuscule'},
+            {regex:/[A-Z]/,text:'Le mot de passe doit contenir une lettre en majuscule'}
+        ]
+        return requirements.map(req => ({met:req.regex.test(str),text:req.text}))
+    },
+    updateUser=async()=>{
+        let dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value)
+        if(dataSend == false){
+            await refreshAuth();
+            dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value);
+        }
+        if(dataSend == false) error.value = true;
+        else error.value = false;
+    },
+    updatePasswordUser=async()=>{
+        if(formPassword.value.newPassword == formPassword.value.confirmPassword || score == 4){
+            let dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
+            if(dataSend == false){
+                await refreshAuth();
+                dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
+            }
+            if(dataSend == false) errorPassword.value = true;
+            else errorPassword.value = false;
+        }
+    }
+if(user.value == null) await refreshAuth();
+if(user.value == null) data.value.error = true;
+else{
+    data.value = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
+    if(data.value.error == true){
+        await refreshAuth();
+        data.value = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
+    }
+    formData.value = data.value.data;
+    formPassword.value.id = data.value.data.id;
+}
+loading.value = false
 </script>

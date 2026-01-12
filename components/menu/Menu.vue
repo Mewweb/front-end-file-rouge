@@ -1,7 +1,7 @@
 <template>
     <div class="h-[4em]">
         <nav class="bg-white  fixed z-99999 w-full shadow-md border-b border-gray-200">
-            <div class="m-auto max-w-[1200px] w-[90%]">
+            <div class="m-auto max-w-300 w-[90%]">
                 <div class="container flex items-center justify-between px-6 py-3 mx-auto">
                     <!-- Logo -->
                     <NuxtLink to="/" class="flex items-center hover:opacity-50 transition duration-300 gap-2">
@@ -22,8 +22,7 @@
                         </UDropdownMenu>
                     </div>
                     <div class="flex items-center gap-4" v-else>
-                        <NuxtLink to="/login" class="text-purple-700 font-meium hover:opacity-50 duration-300 transition">Se connecter
-                        </NuxtLink>
+                        <NuxtLink to="/login" class="text-purple-700 font-meium hover:opacity-50 duration-300 transition">Se connecter</NuxtLink>
                     </div>
                 </div>
             </div>
@@ -36,36 +35,36 @@
 </template>
 <script setup>
 import{ref}from "vue"
-const search = ref("");
-// Dropdown utilisateur
-const{loggedIn}= useUserSession();
-const{clear}= useUserSession();
-const userMenu = [
-    [
-        {
-            label:"Modifier les données personnelles",
-            icon:"i-lucide-square-pen",
-            to:"/account/edit"
-        },
-    ],
-    [
-        {
-            label:"Consulter les commandes",
-            icon:"i-lucide-archive",
-            to:"/shopping"
-        }
-    ],
-    [
-        {
-            label:"Se déconnecter",
-            icon:"i-lucide-log-out",
-            onSelect:async (e) =>{
-                console.log("Se déconnecter");
-                await $fetch("/api/auth/logout");
-                clear();
-                navigateTo("/login");
+const search = ref(""),
+    // Dropdown utilisateur
+    {loggedIn}= useUserSession(),
+    {clear}= useUserSession(),
+    userMenu = [
+        [
+            {
+                label:"Modifier les données personnelles",
+                icon:"i-lucide-square-pen",
+                to:"/account/edit"
+            },
+        ],
+        [
+            {
+                label:"Consulter les commandes",
+                icon:"i-lucide-archive",
+                to:"/shopping"
             }
-        }
-    ]
-];
+        ],
+        [
+            {
+                label:"Se déconnecter",
+                icon:"i-lucide-log-out",
+                onSelect:async(e)=>{
+                    console.log("Se déconnecter");
+                    await $fetch("/api/auth/logout");
+                    clear();
+                    navigateTo("/login");
+                }
+            }
+        ]
+    ];
 </script>

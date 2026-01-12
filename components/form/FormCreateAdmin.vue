@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-[1200px] w-[90%]  py-10">
+    <section class="m-auto max-w-300 w-[90%]  py-10">
         <div class="container mx-auto px-6 py-6 lg:px-12 w-full bg-white shadow-lg rounded-2xl">
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Créer un administrateur</h2>
@@ -38,18 +38,24 @@
     </section>
 </template>
 <script setup>
-import{ref} from "vue"
-const form = ref({nom:"",prenom:"",email:"",telephone:"",password:"",confirmPassword:""})
-function applySearch(){
-    // Logique pour appliquer la recherche
-    console.log('Recherche appliquée:',form.value)
-}
-const handleSubmit = ()=>{
-    if (form.value.password !== form.value.confirmPassword){
-        alert("❌ Les mots de passe ne correspondent pas.")
-        return
+import{ref}from "vue"
+const form = ref({
+    nom:"",
+    prenom:"",
+    email:"",
+    telephone:"",
+    password:"",
+    confirmPassword:""
+}),
+    applySearch=()=>{
+        console.log("Recherche appliquée :",form.value)
+    },
+    handleSubmit=()=>{
+        if(form.value.password !== form.value.confirmPassword){
+            alert("❌ Les mots de passe ne correspondent pas.")
+            return
+        }
+        console.log("✅ Nouvel administrateur :",form.value)
+        alert("Administrateur ajouté avec succès !")
     }
-    console.log("✅ Nouvel administrateur :",form.value)
-    alert("Administrateur ajouté avec succès !")
-}
 </script>
