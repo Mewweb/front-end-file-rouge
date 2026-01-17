@@ -15,7 +15,7 @@
             </div>
             <!-- Formulaire -->
             <UCard class="shadow-lg rounded-xl border border-gray-100 p-6 bg-linear-to-br from-indigo-50 to-purple-50">
-                <FormSigninForm/>
+                <FormSigninForm :isAdmin="false" />
             </UCard>
         </div>
     </section>

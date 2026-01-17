@@ -4,7 +4,7 @@
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Créer un administrateur</h2>
             <!-- Formulaire -->
-            <form @submit.prevent="handleSubmit" class="space-y-5 flex justify-between flex-wrap">
+            <UForm @submit.prevent="handleSubmit" class="space-y-5 flex justify-between flex-wrap">
                 <!-- Nom -->
                 <UFormField class="w-full md:w-[48%]" label="Nom" required>
                     <UInput v-model="form.nom" class="w-full" placeholder="Entrez le nom" size="lg" />
@@ -33,7 +33,7 @@
                 <div class="pt-4 text-right w-full">
                     <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
                 </div>
-            </form>
+            </UForm>
         </div>
     </section>
 </template>

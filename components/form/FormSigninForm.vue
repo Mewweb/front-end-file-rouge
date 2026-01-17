@@ -61,7 +61,10 @@
 import{UFormField}from '#components'
 import * as v from 'valibot'
 import{ref}from 'vue'
+const props = defineProps(['isAdmin']);
 const showPassword = ref(false),
+    errorMessage = ref(),
+    successMessage = ref(),
     showConfirmPassword = ref(false),
     strength = computed(()=>checkStrength(credentials.value.password)),
     score = computed(()=>strength.value.filter(req => req.met).length),
@@ -130,14 +133,14 @@ const showPassword = ref(false),
         )
     }),
     credentials = ref({
-        lastname:"",
-        firstname:"",
-        phone_number:"",
-        email:"",
-        billing_address:"",
-        delivery_address:"",
-        password:"",
-        confirmPassword:""
+        lastname:"qsdf",
+        firstname:"dsf",
+        phone_number:"01 02 03 04 05",
+        email:"test@test.fr",
+        billing_address:"adresse d",
+        delivery_address:"e facturation",
+        password:"Azerty123",
+        confirmPassword:"Azerty123"
     }),
     Register=async(e)=>{
         e.preventDefault();
@@ -149,14 +152,29 @@ const showPassword = ref(false),
         console.log('Confirmation de mot de passe',credentials.value.confirmPassword);
         console.log('Adresse de livraison',credentials.value.billing_address);
         console.log("Adresse de facturation",credentials.value.delivery_address);
+        if(props.isAdmin){
+
+            let data = await postData('http://localhost:8080/m2l/create/admin', credentials.value);
+            if(data.error){
+                await refreshAuth();
+                data = await postData('http://localhost:8080/m2l/create/admin', credentials.value);
+            }
+        }else{
         try{
             const data = await $fetch('http://localhost:8080/m2l/register',{
                 method:'POST',
                 body:credentials.value,
                 credentials:'include'
-            })
-            navigateTo('/login');
+            });
+            if(!data.error){
+                navigateTo("/login");
+            }else{
+                console.log("erreur");
+            }
         }catch(e){console.log(e)}
+        }
+            
+
     },
     checkStrength=(str)=>{
         const requirements = [
