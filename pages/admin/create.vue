@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import FormCreateAdmin from '~/components/form/FormCreateAdmin.vue';
+    import FormSigninForm from '~/components/form/FormSigninForm.vue';
     definePageMeta({
         middleware:['authenticated']
     })
@@ -13,7 +14,9 @@
     })
 </script>
 <template>
-    <div class="py-6 px-12">
-        <FormCreateAdmin/>
+    <div class="m-auto max-w-300 w-[90%] py-12">
+        <div class="container mx-auto p-6 lg:p-12 bg-gray-100 rounded-lg text-center">
+            <FormSigninForm :isAdmin="true" />
+        </div>
     </div>
 </template>

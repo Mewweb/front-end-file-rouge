@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import FormCreateBook from '~/components/form/FormCreateBook.vue';
     definePageMeta({
-        middleware:['authenticated']
+        middleware:['admin-authenticated']
     })
     useSeoMeta({
         title:"Création d'un livre - 2I Library",
@@ -13,7 +13,7 @@
     })
 </script>
 <template>
-    <div class="px-12 py-6">
+    <div class="px-12 relative py-6">
         <FormCreateBook/>
     </div>
 </template>

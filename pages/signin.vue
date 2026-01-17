@@ -11,6 +11,6 @@
 </script>
 <template>
     <div>
-        <SigninPage />
+        <SigninPage :isAdmin="false" />
     </div>
 </template>

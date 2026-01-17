@@ -1,13 +1,31 @@
 <template>
-    <section class="m-auto max-w-[1200px] w-[90%] py-10">
+    <section class="m-auto max-w-300 w-[90%] py-10">
         <div class="container mx-auto px-12">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Gestion de panier</h2>
             <!-- Liste des articles -->
-            <p v-if="loading == true">En cours de chargement</p>
-            <p v-else-if="data.length == 0 && error == false">Le panier est vide. </p>
-            <p v-else-if="error == true">Erreur durant le chargement du panier. Veuillez réssayer plus tard.</p>
-            <div v-else v-for="(item,index) in data" :key="index" class="flex flex-col my-[1em] mx-auto  md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
+            <div v-if="loading == true">
+                <div v-for="n in 3" :key="n" class="flex flex-col animate-pulse from-indigo-50 to-purple-50 my-[1em] mx-auto md:flex-row items-center justify-between bg-white rounded-xl p-4 mb-4">
+                    <div class="h-[15em] bg-gray-200 rounded-lg w-[10em]"></div>
+                    <div class="flex-1 px-2 text-center w-[15%] md:text-left">
+                        <div class="h-8 bg-gray-200 my-3 rounded-lg w-[75%]"></div>
+                        <div class="h-5 bg-gray-200 my-1 rounded-lg w-[55%]"></div>
+                        <div class="h-5 bg-gray-200 my-1 rounded-lg w-[45%]"></div>
+                    </div>
+                    <div class="flex flex-col px-2 w-[15%] lg:flex-row">
+                        <div class="h-10 bg-gray-200 rounded-lg w-full"></div>
+                    </div>
+                    <div class="flex flex-col px-2 w-[15%] lg:flex-row">
+                        <div class="h-10 bg-gray-200 rounded-lg w-full"></div>
+                    </div>
+                    <div class="flex flex-col px-2 w-[20%] lg:flex-row">
+                        <div class="h-10 bg-gray-200 rounded-lg w-full"></div>
+                    </div>
+                </div>
+            </div>
+            <p v-else-if="data.data.length == 0 && error == false">Le panier est vide. </p>
+            <p v-else-if="data.error == true" class="font-bold mb-5">Erreur durant le chargement du panier. Veuillez réessayer plus tard.</p>
+            <div v-else v-for="(item,index) in data.data" :key="index" class="flex flex-col my-[1em] mx-auto  md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
                 <!--Image-->
                 <NuxtImg src="/img/example.webp" alt="Image du livre" class="max-h-[15em] object-cover rounded-lg mb-4 md:mb-0" />
                 <!--Info Livre-->
@@ -31,60 +49,48 @@
             </div>
             <!-- Boutons de gestion -->
             <div class="block text-right">
-                <UButton class="inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow hover:opacity-50 bg-transparent hover:bg-transparent cursor-pointer transition">Annuler</UButton>
-                <UButton @click="editCartItems" :active="isEdited" :class="[!isEdited ? 'opacity-50' : '','inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow hover:opacity-50 bg-transparent hover:bg-transparent cursor-pointer transition']">Mettre à jour</UButton>
-                <UButton class="inline-block mt-4 px-6 py-3 hover:opacity-50 cursor-pointer rounded-lg bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow hover:opacity-50 transition">Acheter</UButton>
+                <UButton class="inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition">Annuler</UButton>
+                <UButton @click="editCartItems" :active="isEdited" :class="[!isEdited ? 'opacity-50' :'','inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition']">Mettre à jour</UButton>
+                <UButton class="inline-block mt-4 px-6 py-3 hover:opacity-50 cursor-pointer rounded-lg bg-linear-to-r from-pink-500 to-purple-600 text-white font-semibold shadow transition">Acheter</UButton>
             </div>
         </div>
     </section>
 </template>
 <script setup>
-import {ref} from "vue"
+import{UDrawer}from "#components";
+import{ref}from "vue"
 import IconTrash from "~/public/svg/IconTrash.vue"
-const {loggedIn,user} = useUserSession();
-const data = ref();
-const loading = ref(true);
-const error = ref();
-const isEdited = ref(false);
-
-async function editCartItems(){
-    let dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`, data.value);
-    if(dataSend == false){
-        await refreshAuth();
-        dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`, data.value);
-    }
-}
-
-async function getCartItems() {
-    if(user.value != null){
-    let values = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
-        if (values.error == true) {
+const{loggedIn,user}= useUserSession(),
+    data = ref({data:[],error:false}),
+    loading = ref(true),
+    error = ref(),
+    isEdited = ref(false),
+    editCartItems=async()=>{
+        let dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`,data.value.data);
+        if(dataSend == false){
             await refreshAuth();
-            values = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
+            dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`,data.value.data);
         }
-        console.log(values.data);
-        data.value = values.data;
-        error.value = values.error;
-        console.log(data.value);
-        loading.value = false;
+    },
+    changeEdited=()=>{isEdited.value = true},
+    deleteCartItem=async(id,index)=>{
+        let delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
+        if(delCartItem.error == true){
+            await refreshAuth();
+            delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
+        }
+        if(delCartItem.error == false) data.value.data.splice(index,1);
+        else{
+            // Changer pour juste afficher une pop-up car c'est un peu extrême
+            data.value.error = true;
+        }
     }
-}
-getCartItems();
-function changeEdited(){
-    isEdited.value = true;
-}
-async function deleteCartItem(id,index){
-    let delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
-    if(delCartItem.error == true){
+if(user.value != null){
+    data.value = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
+    if(data.value.error == true){
         await refreshAuth();
-        delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
-    }
-    if(delCartItem.error == false){
-        data.value.splice(index, 1);
-    }else{
-        // Changer pour juste afficher une pop-up car c'est un peu extrême
-        error.value = true;
+        data.value = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
     }
 }
-
+loading.value = false;
 </script>

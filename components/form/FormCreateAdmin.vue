@@ -1,10 +1,10 @@
 <template>
-    <section class="m-auto max-w-[1200px] w-[90%]  py-10">
+    <section class="m-auto max-w-300 w-[90%]  py-10">
         <div class="container mx-auto px-6 py-6 lg:px-12 w-full bg-white shadow-lg rounded-2xl">
             <!-- Titre -->
             <h2 class="text-2xl font-bold text-purple-900 mb-6 text-center">Créer un administrateur</h2>
             <!-- Formulaire -->
-            <form @submit.prevent="handleSubmit" class="space-y-5 flex justify-between flex-wrap">
+            <UForm @submit.prevent="handleSubmit" class="space-y-5 flex justify-between flex-wrap">
                 <!-- Nom -->
                 <UFormField class="w-full md:w-[48%]" label="Nom" required>
                     <UInput v-model="form.nom" class="w-full" placeholder="Entrez le nom" size="lg" />
@@ -33,23 +33,29 @@
                 <div class="pt-4 text-right w-full">
                     <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
                 </div>
-            </form>
+            </UForm>
         </div>
     </section>
 </template>
 <script setup>
-import{ref} from "vue"
-const form = ref({nom:"",prenom:"",email:"",telephone:"",password:"",confirmPassword:""})
-function applySearch(){
-    // Logique pour appliquer la recherche
-    console.log('Recherche appliquée:',form.value)
-}
-const handleSubmit = ()=>{
-    if (form.value.password !== form.value.confirmPassword){
-        alert("❌ Les mots de passe ne correspondent pas.")
-        return
+import{ref}from "vue"
+const form = ref({
+    nom:"",
+    prenom:"",
+    email:"",
+    telephone:"",
+    password:"",
+    confirmPassword:""
+}),
+    applySearch=()=>{
+        console.log("Recherche appliquée :",form.value)
+    },
+    handleSubmit=()=>{
+        if(form.value.password !== form.value.confirmPassword){
+            alert("❌ Les mots de passe ne correspondent pas.")
+            return
+        }
+        console.log("✅ Nouvel administrateur :",form.value)
+        alert("Administrateur ajouté avec succès !")
     }
-    console.log("✅ Nouvel administrateur :",form.value)
-    alert("Administrateur ajouté avec succès !")
-}
 </script>
