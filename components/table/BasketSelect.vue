@@ -57,7 +57,6 @@
     </section>
 </template>
 <script setup>
-import{UDrawer}from "#components";
 import{ref}from "vue"
 import IconTrash from "~/public/svg/IconTrash.vue"
 const{loggedIn,user}= useUserSession(),

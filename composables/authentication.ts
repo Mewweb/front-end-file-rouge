@@ -92,15 +92,6 @@ export async function postDataNoJwt(url:string, bodyData:Object){
 }
 
 export async function postData(url:string,bodyData:Object){
-    /*const {data,error} = await useFetch(url , {
-        method:'POST',
-        credentials:'include',
-        headers:{
-            authorization:`Bearer ${useCookie('auth:access').value}`
-        },
-        body:bodyData
-    });
-    return {data:data,error:error};*/
     try{
         const data = await $fetch(url,{
             method:'POST',
@@ -110,10 +101,8 @@ export async function postData(url:string,bodyData:Object){
             },
             body:bodyData
         });
-
         return{data:data,error:false};
     }catch(e){
-        
-        return{data:[],error:e};
+        return{data:[],error:true};
     }
 }
