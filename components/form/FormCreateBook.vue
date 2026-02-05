@@ -121,7 +121,7 @@ watch(authorSearch,(newSearch)=>{
     authorDelay = setTimeout(async function (){
         try{
             const apiData = ref(),
-                url = "http://localhost:8080/m2l/author" + (newSearch != "" ? `/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
+                url = "http://localhost:8080/m2l/author" + (newSearch != "" ? `/search/${encodeURI(newSearch.replaceAll('/','-'))}` :"/all");
             loadingAuthor.value = true;
             apiData.value = await accessData(url);
             if(apiData.value.error){
