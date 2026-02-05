@@ -6,7 +6,7 @@
                     <IconPlus />
                 </UButton>
                 <template #body>
-                    <FormCreateEditor @add-editor="(n) => {
+                    <FormCreateEditor :isUpdate="false" @add-editor="(n) => {
                         addForm = false;
                         data.data.content.push(n)
                     }" />
@@ -57,7 +57,7 @@
                             <h3 class="text-[1.5em] font-semibold text-purple-800">{{ item.title }}</h3>
                             <p>{{ item.description }}</p>
                         </div>
-                        <p>{{ item.date }}</p>
+                        <p>Date de création: {{ item.date }}</p>
                     </template>
                     <div class="flex flex-col lg:flex-row">
                         <!-- Supprimer -->

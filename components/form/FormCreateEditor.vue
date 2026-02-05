@@ -11,12 +11,12 @@
             <UInput type="date" name="date" id="date" v-model="data.date" class="w-full" placeholder="Date" size="lg" />
         </UFormField>
         <UFormField label="La description" name="description" required class="w-full">
-            <UTextarea name="description" id="description" v-model="data.description" class="w-full"
+            <UTextarea name="description" id="description" :value="data.description" v-model="data.description" class="w-full"
                 placeholder="Description" size="lg"></UTextarea>
         </UFormField>
         <UButton type="submit" @click="submit(data, index)"
             class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md"
-            color="primary" variant="solid">Ajouter</UButton>
+            color="primary" variant="solid">{{ props.isUpdate == false ? 'Ajouter' : 'Modifier' }}</UButton>
     </UForm>
 </template>
 <script setup>
@@ -26,6 +26,8 @@ const data = ref({
     description: "",
     date: ""
 })
+const props = defineProps(['isUpdate']);
+const {user} = useUserSession();
 const emit = defineEmits(['addEditor']);
 const errorMessage = ref(false);
 const successMessage = ref(false);
@@ -46,24 +48,49 @@ const schema = v.object({
         v.nonEmpty("La date est obligatoire")
     )
 })
-const submit = async () => {
+const submit = async (contentSend,index) => {
     errorMessage.value = false;
     successMessage.value = false;
-    try {
-        v.parse(schema, data.value)
-        let editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
-        if (editorData.error) {
-            await refreshAuth();
-            editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
+    if (!props.isUpdate) {
+        try {
+            v.parse(schema, data.value)
+            let editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
+            if (editorData.error) {
+                await refreshAuth();
+                editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
+            }
+            if (editorData.error) errorMessage.value = 1;
+            else {
+                successMessage.value = true;
+                emit("addEditor", editorData.data);
+            }
+        } catch (e) {
+            console.log(e);
+            errorMessage.value = 2;
         }
-        if (editorData.error) errorMessage.value = 1;
-        else {
-            successMessage.value = true;
-            emit("addEditor", editorData.data);
+    }else{
+        try{
+            v.parse(schema, data.value);
+            let editorData = await putData(`http://localhost:8080/m2l/editor/${data.value.id}`, data.value);
+            if(editorData == false){
+                await refreshAuth();
+                editorData = await putData(`http://localhost:8080/m2l/editor/${data.value.id}`, data.value);
+            }
+            navigateTo('/admin/editor/all');
+        }catch(e){
+            console.log(e);
+            errorMessage.value = 2;
         }
-    } catch (e) {
-        console.log(e);
-        errorMessage.value = 2;
     }
+}
+if(user.value != null && props.isUpdate == true){
+    const id = useRoute().params.id;
+    let test = await accessData(`http://localhost:8080/m2l/editor/${id}`);
+    if(test.error){
+        await refreshAuth();
+        test = await accessData(`http://localhost:8080/m2l/editor/${id}`);
+    }
+    data.value = test.data;
+    console.log(data.value);
 }
 </script>
