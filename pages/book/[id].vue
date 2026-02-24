@@ -42,7 +42,7 @@ loading.value = false;
         </div>
         <div v-else>
             <BookDetails :image="data.data.book.image" :title="data.data.book.title" :authors="data.data.book.authors" :date="data.data.book.date" :description="data.data.book.synopsis" />
-            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors" :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date" :article="data.data.title" :format="data.data.format" />
+            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors" :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date" :article="data.data.title" :format="data.data.width + ' X ' + data.data.height + ' X ' + data.data.thickness" />
         </div>
     </div>
 </template>

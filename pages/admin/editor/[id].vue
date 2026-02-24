@@ -5,5 +5,16 @@
     </section>
 </template>
 <script setup>
-
+    import FormCreateEditor from '~/components/form/FormCreateEditor.vue'
+    definePageMeta({
+        middleware:['admin-authenticated']
+    })
+    useSeoMeta({
+        title:"Création d'un auteur - 2I Library",
+        ogTitle:"Création d'un auteur - 2I Library",
+        description:"Créer un nouvel auteur dans l'administration de 2I Library. Gérez votre bibliothèque facilement.",
+        ogDescription:"Créer un nouvel auteur dans l'administration de 2I Library. Gérez votre bibilothèque fecilement.",
+        ogImage:"/img/seo/logo-seo.webp",
+        twitterCard:"summary_large_image"
+    })
 </script>

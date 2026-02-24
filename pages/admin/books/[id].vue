@@ -14,6 +14,7 @@
 </script>
 <template>
     <div class="px-12 relative py-6">
-        <FormCreateBook/>
+        <NuxtLink to="/admin/books/all">Retourner en arrière</NuxtLink>
+        <FormCreateBook :isUpdate="true" />
     </div>
 </template>

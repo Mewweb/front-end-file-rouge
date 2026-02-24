@@ -61,8 +61,8 @@
 import{UFormField}from '#components'
 import * as v from 'valibot'
 import{ref}from 'vue'
-const props = defineProps(['isAdmin']);
-const showPassword = ref(false),
+const props = defineProps(['isAdmin']),
+    showPassword = ref(false),
     errorMessage = ref(),
     successMessage = ref(),
     showConfirmPassword = ref(false),
