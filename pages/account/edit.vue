@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <main>
         <FormAccount/>
-    </div>
+    </main>
 </template>
 <script setup>
     import FormAccount from '~/components/form/FormAccount.vue';

@@ -10,7 +10,7 @@
     })
 </script>
 <template>
-    <div class="px-12 py-6">
+    <main class="px-12 py-6">
         <LoginPage />
-    </div>
+    </main>
 </template>
