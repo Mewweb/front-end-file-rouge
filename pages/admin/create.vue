@@ -14,9 +14,9 @@
     })
 </script>
 <template>
-    <div class="m-auto max-w-300 w-[90%] py-12">
+    <main class="m-auto max-w-300 w-[90%] py-12">
         <div class="container mx-auto p-6 lg:p-12 bg-gray-100 rounded-lg text-center">
             <FormSigninForm :isAdmin="true" />
         </div>
-    </div>
+    </main>
 </template>

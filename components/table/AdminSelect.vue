@@ -2,8 +2,8 @@
     <section class="m-auto max-w-300 relative w-[90%] py-10">
         <div class="container mx-auto px-12">
             <UModal v-model:open="addForm" :title="props.data == 'editor' ? 'Ajouter un éditeur' :props.data == 'author' ? 'Ajouter un auteur' :props.data == 'articles' ? 'Ajouter un article' :'Ajouter un livre'">
-                <UButton color="green" class="fixed bottom-[2em] right-[2em] p-[1em] bg-green-500 transition duration-300 rounded-full text-white cursor-pointer hover:opacity-50">
-                    <IconPlus />
+                <UButton class="rounded-full p-[1em] text-[1em] fixed cursor-pointer hover:opacity-50 transition duration-300 right-[1em] bottom-[4.5em] bg-linear-to-r from-pink-500 to-purple-600 text-white h-[3em] w-[3em]">
+                    <UIcon name="i-lucide-plus"  class="text-[1.5em] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]" />
                 </UButton>
                 <template #body>
                     <FormCreateEditor v-if="props.data == 'editor'" :isUpdate="false" @add-editor="(n) =>{

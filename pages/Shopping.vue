@@ -13,7 +13,7 @@
     })
 </script>
 <template>
-    <div>
+    <main>
         <BasketSelect/>
-    </div>
+    </main>
 </template>

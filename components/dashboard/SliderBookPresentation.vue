@@ -37,8 +37,8 @@ loading.value = false;
                 <!-- Slide principal -->
                 <div class="flex flex-col py-[2em] md:flex-row-reverse items-center h-full">
                     <!-- Image -->
-                    <div class="w-full md:w-1/2">
-                        <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="h-auto w-[75%] max-w-[15em] md:max-w-max md:w-auto md:h-[30em] m-auto object-cover" />
+                    <div class="w-full md:w-1/2 p-8">
+                        <NuxtImg src="/img/example.webp" alt="Couverture du livre" class="h-auto w-[75%] max-w-[15em] md:max-w-max md:w-full md:h-auto m-auto object-cover" />
                     </div>
                     <!-- Contenu texte -->
                     <div class="w-full md:w-1/2  p-8 flex flex-col justify-start items-start text-left md:text-left space-y-4">

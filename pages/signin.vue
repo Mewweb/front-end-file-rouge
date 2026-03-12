@@ -10,7 +10,7 @@
     })
 </script>
 <template>
-    <div>
+    <main>
         <SigninPage :isAdmin="false" />
-    </div>
+    </main>
 </template>

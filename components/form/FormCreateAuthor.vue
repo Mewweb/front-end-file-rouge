@@ -1,19 +1,27 @@
 <template>
-    <p v-if="errorMessage == 1">Une erreur a été rencontré. Veuillez réessayer plus tard</p>
-    <p v-if="errorMessage == 2">Le formulaire n'est pas rempli correctement. Veuillez respecter les indications</p>
-    <p v-else-if="successMessage">L'éditeur à bien été ajouté</p>
-    <UForm class="flex justify-between space-y-2 flex-wrap" :schema="schema" :state="data">
-        <UFormField label="Le nom de famille" name="lastname" required class="w-full sm:w-[48%]">
-            <UInput type="text" name="lastname" id="lastname" v-model="data.lastname" class="w-full" placeholder="Nom de famille" size="lg" />
-        </UFormField>
-        <UFormField label="Le prénom" name="firstname" required class="w-full sm:w-[48%]">
-            <UInput type="text" name="firstname" id="firstname" v-model="data.firstname" class="w-full" placeholder="Prénom" size="lg" />
-        </UFormField>
-        <UFormField label="Langue" name="langue" required class="w-full">
-            <USelectMenu class="w-full" v-model="data.langue" placeholder="Langue" value-key="id" :items="contentLangue" size="lg" />
-        </UFormField>
-        <UButton type="submit" @click="submit()" class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">{{ props.isUpdate == false ? 'Ajouter' : 'Modifier' }}</UButton>
-    </UForm>
+    <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
+        <p v-if="errorMessage == 1">Une erreur a été rencontré. Veuillez réessayer plus tard</p>
+        <p v-if="errorMessage == 2">Le formulaire n'est pas rempli correctement. Veuillez respecter les indications</p>
+        <p v-else-if="successMessage">L'éditeur à bien été ajouté</p>
+        <UForm class="flex justify-between space-y-2 flex-wrap" :schema="schema" :state="data">
+            <UFormField label="Le nom de famille" name="lastname" required class="w-full sm:w-[48%]">
+                <UInput type="text" name="lastname" id="lastname" v-model="data.lastname" class="w-full"
+                    placeholder="Nom de famille" size="lg" />
+            </UFormField>
+            <UFormField label="Le prénom" name="firstname" required class="w-full sm:w-[48%]">
+                <UInput type="text" name="firstname" id="firstname" v-model="data.firstname" class="w-full"
+                    placeholder="Prénom" size="lg" />
+            </UFormField>
+            <UFormField label="Langue" name="langue" required class="w-full">
+                <USelectMenu class="w-full" v-model="data.langue" placeholder="Langue" value-key="id"
+                    :items="contentLangue" size="lg" />
+            </UFormField>
+            <UButton type="submit" @click="submit()"
+                class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md"
+                color="primary" variant="solid">{{ props.isUpdate == false ? 'Ajouter' : 'Modifier' }}</UButton>
+        </UForm>
+    </div>
+
 </template>
 <script setup>
 import * as v from 'valibot';

@@ -1,3 +1,4 @@
 export default defineNuxtRouteMiddleware(()=>{
-    const {user} = useUserSession();
+    const {user,loggedIn} = useUserSession();
+    if(!loggedIn.value && user.value?.role != "ADMIN") return navigateTo('/login');
 })

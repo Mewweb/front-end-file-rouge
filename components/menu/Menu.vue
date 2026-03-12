@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[4em]">
+    <header class="h-[4em]">
         <nav class="bg-white  fixed z-99999 w-full shadow-md border-b border-gray-200">
             <div class="m-auto max-w-300 w-[90%]">
                 <div class="container flex items-center justify-between px-6 py-3 mx-auto">
@@ -31,7 +31,7 @@
                 <UInput v-model="search" placeholder="Rechercher un livre..." icon="i-heroicons-magnifying-glass" size="lg" class="w-full" />
             </div>
         </nav>
-    </div>
+    </header>
 </template>
 <script setup>
 import{ref}from "vue"

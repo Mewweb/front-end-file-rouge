@@ -13,7 +13,7 @@ useSeoMeta({
 })
 </script>
 <template>
-    <div class="px-12 relative py-6">
+    <main class="px-12 relative py-6">
         <AdminSelect data="books" />
-    </div>
+    </main>
 </template>
