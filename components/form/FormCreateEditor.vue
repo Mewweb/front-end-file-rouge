@@ -5,8 +5,7 @@
         <p v-else-if="successMessage">L'éditeur à bien été ajouté</p>
         <UForm class="flex justify-between space-y-2 flex-wrap" :schema="schema" :state="data">
             <UFormField label="Le titre" name="title" required class="w-full sm:w-[48%]">
-                <UInput type="text" name="title" id="title" v-model="data.title" class="w-full" placeholder="Titre"
-                    size="lg" />
+                <UInput type="text" name="title" id="title" v-model="data.title" class="w-full" placeholder="Titre" size="lg" />
             </UFormField>
             <UFormField label="La date" name="date" required class="w-full sm:w-[48%]">
                 <UInput type="date" name="date" id="date" v-model="data.date" class="w-full" placeholder="Date"
