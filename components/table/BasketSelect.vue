@@ -59,24 +59,25 @@
 <script setup>
 import{ref}from "vue"
 import IconTrash from "~/public/svg/IconTrash.vue"
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{loggedIn,user}= useUserSession(),
     data = ref({data:[],error:false}),
     loading = ref(true),
     error = ref(),
     isEdited = ref(false),
     editCartItems=async()=>{
-        let dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`,data.value.data);
+        let dataSend = await putData(`${backendUrl}/cartItem/panier/update`,data.value.data);
         if(dataSend == false){
             await refreshAuth();
-            dataSend = await putData(`http://localhost:8080/m2l/cartItem/panier/update`,data.value.data);
+            dataSend = await putData(`${backendUrl}/cartItem/panier/update`,data.value.data);
         }
     },
     changeEdited=()=>{isEdited.value = true},
     deleteCartItem=async(id,index)=>{
-        let delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
+        let delCartItem = await deleteData(`${backendUrl}/cartItem/${id}`);
         if(delCartItem.error == true){
             await refreshAuth();
-            delCartItem = await deleteData(`http://localhost:8080/m2l/cartItem/${id}`);
+            delCartItem = await deleteData(`${backendUrl}/cartItem/${id}`);
         }
         if(delCartItem.error == false) data.value.data.splice(index,1);
         else{
@@ -85,10 +86,10 @@ const{loggedIn,user}= useUserSession(),
         }
     }
 if(user.value != null){
-    data.value = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
+    data.value = await accessData(`${backendUrl}/cartItem/panier/${user.value.email}`);
     if(data.value.error == true){
         await refreshAuth();
-        data.value = await accessData(`http://localhost:8080/m2l/cartItem/panier/${user.value.email}`);
+        data.value = await accessData(`${backendUrl}/cartItem/panier/${user.value.email}`);
     }
 }
 loading.value = false;

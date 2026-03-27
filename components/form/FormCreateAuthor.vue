@@ -25,6 +25,7 @@
 </template>
 <script setup>
 import * as v from 'valibot';
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const data = ref({
     lastname:'',
     firstname:'',
@@ -95,10 +96,10 @@ const submit=async()=>{
     if (!props.isUpdate){
         try{
             v.parse(schema,data.value);
-            let authorData = await postData(`http://localhost:8080/m2l/author`,data.value);
+            let authorData = await postData(`${backendUrl}/author`,data.value);
             if(authorData.error){
                 await refreshAuth();
-                authorData = await postData(`http://localhost:8080/m2l/author`,data.value);
+                authorData = await postData(`${backendUrl}/author`,data.value);
             }
             if(authorData.error) errorMessage.value = 1;
             else{
@@ -112,8 +113,8 @@ const submit=async()=>{
     }else{
         try{
             v.parse(schema,data.value);
-            let authorData = await putData(`http://localhost:8080/m2l/author/${data.value.id}`,data.value);
-            if (authorData == false) authorData = await putData(`http:/localhost:8080/m2l/author/${data.value.id}`,data.value);
+            let authorData = await putData(`${backendUrl}/author/${data.value.id}`,data.value);
+            if (authorData == false) authorData = await putData(`${backendUrl}/author/${data.value.id}`,data.value);
             navigateTo('/admin/editor/all');
         }catch (e){
             console.log(e);
@@ -123,10 +124,10 @@ const submit=async()=>{
 }
 if(user.value != null && props.isUpdate == true){
     const id = useRoute().params.id;
-    let getData = await accessData(`http://localhost:8080/m2l/author/${id}`);
+    let getData = await accessData(`${backendUrl}/author/${id}`);
     if(getData.error){
         await refreshAuth();
-        getData = await accessData(`http://localhost:8080/m2l/author/${id}`);
+        getData = await accessData(`${backendUrl}/author/${id}`);
     }
     data.value = getData.value;
 }

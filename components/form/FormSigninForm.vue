@@ -61,6 +61,7 @@
 import{UFormField}from '#components'
 import * as v from 'valibot'
 import{ref}from 'vue'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const props = defineProps(['isAdmin']),
     showPassword = ref(false),
     errorMessage = ref(),
@@ -154,14 +155,14 @@ const props = defineProps(['isAdmin']),
         console.log("Adresse de facturation",credentials.value.delivery_address);
         if(props.isAdmin){
 
-            let data = await postData('http://localhost:8080/m2l/create/admin', credentials.value);
+            let data = await postData(`${backendUrl}/create/admin`, credentials.value);
             if(data.error){
                 await refreshAuth();
-                data = await postData('http://localhost:8080/m2l/create/admin', credentials.value);
+                data = await postData(`${backendUrl}/create/admin`, credentials.value);
             }
         }else{
         try{
-            const data = await $fetch('http://localhost:8080/m2l/register',{
+            const data = await $fetch(`${backendUrl}/register`,{
                 method:'POST',
                 body:credentials.value,
                 credentials:'include'

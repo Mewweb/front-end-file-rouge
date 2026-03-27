@@ -23,6 +23,7 @@
 <script setup>
 import * as v from 'valibot';
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const data = ref({data:[],error:false}),
     {user} = useUserSession(),
     loading = ref(true),
@@ -82,17 +83,17 @@ const data = ref({data:[],error:false}),
         )
     }),
     editAuthor = async(id,index)=>{
-        let dataSend = await putData(`http://localhost:8080/m2l/author/${id}`,data.value.data);
+        let dataSend = await putData(`${backendUrl}/author/${id}`,data.value.data);
         if(dataSend == false){
             await refreshAuth();
-            dataSend = await putData(`http://localhost:8080/m2l/author/${id}`,data.value.data);
+            dataSend = await putData(`${backendUrl}/author/${id}`,data.value.data);
         }
     }
 if(user.value != null){
-    data.value = await accessData(`http://localhost:8080/m2l/author/${id}`);
+    data.value = await accessData(`${backendUrl}/author/${id}`);
     if(data.value.error == true){
         await refreshAuth();
-        data.value = await accessData(`http://localhost:8080/m2l/author/${id}`);
+        data.value = await accessData(`${backendUrl}/author/${id}`);
     }
 }
 loading.value = false;

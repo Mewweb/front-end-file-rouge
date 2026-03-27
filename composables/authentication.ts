@@ -3,9 +3,10 @@ interface JwtDataInterface{
     refreshToken:string
 }
 export async function refreshAuth(){
+    const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
     try{
     const{fetch:refreshSession}= useUserSession();
-        const jwtData:JwtDataInterface = await $fetch("http://localhost:8080/m2l/authenticate",{
+        const jwtData:JwtDataInterface = await $fetch(`${backendUrl}/authenticate`,{
             method:'POST',
             credentials:'include',
             body:{

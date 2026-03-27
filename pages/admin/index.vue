@@ -47,6 +47,7 @@
     </section>
 </template>
 <script setup>
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const allMonth = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc']
 const data = ref();
 const categories = {
@@ -57,10 +58,10 @@ const categories = {
 }
 const saleByMonthValue = ref();
 onMounted(async()=>{
-    data.value = await accessData('http://localhost:8080/m2l/sale/2025');
+    data.value = await accessData(`${backendUrl}/sale/2025`);
     if(data.value.error){
         await refreshAuth();
-        data.value = await accessData('http://localhost:8080/m2l/sale/2025');
+        data.value = await accessData(`${backendUrl}/sale/2025`);
     }
     if(!data.value.error){
         saleByMonthValue.value = data.value.data.map(elt => {

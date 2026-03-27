@@ -116,6 +116,7 @@
 import IconEdit from '~/public/svg/IconEdit.vue';
 import IconPlus from '~/public/svg/IconPlus.vue';
 import IconTrash from '~/public/svg/IconTrash.vue';
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{user}= useUserSession(),
     props = defineProps(['data']),
     loading = ref(true),
@@ -127,19 +128,19 @@ const{user}= useUserSession(),
     getData=async(offset)=>{
         loading.value = true;
         if (user.value != null){
-            data.value = await accessData(`http://localhost:8080/m2l/${props.data}/all/${offset - 1}`);
+            data.value = await accessData(`${backendUrl}/${props.data}/all/${offset - 1}`);
             if (data.value.error){
                 await refreshAuth();
-                data.value = await accessData(`http://localhost:8080/m2l/${props.data}/all/${offset - 1}`);
+                data.value = await accessData(`${backendUrl}/${props.data}/all/${offset - 1}`);
             }
         }
         loading.value = false;
     },
     deleteAdminData=async()=>{
-        let delData = await deleteData(`http://localhost:8080/m2l/${props.data}/${deleteId.value[0]}`);
+        let delData = await deleteData(`${backendUrl}/${props.data}/${deleteId.value[0]}`);
         if(delData.error == true){
             await refreshAuth();
-            delData = await deleteData(`http://localhost:8080/m2l/${props.data}/${deleteId.value[0]}`);
+            delData = await deleteData(`${backendUrl}/${props.data}/${deleteId.value[0]}`);
         }
         if(delData.error == false){
             data.value.data.content.splice(deleteId.value[1],1);

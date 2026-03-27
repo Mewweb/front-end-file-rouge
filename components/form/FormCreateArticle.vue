@@ -38,6 +38,7 @@
 </template>
 <script setup>
 import * as v from 'valibot';
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const data = ref({
     title:"",
     width:null,
@@ -119,10 +120,10 @@ const data = ref({
             try{
                 if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas bien été rempli.";
                 else{
-                    let articleData = await postData(`http://localhost:8080/m2l/articles`,data.value);
+                    let articleData = await postData(`${backendUrl}/articles`,data.value);
                     if(articleData.error){
                         await refreshAuth();
-                        articleData = await postData(`http://localhost:8080/m2l/articles`,data.value);
+                        articleData = await postData(`${backendUrl}/articles`,data.value);
                     }
                     if(articleData.error) errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard.";
                     else{
@@ -138,10 +139,10 @@ const data = ref({
             try{
                 if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas bien été rempli."
                 else{
-                    let articleData = await putData(`http://localhost:8080/m2l/articles/${data.value.id}`,data.value);
+                    let articleData = await putData(`${backendUrl}/articles/${data.value.id}`,data.value);
                     if (articleData == false){
                         await refreshAuth();
-                        articleData = await putData(`http://localhost:8080/m2l/articles/${data.value.id}`,data.value);
+                        articleData = await putData(`${backendUrl}/articles/${data.value.id}`,data.value);
                     }
                     navigateTo('/admin/articles/all');
                 }
@@ -154,20 +155,20 @@ const data = ref({
 onMounted(async()=>{
     const id = useRoute().params.id;
     if (user.value != null){
-        let getBook = await accessData(`http://localhost:8080/m2l/books/all`);
+        let getBook = await accessData(`${backendUrl}/books/all`);
         if(getBook.error){
             await refreshAuth();
-            getBook.value = await accessData(`http://localhost:8080/books/all`);
+            getBook.value = await accessData(`${backendUrl}/books/all`);
         }
-        let getEditor = await accessData(`http://localhost:8080/m2l/editor/admin/all`);
+        let getEditor = await accessData(`${backendUrl}/editor/admin/all`);
         if(getEditor.error){
             await refreshAuth();
-            getEditor.value = await accessData(`http://localhost:8080/editor/admin/all`);
+            getEditor.value = await accessData(`${backendUrl}/editor/admin/all`);
         }
-        let getData = await accessData(`http://localhost:8080/m2l/articles/admin/${id}`);
+        let getData = await accessData(`${backendUrl}/articles/admin/${id}`);
         if(getData.error){
             await refreshAuth();
-            getData.value = accessData(`http://localhost:8080/m2l/articles/admin/${id}`);
+            getData.value = accessData(`${backendUrl}/articles/admin/${id}`);
         }
         if(!getEditor.error){
             editorItems.value = getEditor.data.content.map(editor => ({

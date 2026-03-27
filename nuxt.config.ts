@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      urlBackend: "http://localhost:8080/m2l"
+      urlBackend: "${BACKEND_URL}"
     },
     /*oauth:{
       google:{

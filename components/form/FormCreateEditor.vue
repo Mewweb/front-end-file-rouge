@@ -23,6 +23,7 @@
 </template>
 <script setup>
 import * as v from 'valibot'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const data = ref({
     title: "",
     description: "",
@@ -56,10 +57,10 @@ const data = ref({
         if (!props.isUpdate) {
             try {
                 v.parse(schema, data.value)
-                let editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
+                let editorData = await postData(`${backendUrl}/editor`, data.value);
                 if (editorData.error) {
                     await refreshAuth();
-                    editorData = await postData(`http://localhost:8080/m2l/editor`, data.value);
+                    editorData = await postData(`${backendUrl}/editor`, data.value);
                 }
                 if (editorData.error) errorMessage.value = 1;
                 else {
@@ -72,10 +73,10 @@ const data = ref({
         } else {
             try {
                 v.parse(schema, data.value);
-                let editorData = await putData(`http://localhost:8080/m2l/editor/${data.value.id}`, data.value);
+                let editorData = await putData(`${backendUrl}/editor/${data.value.id}`, data.value);
                 if (editorData == false) {
                     await refreshAuth();
-                    editorData = await putData(`http://localhost:8080/m2l/editor/${data.value.id}`, data.value);
+                    editorData = await putData(`${backendUrl}/editor/${data.value.id}`, data.value);
                 }
                 navigateTo('/admin/editor/all');
             } catch (e) {
@@ -86,10 +87,10 @@ const data = ref({
     }
 if (user.value != null && props.isUpdate == true) {
     const id = useRoute().params.id;
-    let test = await accessData(`http://localhost:8080/m2l/editor/${id}`);
+    let test = await accessData(`${backendUrl}/editor/${id}`);
     if (test.error) {
         await refreshAuth();
-        test = await accessData(`http://localhost:8080/m2l/editor/${id}`);
+        test = await accessData(`${backendUrl}/editor/${id}`);
     }
     data.value = test.data;
 }

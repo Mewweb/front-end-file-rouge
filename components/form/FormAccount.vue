@@ -143,6 +143,7 @@
 <script setup>
 import{ref,computed} from "vue"
 import * as v from 'valibot'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{user} = useUserSession(),
     showNewPassword = ref(false),
     showOldPassword = ref(false),
@@ -261,20 +262,20 @@ const{user} = useUserSession(),
         return requirements.map(req => ({met:req.regex.test(str),text:req.text}))
     },
     updateUser=async()=>{
-        let dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value)
+        let dataSend = await putData(`${backendUrl}/editUser`,formData.value)
         if(dataSend == false){
             await refreshAuth();
-            dataSend = await putData('http://localhost:8080/m2l/editUser',formData.value);
+            dataSend = await putData(`${backendUrl}/editUser`,formData.value);
         }
         if(dataSend == false) error.value = true;
         else error.value = false;
     },
     updatePasswordUser=async()=>{
         if(formPassword.value.newPassword == formPassword.value.confirmPassword || score == 4){
-            let dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
+            let dataSend = await putData(`${backendUrl}/editUser/password`,formPassword.value);
             if(dataSend == false){
                 await refreshAuth();
-                dataSend = await putData('http://localhost:8080/m2l/editUser/password',formPassword.value);
+                dataSend = await putData(`${backendUrl}/editUser/password`,formPassword.value);
             }
             if(dataSend == false) errorPassword.value = true;
             else errorPassword.value = false;
@@ -283,10 +284,10 @@ const{user} = useUserSession(),
 if(user.value == null) await refreshAuth();
 if(user.value == null) data.value.error = true;
 else{
-    data.value = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
+    data.value = await accessData(`${backendUrl}/getUser/${user.value.email}`);
     if(data.value.error == true){
         await refreshAuth();
-        data.value = await accessData(`http://localhost:8080/m2l/getUser/${user.value.email}`);
+        data.value = await accessData(`${backendUrl}/m2l/getUser/${user.value.email}`);
     }
     formData.value = data.value.data;
     formPassword.value.id = data.value.data.id;

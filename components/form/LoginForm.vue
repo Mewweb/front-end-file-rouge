@@ -17,6 +17,7 @@
 <script setup>
 import * as v from 'valibot';
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{fetch:refreshSession} = useUserSession(),
     schema = v.object({
         email:v.pipe(
@@ -37,7 +38,7 @@ const{fetch:refreshSession} = useUserSession(),
     Login=async(e)=>{
         e.preventDefault();
         try{
-            const data = await $fetch('http://localhost:8080/m2l/authenticate',{
+            const data = await $fetch(`${backendUrl}/authenticate`,{
                 method:'POST',
                 body:credentials.value,
                 credentials:'include'

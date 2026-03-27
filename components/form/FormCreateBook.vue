@@ -29,6 +29,7 @@
 </template>
 <script setup>
 import * as v from 'valibot';
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const image = ref(),
     data = ref({
         title:"",
@@ -78,14 +79,14 @@ const image = ref(),
         if (!props.isUpdate){
             try{
                 v.parse(schema,data.value);
-                let bookData = await postData(`http://localhost:8080/m2l/books`,formData,{
+                let bookData = await postData(`${backendUrl}/books`,formData,{
                     headers:{
                         "Content-Type":"multipart/form-data"
                     }
                 });
                 if(bookData.error){
                     await refreshAuth();
-                    bookData = await postData(`http://localhost:8080/m2l/books`,formData,{
+                    bookData = await postData(`${backendUrl}/books`,formData,{
                         headers:{
                             "Content-Type":"multipart/form-data"
                         }
@@ -103,14 +104,14 @@ const image = ref(),
         }else{
             try{
                 v.parse(schema,data.value);
-                let bookData = await putData(`http://localhost:8080/m2l/books/${data.value.id}`,formData,{
+                let bookData = await putData(`${backendUrl}/books/${data.value.id}`,formData,{
                     headers:{
                         "Content-Type":"multipart/form-data"
                     }
                 });
                 if(bookData == false){
                     await refreshAuth();
-                    bookData = await putData(`http://localhost:8080/m2l/books/${data.value.id}`,formData,{
+                    bookData = await putData(`${backendUrl}/books/${data.value.id}`,formData,{
                         headers:{
                             "Content-Type":"multipart/form-data"
                         }
@@ -125,10 +126,10 @@ const image = ref(),
     }
 onMounted(async ()=>{
     if (user.value != null){
-        let getAuthors = await accessData(`http://localhost:8080/m2l/author/all`);
+        let getAuthors = await accessData(`${backendUrl}/author/all`);
         if (getAuthors.error){
             await refreshAuth();
-            getAuthors = await accessData(`http://localhost:8080/m2l/author/all`);
+            getAuthors = await accessData(`${backendUrl}/author/all`);
         }
         if (!getAuthors.error){
             authorsItems.value = getAuthors.data.content.map(author=>({
@@ -138,10 +139,10 @@ onMounted(async ()=>{
         }
         if(props.isUpdate == true){
             const id = useRoute().params.id;
-            let getData = await accessData(`http://localhost:8080/m2l/books/${id}`);
+            let getData = await accessData(`${backendUrl}/books/${id}`);
             if(getData.error){
                 await refreshAuth();
-                getData = await accessData(`http://localhost:8080/m2l/books/${id}`);
+                getData = await accessData(`${backendUrl}/books/${id}`);
             }
             data.value = getData.data;
         }

@@ -1,16 +1,17 @@
 <script setup>
 import FitlerBook from '../form/FitlerBook.vue';
 import ElementListBook from './ElementListBook.vue';
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const filters = ref({date:false,author:false,title:true,search:""}),
     loading = ref(true),
     data = ref(),
     test = async (offset,page) =>{
         if (filters.value.search != ''){
-            data.value = await accessDataNoJwt(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9/${encodeURI(filters.search.replaceAll('/','-'))}`);
+            data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9/${encodeURI(filters.search.replaceAll('/','-'))}`);
             loading.value = false;
         }
         else{
-            data.value = await accessDataNoJwt(`${useRuntimeConfig().public.urlBackend}/articles/${offset}/9`);
+            data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9`);
             loading.value = false;
         }
     }

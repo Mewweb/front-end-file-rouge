@@ -1,5 +1,7 @@
 <script setup>
 import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+
 const loading = ref(true),
     formatDate=(isoDate)=>{
         return new Date(isoDate).toLocaleDateString('fr-FR',{
@@ -9,7 +11,7 @@ const loading = ref(true),
         })
     },
     data = ref();
-data.value = await accessDataNoJwt(`${useRuntimeConfig().public.urlBackend}/articles/lastArticle`);
+data.value = await accessDataNoJwt(`${backendUrl}/articles/lastArticle`);
 loading.value = false;
 </script>
 <template>
