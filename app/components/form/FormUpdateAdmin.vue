@@ -22,7 +22,7 @@
 </template>
 <script setup>
 import * as v from 'valibot';
-import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+import IconsArrowRight from '~/svg/IconsArrowRight.vue'
 const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const data = ref({data:[],error:false}),
     {user} = useUserSession(),

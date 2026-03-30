@@ -14,8 +14,8 @@
 <script setup>
     import {UButton} from '#components';
     import {jwtDecode} from "jwt-decode"
-    import IconFacebook from '~/public/svg/IconFacebook.vue';
-    import IconGoogle from '~/public/svg/IconGoogle.vue';
+    import IconFacebook from '~/svg/IconFacebook.vue';
+    import IconGoogle from '~/svg/IconGoogle.vue';
 
 const handleLoginSuccess = async (response) => {
     const {credential} = response;

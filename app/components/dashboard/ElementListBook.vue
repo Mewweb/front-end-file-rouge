@@ -1,6 +1,5 @@
 <template>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
         <div v-for="(book,index) in contentAllBook" ref="elementsBook" :key="index" class="bg-linear-to-r h-full  m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg p-4 flex flex-col">
             <NuxtImg src="/img/example.webp"  alt="Couverture du livre" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />
             <div class="mt-4 flex-1 flex flex-col justify-between">

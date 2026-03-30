@@ -23,8 +23,8 @@
     </section>
 </template>
 <script setup>
-    import IconCartShopping from '~/public/svg/IconCartShopping.vue';
-    import IconsArrowRight from '~/public/svg/IconsArrowRight.vue';
+    import IconCartShopping from '~/svg/IconCartShopping.vue';
+    import IconsArrowRight from '~/svg/IconsArrowRight.vue';
     const props = defineProps(["image","title","authors","date","description"]),
         formatDate=(isoDate)=>{
             return new Date(isoDate).toLocaleDateString('fr-FR',{

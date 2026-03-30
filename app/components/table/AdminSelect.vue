@@ -113,9 +113,9 @@
     </section>
 </template>
 <script setup>
-import IconEdit from '~/public/svg/IconEdit.vue';
-import IconPlus from '~/public/svg/IconPlus.vue';
-import IconTrash from '~/public/svg/IconTrash.vue';
+import IconEdit from '~/svg/IconEdit.vue';
+import IconPlus from '~/svg/IconPlus.vue';
+import IconTrash from '~/svg/IconTrash.vue';
 const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{user}= useUserSession(),
     props = defineProps(['data']),

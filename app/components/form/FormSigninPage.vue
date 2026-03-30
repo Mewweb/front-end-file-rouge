@@ -22,7 +22,7 @@
 </template>
 <script setup>
 import {ref} from 'vue'
-import IconsArrowRight from '~/public/svg/IconsArrowRight.vue'
+import IconsArrowRight from '~/svg/IconsArrowRight.vue'
 const email = ref(''),
     password = ref(''),
     login=()=>{
