@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      urlBackend: "${BACKEND_URL}"
+      urlBackend: ""
     },
     /*oauth:{
       google:{

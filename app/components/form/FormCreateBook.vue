@@ -29,7 +29,8 @@
 </template>
 <script setup>
 import * as v from 'valibot';
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
 const image = ref(),
     data = ref({
         title:"",

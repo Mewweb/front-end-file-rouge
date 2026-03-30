@@ -143,7 +143,8 @@
 <script setup>
 import{ref,computed} from "vue"
 import * as v from 'valibot'
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
 const{user} = useUserSession(),
     showNewPassword = ref(false),
     showOldPassword = ref(false),

@@ -1,7 +1,8 @@
 <script setup>
 import FitlerBook from '../form/FitlerBook.vue';
 import ElementListBook from './ElementListBook.vue';
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "" ? "http://localhost:8080/m2l" : config;
 const filters = ref({date:false,author:false,title:true,search:""}),
     loading = ref(true),
     data = ref(),
