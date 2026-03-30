@@ -57,7 +57,7 @@
     </section>
 </template>
 <script setup>
-import{ref}from "vue"
+import{ref}from "vue" 
 import IconTrash from "~/svg/IconTrash.vue"
 const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
 const{loggedIn,user}= useUserSession(),
