@@ -9,18 +9,29 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/ui',
     '@tailwindcss/vite',
-    'nuxt-charts',
     '@vueuse/nuxt',
     'nuxt-auth-utils',
-    /*'nuxt-security'*/
+    'nuxt-vue3-google-signin'
+    /*'nuxt-security'*/,
+    'nuxt-charts'
   ],
-  imports:{
-    global:true
+  googleSignIn: {
+    clientId: "1097983058534-pltb62a3dvk566qe49j697pd8fk5nlcg.apps.googleusercontent.com",
+  },
+  imports: {
+    global: true
   },
   runtimeConfig: {
     public: {
-      urlBackend: "http://localhost:8080/m2l"
+      urlBackend: "${BACKEND_URL}"
     },
+    /*oauth:{
+      google:{
+        clientId:"1097983058534-pltb62a3dvk566qe49j697pd8fk5nlcg.apps.googleusercontent.com",
+        clientSecret:" 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"
+      }
+    },*/
+
     session: {
       password: "",
       name: "front-end-file-rouge-session",
@@ -41,11 +52,6 @@ export default defineNuxtConfig({
   },
   ui: {
     colorMode: false
-  },
-  vite: {
-    plugins: [
-      tailwindcss()
-    ]
   },
   app: {
     head: {

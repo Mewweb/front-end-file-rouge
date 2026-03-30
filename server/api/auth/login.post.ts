@@ -25,11 +25,11 @@ export default defineEventHandler(async (event) => {
         sameSite: 'strict',
         secure:true
     });
-
     await setUserSession(event, {
         user:{
             email:AccessTokenDecode.sub,
-            exp: AccessTokenDecode.exp
+            exp: AccessTokenDecode.exp,
+            role:AccessTokenDecode.role
         }
     })
     return new Date(refreshTokenDecode.exp);
