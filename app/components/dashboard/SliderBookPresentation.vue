@@ -1,7 +1,7 @@
 <script setup>
 import IconsArrowRight from '~/svg/IconsArrowRight.vue'
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
-
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "" ? "http://localhost:8080/m2l" : config;
 const loading = ref(true),
     formatDate=(isoDate)=>{
         return new Date(isoDate).toLocaleDateString('fr-FR',{

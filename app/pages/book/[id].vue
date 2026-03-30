@@ -9,7 +9,8 @@ useSeoMeta({
     ogImage:"/img/seo/logo-seo.webp",
     twitterCard:"summary_large_image"
 })
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
 const loading = ref(true),
     data = ref();
 data.value = await accessDataNoJwt(`${backendUrl}/articles/${useRoute().params.id}`);

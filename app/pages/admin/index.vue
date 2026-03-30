@@ -47,7 +47,8 @@
     </section>
 </template>
 <script setup>
-const backendUrl = useRuntimeConfig().public.urlBackend == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : useRuntimeConfig().public.backendUrl;
+const config = useRuntimeConfig().public.urlBackend;
+const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
 const allMonth = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc']
 const data = ref();
 const categories = {
