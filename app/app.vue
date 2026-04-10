@@ -2,8 +2,6 @@
   import Menu from './components/menu/Menu.vue';
   import Footer from './components/footer/Footer.vue';
   const {user} = useUserSession();
-
-  console.log(useRuntimeConfig().public.urlBackend);
 </script>
 <template>
   <div class="flex flex-col justify-between min-h-screen bg-gray-50">

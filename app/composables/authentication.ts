@@ -55,7 +55,7 @@ export async function deleteData(url:string){
         return{data :[],error:true};
     }
 }
-export async function accessDataNoJwt(url:string){
+export async function accessDataNoJwt(url:string, obj:Object){
     try{
         const data = await $fetch(url,{
             method:'GET',

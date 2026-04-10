@@ -19,7 +19,6 @@
 
 const handleLoginSuccess = async (response) => {
     const {credential} = response;
-    console.log(response);
     /*let data = await accessData(`http://localhost:8080/m2l/user/getUser/${jwtDecode(credential).email}`);
     if(data.error == false)*/
 };

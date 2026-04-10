@@ -59,7 +59,6 @@ const search = ref(""),
                 label:"Se déconnecter",
                 icon:"i-lucide-log-out",
                 onSelect:async(e)=>{
-                    console.log("Se déconnecter");
                     await $fetch("/api/auth/logout");
                     clear();
                     navigateTo("/login");

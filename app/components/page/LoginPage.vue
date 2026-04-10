@@ -16,4 +16,5 @@
 <script setup>
     import LoginForm from '../form/LoginForm.vue';
     import ButtonSocialForm from '../form/ButtonSocialForm.vue';
+    console.log(useRoute());
 </script>
