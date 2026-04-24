@@ -1,13 +1,13 @@
 <script setup>
-import BookDetails from '~/components/element/BookDetails.vue'; 
+import BookDetails from '~/components/element/BookDetails.vue';
 import BookCaracteristic from '~/components/table/BookCaracteristic.vue';
 useSeoMeta({
-    title:"Détails du livre - 2I Library",
-    ogTitle:"Détails du livre - 2I Library",
-    description:"Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
-    ogDescription:"Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
-    ogImage:"/img/seo/logo-seo.webp",
-    twitterCard:"summary_large_image"
+    title: "Détails du livre - 2I Library",
+    ogTitle: "Détails du livre - 2I Library",
+    description: "Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
+    ogDescription: "Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
+    ogImage: "/img/seo/logo-seo.webp",
+    twitterCard: "summary_large_image"
 })
 const config = useRuntimeConfig().public.urlBackend;
 const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
@@ -22,7 +22,8 @@ loading.value = false;
             <p class="text-center font-bold">Erreur de chargement du livre.</p>
         </div>
         <div v-else-if="loading">
-            <div class="container shadow-md bg-white mx-auto animate-pulse from-indigo-50 to-purple-50 py-12 rounded-lg px-6 lg:px-12 flex md:flex-row flex-col justify-between gap-10 items-center">
+            <div
+                class="container shadow-md bg-white mx-auto animate-pulse from-indigo-50 to-purple-50 py-12 rounded-lg px-6 lg:px-12 flex md:flex-row flex-col justify-between gap-10 items-center">
                 <div class="flex justify-center w-full md:w-[48%] order-1">
                     <div class="rounded-lg bg-gray-200 h-[20em] w-full"></div>
                 </div>
@@ -43,8 +44,12 @@ loading.value = false;
             </div>
         </div>
         <div v-else>
-            <BookDetails :image="data.data.book.image" :title="data.data.book.title" :authors="data.data.book.authors" :date="data.data.book.date" :description="data.data.book.synopsis" />
-            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors" :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date" :article="data.data.title" :format="data.data.width + ' X ' + data.data.height + ' X ' + data.data.thickness" />
+            <BookDetails :image="data.data.book.image" :title="data.data.book.title" :authors="data.data.book.authors"
+                :date="data.data.book.date" :description="data.data.book.synopsis" />
+            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors"
+                :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date"
+                :article="data.data.title"
+                :format="data.data.width + ' X ' + data.data.height + ' X ' + data.data.thickness" />
         </div>
     </main>
 </template>

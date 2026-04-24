@@ -15,47 +15,53 @@
                 </UFormField>
                 <!-- Email -->
                 <UFormField class="w-full md:w-[48%]" label="Email" required>
-                    <UInput v-model="form.email" class="w-full" type="email" placeholder="exemple@email.com" size="lg" />
+                    <UInput v-model="form.email" class="w-full" type="email" placeholder="exemple@email.com"
+                        size="lg" />
                 </UFormField>
                 <!-- Téléphone -->
                 <UFormField class="w-full md:w-[48%]" label="Téléphone" required>
-                    <UInput v-model="form.telephone" class="w-full" type="tel" placeholder="+33 6 12 34 56 78" size="lg" />
+                    <UInput v-model="form.telephone" class="w-full" type="tel" placeholder="+33 6 12 34 56 78"
+                        size="lg" />
                 </UFormField>
                 <!-- Mot de passe -->
                 <UFormField class="w-full md:w-[48%]" label="Mot de passe" required>
-                    <UInput v-model="form.password" class="w-full" type="password" placeholder="Entrez le mot de passe" size="lg" />
+                    <UInput v-model="form.password" class="w-full" type="password" placeholder="Entrez le mot de passe"
+                        size="lg" />
                 </UFormField>
                 <!-- Confirmation mot de passe -->
                 <UFormField class="w-full md:w-[48%]" label="Confirmez le mot de passe" required>
-                    <UInput v-model="form.confirmPassword" class="w-full" type="password" placeholder="Confirmez le mot de passe" size="lg" />
+                    <UInput v-model="form.confirmPassword" class="w-full" type="password"
+                        placeholder="Confirmez le mot de passe" size="lg" />
                 </UFormField>
                 <!-- Bouton -->
                 <div class="pt-4 text-right w-full">
-                    <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
+                    <UButton
+                        class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] cursor-pointer"
+                        variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
                 </div>
             </UForm>
         </div>
     </section>
 </template>
 <script setup>
-import{ref}from "vue"
+import { ref } from "vue"
 const form = ref({
-    nom:"",
-    prenom:"",
-    email:"",
-    telephone:"",
-    password:"",
-    confirmPassword:""
+    nom: "",
+    prenom: "",
+    email: "",
+    telephone: "",
+    password: "",
+    confirmPassword: ""
 }),
-    applySearch=()=>{
-        console.log("Recherche appliquée :",form.value)
+    applySearch = () => {
+        console.log("Recherche appliquée :", form.value)
     },
-    handleSubmit=()=>{
-        if(form.value.password !== form.value.confirmPassword){
+    handleSubmit = () => {
+        if (form.value.password !== form.value.confirmPassword) {
             alert("❌ Les mots de passe ne correspondent pas.")
             return
         }
-        console.log("✅ Nouvel administrateur :",form.value)
+        console.log("✅ Nouvel administrateur :", form.value)
         alert("Administrateur ajouté avec succès !")
     }
 </script>

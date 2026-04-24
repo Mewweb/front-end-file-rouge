@@ -21,5 +21,5 @@
     </section>
 </template>
 <script setup>
-    import FormSigninForm from '../form/FormSigninForm.vue';
+import FormSigninForm from '../form/FormSigninForm.vue';
 </script>

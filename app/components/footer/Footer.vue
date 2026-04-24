@@ -1,9 +1,9 @@
 <template>
-  <footer class="bg-linear-to-r bg-indigo-900 text-white py-8">
+  <footer class="bg-linear-to-r relative z-999 bg-indigo-900 text-white py-8">
     <div class="container max-w-300 w-[90%] m-auto py-10 px-12 flex flex-col lg:flex-row items-center justify-between gap-6">
       <!-- Logo -->
       <div class="flex items-center gap-3">
-        <NuxtImg src="img/logo.webp" alt="Logo du site" class="w-12 h-12 rounded-lg shadow-md" />
+        <NuxtImg src="img/logo.webp" alt="Logo du site" loading="lazy" class="w-12 h-12 rounded-lg shadow-md" />
         <span class="font-extrabold tracking-wide">2I Library</span>
       </div>
       <!-- Menu -->

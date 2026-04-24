@@ -19,5 +19,4 @@ const filters = ref({
     filterList=()=>{
         emits("filter",filters.value);
     }
-let i = 0;
 </script>

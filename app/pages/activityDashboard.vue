@@ -6,115 +6,115 @@ const loading = ref(false),
   newBooksSales = ref(320),
   topBook = ref(
     {
-      title:'L’IA en pratique',
-      orders:280
+      title: 'L’IA en pratique',
+      orders: 280
     }
   ),
   salesByMonth = ref(
     [
       {
-        month:'Jan',
-        sales:200
+        month: 'Jan',
+        sales: 200
       },
       {
-        month:'Fév',
-        sales:300
+        month: 'Fév',
+        sales: 300
       },
       {
-        month:'Mar',
-        sales:250
+        month: 'Mar',
+        sales: 250
       },
       {
-        month:'Avr',
-        sales:400
+        month: 'Avr',
+        sales: 400
       },
       {
-        month:'Mai',
-        sales:350
+        month: 'Mai',
+        sales: 350
       },
       {
-        month:'Juin',
-        sales:450
+        month: 'Juin',
+        sales: 450
       }
     ]
   ),
   newBooksByMonth = ref(
     [
       {
-        month:'Jan',
-        sales:50
+        month: 'Jan',
+        sales: 50
       },
       {
-        month:'Fév',
-        sales:80
+        month: 'Fév',
+        sales: 80
       },
       {
-        month:'Mar',
-        sales:60
+        month: 'Mar',
+        sales: 60
       },
       {
-        month:'Avr',
-        sales:120
+        month: 'Avr',
+        sales: 120
       },
       {
-        month:'Mai',
-        sales:90
+        month: 'Mai',
+        sales: 90
       },
       {
-        month:'Juin',
-        sales:150
+        month: 'Juin',
+        sales: 150
       }
     ]
   ),
   datasetsSalesByMonth = ref(
     {
-      fill:false,
-      tension:.1,
-      backgroundColor:"#f97316",
-      label:"Nombre de ventes par mois",
-      borderColor:"#f97316",
-      data:salesByMonth.value.map(row => row.sales)
+      fill: false,
+      tension: .1,
+      backgroundColor: "#f97316",
+      label: "Nombre de ventes par mois",
+      borderColor: "#f97316",
+      data: salesByMonth.value.map(row => row.sales)
     }),
   datasetsNewBooksByMonth = ref(
     {
-      fill:false,
-      tension:.1,
-      backgroundColor:"#ec4899",
-      label:"Ventes de nouveaux livres par mois",
-      borderColor:"#f97316",
-      data:newBooksByMonth.value.map(row => row.sales)
+      fill: false,
+      tension: .1,
+      backgroundColor: "#ec4899",
+      label: "Ventes de nouveaux livres par mois",
+      borderColor: "#f97316",
+      data: newBooksByMonth.value.map(row => row.sales)
     }
   ),
-  animDiv = [useTemplateRef("totalTemplate"),useTemplateRef("bookSallTemplate"),useTemplateRef("topBookSell"),useTemplateRef("statisticBarStat"),useTemplateRef("statisticBarStat1")];
-onMounted(()=>{
+  animDiv = [useTemplateRef("totalTemplate"), useTemplateRef("bookSallTemplate"), useTemplateRef("topBookSell"), useTemplateRef("statisticBarStat"), useTemplateRef("statisticBarStat1")];
+onMounted(() => {
   let i = 0;
-  setInterval(()=>{
-    if(i >= animDiv.length) clearInterval()
-    else{
-      gsap.to(animDiv[i].value,{
-        duration:1,
-        opacity:1,
-        y:0,
-        x:0,
-        stagger:{
-          each:.5
+  setInterval(() => {
+    if (i >= animDiv.length) clearInterval()
+    else {
+      gsap.to(animDiv[i].value, {
+        duration: 1,
+        opacity: 1,
+        y: 0,
+        x: 0,
+        stagger: {
+          each: .5
         },
-        ease:"ease"
+        ease: "ease"
       });
       i++;
     }
-  },250);
+  }, 250);
 })
 useSeoMeta({
-  title:"Tableau de bord d'activité - 2I Library",
-  ogTitle:"Tableau de bord d'activité - 2I Library",
-  description:"Consultez le tableau de bord d'activité de 2I Library pour suivre les statistiques clés,les performances des livres et les tendances des utilisateurs. Gérez efficacement votre bibliothèque en ligne.",
-  ogDescription:"Consultez le tableau de bord d'activité de 2I Library pour suivre les statistiques clés,les performances des livres et les tendances des utilisateurs. Gérez efficacement votre bibliothèque en ligne.",
-  ogImage:"/img/seo/logo-seo.webp",
-  twitterCard:"summary_large_image"
+  title: "Tableau de bord d'activité - 2I Library",
+  ogTitle: "Tableau de bord d'activité - 2I Library",
+  description: "Consultez le tableau de bord d'activité de 2I Library pour suivre les statistiques clés,les performances des livres et les tendances des utilisateurs. Gérez efficacement votre bibliothèque en ligne.",
+  ogDescription: "Consultez le tableau de bord d'activité de 2I Library pour suivre les statistiques clés,les performances des livres et les tendances des utilisateurs. Gérez efficacement votre bibliothèque en ligne.",
+  ogImage: "/img/seo/logo-seo.webp",
+  twitterCard: "summary_large_image"
 })
 definePageMeta({
-  middleware:['authenticated']
+  middleware: ['authenticated']
 })
 </script>
 <template>
@@ -150,11 +150,13 @@ definePageMeta({
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div ref="statisticBarStat" class="translate-y-[5em] opacity-0">
             <!-- Ventes par mois -->
-            <StatisticBarStat :chartData="salesByMonth" :chartDatasets="datasetsSalesByMonth" label="Ventes par mois" chartId="salesByMonthChart" />
+            <StatisticBarStat :chartData="salesByMonth" :chartDatasets="datasetsSalesByMonth" label="Ventes par mois"
+              chartId="salesByMonthChart" />
           </div>
           <div ref="statisticBarStat1" class="translate-y-[5em] opacity-0">
             <!-- Nouveaux livres -->
-            <StatisticBarStat :chartData="newBooksByMonth" :chartDatasets="datasetsNewBooksByMonth" label="Ventes de nouveaux livres par mois" chartId="newBooksByMonthChart" />
+            <StatisticBarStat :chartData="newBooksByMonth" :chartDatasets="datasetsNewBooksByMonth"
+              label="Ventes de nouveaux livres par mois" chartId="newBooksByMonthChart" />
           </div>
         </div>
       </div>

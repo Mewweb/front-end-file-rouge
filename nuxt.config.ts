@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/fonts',
     '@nuxt/ui',
-    '@tailwindcss/vite',
     '@vueuse/nuxt',
     'nuxt-auth-utils',
     'nuxt-vue3-google-signin'
