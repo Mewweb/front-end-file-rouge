@@ -2,13 +2,13 @@
 import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  ssr:true,
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   modules: [
     '@nuxt/image',
     '@nuxt/fonts',
     '@nuxt/ui',
-    '@tailwindcss/vite',
     '@vueuse/nuxt',
     'nuxt-auth-utils',
     'nuxt-vue3-google-signin'

@@ -14,6 +14,6 @@
     </section>
 </template>
 <script setup>
-    import LoginForm from '../form/LoginForm.vue';
-    import ButtonSocialForm from '../form/ButtonSocialForm.vue';
+import LoginForm from '../form/LoginForm.vue';
+import ButtonSocialForm from '../form/ButtonSocialForm.vue';
 </script>
