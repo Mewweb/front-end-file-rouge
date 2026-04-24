@@ -13,7 +13,7 @@
                 tard.</p>
             <p class="bg-green-500 py-[.5em]" v-else>L'utilisateur a bien été mise à jour.</p>
         </div>
-        <div class="m-auto max-w-300 mt-[1em] w-[90%] container mx-auto px-6 lg:px-12">
+        <div class="m-auto max-w-300 mt-[1em] w-[90%] container mx-auto px-6 sm:px-12">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Modifier mes données personnelles</h2>
             <!-- Onglets -->

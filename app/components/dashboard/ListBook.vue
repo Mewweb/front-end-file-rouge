@@ -26,7 +26,7 @@ watch(offsetPage,(newOffset)=>{callData(newOffset - 1,filters.value)})
 </script>
 <template>
     <section class="m-auto max-w-300 w-[90%] py-10">
-        <div class="container px-12 py-6 mx-auto space-y-8">
+        <div class="container px-6 sm:px-12 py-6 mx-auto space-y-8">
             <FitlerBook @filter="(filter) => callData(offsetPage - 1, filter)" />
             <div v-if="loading == true" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div v-for="i in 9" class="bg-linear-to-r w-full h-full m-auto animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">

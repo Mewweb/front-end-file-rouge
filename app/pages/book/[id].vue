@@ -17,7 +17,7 @@ data.value = await accessDataNoJwt(`${backendUrl}/articles/${useRoute().params.i
 loading.value = false;
 </script>
 <template>
-    <main class="px-12 py-6">
+    <main class="px-6 sm:px-12 py-6">
         <div v-if="data.error">
             <p class="text-center font-bold">Erreur de chargement du livre.</p>
         </div>
