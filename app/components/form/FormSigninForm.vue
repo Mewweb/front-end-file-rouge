@@ -84,7 +84,7 @@ import { UFormField } from '#components'
 import * as v from 'valibot'
 import { ref } from 'vue'
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     props = defineProps(['isAdmin']),
     showPassword = ref(false),
     errorMessage = ref(),

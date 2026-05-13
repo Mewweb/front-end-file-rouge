@@ -1,6 +1,6 @@
 <template>
     <section class="m-auto max-w-300 w-[90%] py-10">
-        <div class="container mx-auto px-12">
+        <div class="container mx-auto px-6 sm:px-12">
             <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Gestion de panier</h2>
             <!-- Liste des articles -->
@@ -30,13 +30,13 @@
             <div v-else v-for="(item, index) in data.data" :key="index"
                 class="flex flex-col my-[1em] mx-auto  md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
                 <!--Image-->
-                <NuxtImg src="/img/example.webp" alt="Image du livre"
+                <NuxtImg :src="config +'/files/' + item.article.book.image" :alt="'Couverture du livre ' + item.article.book.title"
                     class="max-h-[15em] object-cover rounded-lg mb-4 md:mb-0" />
                 <!--Info Livre-->
-                <div class="flex-1 px-8 text-center md:text-left">
+                <div class="flex-1 sm:px-8 text-center md:text-left">
                     <h3 class="text-[1.5em] font-semibold text-purple-800">{{ item.article.book.title }}</h3>
-                    <p class="text-sm my-[.5em] text-gray-600">Auteur : <span
-                            v-for="author in item.article.book.authors">{{ author.firstname }} {{ author.lastname }}</span>
+                    <p class="text-sm my-[.5em] text-gray-600">Auteur: <span
+                            v-for="(author,index) in item.article.book.authors">{{ author.firstname }} {{ author.lastname }}{{ index+1 != item.article.book.authors.length ? ', ' : '' }}</span>
                     </p>
                     <p class="text-sm my-[.5em] text-gray-800 font-medium">Prix unitaire : {{ item.article.price }} €</p>
                 </div>
@@ -77,7 +77,7 @@
 import { ref } from "vue"
 import IconTrash from "~/svg/IconTrash.vue"
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     { user } = useUserSession(),
     data = ref({ data: [], error: false }),
     loading = ref(true),

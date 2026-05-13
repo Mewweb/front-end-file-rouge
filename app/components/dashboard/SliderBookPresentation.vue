@@ -1,7 +1,7 @@
 <script setup>
 import IconsArrowRight from '~/svg/IconsArrowRight.vue'
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "" ? "http://localhost:8080/m2l" :config;
+    backendUrl = config == "" ? "http://localhost:8080/m2l" :config,
     loading = ref(true),
     formatDate = (isoDate) => {
         return new Date(isoDate).toLocaleDateString('fr-FR', {
@@ -34,7 +34,7 @@ loading.value = false;
                 </div>
             </div>
         </div>
-        <div v-else class="container py-6 px-12 clr mx-auto">
+        <div v-else class="container py-6 px-6 sm:px-12 clr mx-auto">
             <UCarousel class="rounded-lg bg-linear-to-r from-indigo-50 to-purple-50 shadow-lg" :items="data.data.content" auto-height dots :autoplay="{ delay:5000 }" loop v-slot="item" :ui="{ container:'transition-[height]', controls:'h-[2em] flex justify-center items-center inset-x-12', dots:'initial!', dot:'w-6 h-3' }">
                 <!-- Slide principal -->
                 <div class="flex flex-col py-[2em] md:flex-row-reverse items-center h-full">

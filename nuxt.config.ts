@@ -11,13 +11,9 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@vueuse/nuxt',
     'nuxt-auth-utils',
-    'nuxt-vue3-google-signin'
     /*'nuxt-security'*/,
     'nuxt-charts'
   ],
-  googleSignIn: {
-    clientId: "1097983058534-pltb62a3dvk566qe49j697pd8fk5nlcg.apps.googleusercontent.com",
-  },
   imports: {
     global: true
   },
@@ -25,12 +21,6 @@ export default defineNuxtConfig({
     public: {
       urlBackend: ""
     },
-    /*oauth:{
-      google:{
-        clientId:"1097983058534-pltb62a3dvk566qe49j697pd8fk5nlcg.apps.googleusercontent.com",
-        clientSecret:" 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"
-      }
-    },*/
 
     session: {
       password: "",

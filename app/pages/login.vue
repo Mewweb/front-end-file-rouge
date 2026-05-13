@@ -10,7 +10,7 @@ useSeoMeta({
 })
 </script>
 <template>
-    <main class="px-12 py-6">
+    <main class="px-6 sm:px-12 py-6">
         <LoginPage />
     </main>
 </template>

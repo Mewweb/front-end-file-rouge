@@ -59,7 +59,7 @@
 <script setup>
 import * as v from 'valibot';
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     data = ref({
     title: "",
     width: null,

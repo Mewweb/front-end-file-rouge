@@ -29,7 +29,7 @@
 import * as v from 'valibot';
 import IconsArrowRight from '~/svg/IconsArrowRight.vue'
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     data = ref({ data: [], error: false }),
     { user } = useUserSession(),
     loading = ref(true),
