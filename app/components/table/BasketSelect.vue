@@ -77,7 +77,7 @@
 import { ref } from "vue"
 import IconTrash from "~/svg/IconTrash.vue"
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     { user } = useUserSession(),
     data = ref({ data: [], error: false }),
     loading = ref(true),

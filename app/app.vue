@@ -13,7 +13,7 @@ const { user } = useUserSession(),
             <NuxtPage />
           </div>
         <Footer />
-        <NuxtLink to="/admin" class="rounded-full p-[1em] fixed z-999 cursor-pointer hover:opacity-50 transition duration-300 right-[1em] bottom-[1em] bg-linear-to-r from-pink-500 to-purple-600 text-white h-[3em] w-[3em]" v-if="user != null && user.role == 'ADMIN' && !route.fullPath.search('admin')">
+        <NuxtLink to="/admin" class="rounded-full p-[1em] fixed z-999 cursor-pointer hover:opacity-50 transition duration-300 right-[1em] bottom-[1em] bg-linear-to-r from-pink-500 to-purple-600 text-white h-[3em] w-[3em]" v-if="user != null && user.role == 'ADMIN' && route.fullPath.search('admin') == -1">
           <UIcon name="i-lucide-clipboard-pen" class="size-4" />
         </NuxtLink>
       </UApp>

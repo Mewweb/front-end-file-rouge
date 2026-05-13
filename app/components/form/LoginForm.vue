@@ -22,7 +22,7 @@
 import * as v from 'valibot';
 import IconsArrowRight from '~/svg/IconsArrowRight.vue'
 const config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     { fetch: refreshSession } = useUserSession(),
     schema = v.object({
         email: v.pipe(
@@ -56,4 +56,6 @@ const config = useRuntimeConfig().public.urlBackend,
             navigateTo('/');
         } catch (e) { console.log(e) }
     }
+    console.log(config);
+    console.log(backendUrl);
 </script>

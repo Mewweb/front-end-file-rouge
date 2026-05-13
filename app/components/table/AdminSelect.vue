@@ -143,7 +143,7 @@ import IconEdit from '~/svg/IconEdit.vue';
 import IconTrash from '~/svg/IconTrash.vue';
 const route = useRoute(),
     config = useRuntimeConfig().public.urlBackend,
-    backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     { user } = useUserSession(),
     props = defineProps(['data']),
     loading = ref(true),

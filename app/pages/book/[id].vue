@@ -10,7 +10,7 @@ useSeoMeta({
     twitterCard: "summary_large_image"
 })
 const config = useRuntimeConfig().public.urlBackend;
-const backendUrl = config == "${BACKEND_URL}" ? "http://localhost:8080/m2l" : config;
+const backendUrl = config == "" ? "http://localhost:8080/m2l" : config;
 const loading = ref(true),
     data = ref();
 data.value = await accessDataNoJwt(`${backendUrl}/articles/${useRoute().params.id}`);
