@@ -2,16 +2,16 @@
 import BookDetails from '~/components/element/BookDetails.vue';
 import BookCaracteristic from '~/components/table/BookCaracteristic.vue';
 useSeoMeta({
-    title: "Détails du livre - 2I Library",
-    ogTitle: "Détails du livre - 2I Library",
-    description: "Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
-    ogDescription: "Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
-    ogImage: "/img/seo/logo-seo.webp",
-    twitterCard: "summary_large_image"
+    title:"Détails du livre - 2I Library",
+    ogTitle:"Détails du livre - 2I Library",
+    description:"Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
+    ogDescription:"Découvrez les détails complets du livre sur 2I Library. Lisez la description, consultez les caractéristiques et ajoutez-le à votre panier pour une expérience de lecture enrichissante.",
+    ogImage:"/img/seo/logo-seo.webp",
+    twitterCard:"summary_large_image"
 })
-const config = useRuntimeConfig().public.urlBackend;
-const backendUrl = config == "" ? "http://localhost:8080/m2l" : config;
-const loading = ref(true),
+const config = useRuntimeConfig().public.urlBackend,
+    backendUrl = config == "" ? "http://localhost:8080/m2l" :config,
+    loading = ref(true),
     data = ref();
 data.value = await accessDataNoJwt(`${backendUrl}/articles/${useRoute().params.id}`);
 loading.value = false;
@@ -44,12 +44,8 @@ loading.value = false;
             </div>
         </div>
         <div v-else>
-            <BookDetails :image="data.data.book.image" :title="data.data.book.title" :authors="data.data.book.authors"
-                :date="data.data.book.date" :description="data.data.book.synopsis" />
-            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors"
-                :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date"
-                :article="data.data.title"
-                :format="data.data.width + ' X ' + data.data.height + ' X ' + data.data.thickness" />
+            <BookDetails :image="data.data.book.image" :title="data.data.book.title" :authors="data.data.book.authors" :date="data.data.book.date" :description="data.data.book.synopsis" />
+            <BookCaracteristic :editor="data.data.editor.title" :authors="data.data.book.authors" :number_isbn="data.data.number_isbn" :style="data.data.book.style" :date="data.data.book.date" :article="data.data.title" :format="data.data.width + ' X ' + data.data.height + ' X ' + data.data.thickness" />
         </div>
     </main>
 </template>

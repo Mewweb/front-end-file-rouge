@@ -1,7 +1,7 @@
 <script setup>
 import Menu from './components/menu/Menu.vue';
 import Footer from './components/footer/Footer.vue';
-const { user } = useUserSession(),
+const {user} = useUserSession(),
   route = useRoute();
 </script>
 <template>

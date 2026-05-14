@@ -1,3 +1,3 @@
-window._env = {
-    backendUrl: '$BACKEND_URL'
+window._env={
+    backendUrl:'$BACKEND_URL'
 }

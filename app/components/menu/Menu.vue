@@ -11,34 +11,32 @@
                     <!-- Actions à droite -->
                     <div class="flex items-center gap-4" v-if="loggedIn">
                         <!-- Lien gestion panier -->
-                        <NuxtLink to="/shopping"
-                            class="text-purple-700 font-medium hover:opacity-50 duration-300 transition">Gestion de
-                            panier</NuxtLink>
+                        <NuxtLink to="/shopping" class="text-purple-700 font-medium hover:opacity-50 duration-300 transition">Gestion de panier</NuxtLink>
                         <!-- Dropdown utilisateur -->
-                        <UDropdownMenu class="cursor-pointer" :items="userMenu" :popper="{ placement:'bottom-end' }">
-                            <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle"
-                                title="Voir le compte utilisateur"
-                                class="rounded-full hover:opacity-50 transition duration-300" />
+                        <UDropdownMenu class="cursor-pointer" :items="userMenu" :popper="{placement:'bottom-end'}">
+                            <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle" title="Voir le compte utilisateur" class="rounded-full hover:opacity-50 transition duration-300" />
                         </UDropdownMenu>
                     </div>
                     <div class="flex items-center gap-4" v-else>
-                        <NuxtLink to="/login"
-                            class="text-purple-700 font-meium hover:opacity-50 duration-300 transition">Se connecter
-                        </NuxtLink>
+                        <NuxtLink to="/login" class="text-purple-700 font-meium hover:opacity-50 duration-300 transition">Se connecter</NuxtLink>
                     </div>
                 </div>
             </div>
-            
+            <div v-if="route.fullPath.search('admin') != -1 && user.role == 'ADMIN'" class="m-auto max-w-300 w-[90%]">
+                <div class="px-6 pb-3 mx-auto">
+                    <UNavigationMenu class="pb-0" :items="adminLinks" hightlight hightlight-color="primary" :ui="{root:'m-auto w-max block'}"></UNavigationMenu>
+                </div>
+            </div>
         </nav>
     </header>
 </template>
 <script setup>
-import { ref } from "vue"
-const { user } = useUserSession(),
+import{ref} from "vue"
+const {user} = useUserSession(),
     route = useRoute(),
     adminLinks = ref([
         {
-            label:'Accueil',
+            label:'Accueil admin',
             to:"/admin"
         },
         {
@@ -47,10 +45,9 @@ const { user } = useUserSession(),
                 {
                     label:'Voir la liste',
                     to:"/admin/books/all"
-                },
-                {
+                },{
                     label:'Ajouter un livre',
-                    to:"/admin/books/add"
+                    to:"/admin/books/all?create=true"
                 }
             ]
         },
@@ -60,10 +57,9 @@ const { user } = useUserSession(),
                 {
                     label:'Voir la liste',
                     to:"/admin/articles/all"
-                },
-                {
+                },{
                     label:'Ajouter un article',
-                    to:"/admin/articles/add"
+                    to:"/admin/articles/all?create=true"
                 }
             ]
         },
@@ -73,10 +69,9 @@ const { user } = useUserSession(),
                 {
                     label:"Voir la liste",
                     to:"/admin/editor/all"
-                },
-                {
+                },{
                     label:'Ajouter un éditeur',
-                    to:"/admin/editor/add"
+                    to:"/admin/editor/all?create=true"
                 }
             ]
         },
@@ -86,37 +81,34 @@ const { user } = useUserSession(),
                 {
                     label:'Voir la liste',
                     to:"/admin/author/all"
-                },
-                {
+                },{
                     label:'Ajouter un auteur',
-                    to:"/admin/author/add"
+                    to:"/admin/author/all?create=true"
                 }
             ]
         }
     ]),
     // Dropdown utilisateur
-    { loggedIn } = useUserSession(),
-    { clear } = useUserSession(),
+    {loggedIn} = useUserSession(),
+    {clear} = useUserSession(),
     userMenu = [
         [
             {
                 label:"Modifier les données personnelles",
                 icon:"i-lucide-square-pen",
                 to:"/account/edit"
-            },
-        ],
-        [
+            }
+        ],[
             {
                 label:"Consulter les commandes",
                 icon:"i-lucide-archive",
                 to:"/shopping"
             }
-        ],
-        [
+        ],[
             {
                 label:"Se déconnecter",
                 icon:"i-lucide-log-out",
-                onSelect:async (e) => {
+                onSelect:async(e)=>{
                     await $fetch("/api/auth/logout");
                     clear();
                     navigateTo("/login");

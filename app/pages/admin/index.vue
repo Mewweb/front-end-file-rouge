@@ -1,5 +1,5 @@
 <template>
-    <section class="m-auto max-w-300 px-6 sm:px-12 py-6">
+    <section class="mt-[2em] m-auto max-w-300 px-6 sm:px-12 py-6">
         <h2 class="text-[2em] font-semibold text-purple-800">Administrateur</h2>
         <div class="flex justify-between flex-wrap">
             <article class="w-full md:w-[48%] my-[1em] md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
@@ -45,3 +45,13 @@
         </div>
     </section>
 </template>
+<script setup>
+    useSeoMeta({
+        title:"Page administrateur - 2I Library",
+        ogTitle:"Page administrateur - 2I Library",
+        description:"Page administrateur pour pouvoir voir et modifier les articles, les livres, les auteurs et les éditeurs.",
+        ogDescription:"Page administrateur pour pouvoir voir et modifier les articles, les livres, les auteurs et les éditeurs.",
+        ogImage:"/img/seo/logo-seo.webp",
+        twitterCard:"summary_large_image"
+    })
+</script>

@@ -13,6 +13,6 @@
     </div>
 </template>
 <script setup>
-import { UButton } from '#components';
+import {UButton} from '#components';
 import IconFacebook from '~/svg/IconFacebook.vue';
 </script>
