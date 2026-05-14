@@ -14,7 +14,6 @@ import {ref} from 'vue'
 const filters = ref({
     search:''
 }),
-    //const props = defineProps(["filters", "search"]),
     emits = defineEmits(["search"]),
     filterList=()=>{
         emits("filter",filters.value);

@@ -2,7 +2,12 @@
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
         <p v-if="errorMessage">{{errorMessage}}</p>
         <p v-if="successMessage">{{successMessage}}</p>
-        <p v-if="loading">Chargement en cours</p>
+        <div v-else-if="loading" class="flex justify-between flex-wrap w-full">
+            <div v-for="i in 4" class="bg-linear-to-r w-[48%] h-14 my-[.5em] animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4">
+            </div>
+            <div v-for="i in 2" class="bg-linear-to-r w-full h-28 mt-[.5em] m-auto animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4">
+            </div>
+        </div>
         <UForm v-else class="flex justify-between space-y-2 flex-wrap" :schema="schema" :state="data">
             <UFormField label="Le titre du livre" name="title" required class="w-full sm:w-[48%]" :ui="{label:'mb-[.5em]'}">
                 <UInput type="text" name="title" id="title" v-model="data.title" class="w-full" placeholder="Le titre du livre" size="lg" />
@@ -17,7 +22,7 @@
                 <USelectMenu v-model:search-term="searchAuthor" :items="authorsItems" value-key="id" ignore-filter name="authors" id="authors" v-model="data.authors" class="w-full" placeholder="Les auteurs du livre" multiple size="lg" />
             </UFormField>
             <UFormField label="L'image du livre" name="image" required class="w-full" :ui="{label:'mb-[.5em]'}">
-                <UFileUpload v-model="image" icon="i-lucide-image" :search-input="{icon:'i-lucide-search',loading:authorSearch == true}" label="Importer l'image" description="PNG, JPG" class="w-full" />
+                <UFileUpload v-model="image" icon="i-lucide-image" :search-input="{icon:'i-lucide-search',loading:authorSearch == true}" label="Importer l'image" description="PNG,JPG" class="w-full" />
             </UFormField>
             <UFormField label="Le synopsis du livre" name="synopsis" required class="w-full" :ui="{label:'mb-[.5em]'}">
                 <UTextarea name="synopsis" id="synopsis" v-model="data.synopsis" class="w-full" placeholder="Le synopsis du livre" size="lg" :ui="{base:'h-35'}"></UTextarea>
@@ -74,10 +79,10 @@ const authorSearch = ref(false),
             v.nonEmpty("La date est obligatoire")
         ),
     }),
-    submit=async()=>{
+    submit = async()=>{
         const formData = new FormData();
         formData.append("imageFile",image.value);
-        formData.append("book",new Blob([JSON.stringify(data.value)],{ type:"application/json" }));
+        formData.append("book",new Blob([JSON.stringify(data.value)],{type:"application/json"}));
         errorMessage.value = false;
         successMessage.value = false;
         if(!props.isUpdate){
@@ -96,14 +101,13 @@ const authorSearch = ref(false),
                         }
                     });
                 }
-                if(bookData.error) errorMessage.value = 1;
+                if(bookData.error)errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard";
                 else{
                     successMessage.value = true;
                     emit("addBook",bookData.data);
                 }
             }catch(e){
-                console.log(e);
-                errorMessage.value = 2;
+                errorMessage.value = "Le formulaire n'est pas rempli correctement. Veuillez respecter les indications.";
             }
         }else{
             try{
@@ -123,8 +127,7 @@ const authorSearch = ref(false),
                 }
                 navigateTo('/admin/books/all');
             }catch(e){
-                console.log(e);
-                errorMessage.value = "";
+                errorMessage.value = "Le formulaire n'est pas rempli correctement. Veuillez respecter les indications";
             }
         }
     }
@@ -136,7 +139,7 @@ onMounted(async()=>{
             getAuthors = await accessData(`${backendUrl}/author/all`);
         }
         if(!getAuthors.error){
-            authorsItems.value = getAuthors.data.content.map(author => ({
+            authorsItems.value = getAuthors.data.content.map(author =>({
                 label:author[1],
                 id:author[0]
             }));
@@ -153,10 +156,9 @@ onMounted(async()=>{
         loading.value = false;
     }
 })
-
 watch(searchAuthor,(newSearch)=>{
     authorSearch.value = true;
-    if (intervalAuthor != null) clearTimeout(intervalAuthor);
+    if(intervalAuthor != null)clearTimeout(intervalAuthor);
     intervalAuthor = setTimeout(async function(){
         let getAuthors = null;
         if(newSearch == ""){

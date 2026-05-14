@@ -13,9 +13,9 @@ useSeoMeta({
 })
 </script>
 <template>
-    <main class="px-12 relative py-6">
+    <main class="px-12 relative py-6 mt-[2em]">
         <NuxtLink to="/admin/books/all" class="rounded-full p-[.6em_1em] inline-block cursor-pointer mb-[1em] transition duration-300 bg-transparent text-purple-800 border-purple-800 hover:text-white hover:bg-purple-800 border-2 ">
-            <UIcon name="i-lucide-chevron-left" />Retourner en arrière
+            <UIcon name="i-lucide-chevron-left" class="align-middle mb-[.1em] text-[1.5em]" />Retourner en arrière
         </NuxtLink>
         <FormCreateBook :isUpdate="true" />
     </main>
