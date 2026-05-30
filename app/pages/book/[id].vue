@@ -19,7 +19,7 @@ loading.value = false;
 <template>
     <main class="px-6 sm:px-12 py-6">
         <div v-if="data.error">
-            <p class="text-center font-bold">Erreur de chargement du livre.</p>
+            <p class="text-center text-red font-bold">Erreur de chargement du livre.</p>
         </div>
         <div v-else-if="loading">
             <div

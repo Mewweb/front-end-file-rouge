@@ -6,24 +6,22 @@
                     <UIcon name="i-lucide-plus" class="text-[1.5em] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]" />
                 </UButton>
                 <template #body>
-                    <FormCreateEditor v-if="props.data == 'editor'" :isUpdate="false" @add-editor="(n) =>{
+                    <FormCreateEditor v-if="props.data == 'editor'" :isUpdate="false" @add-editor="(n)=>{
                         addForm = false;
                         data.data.content.push(n)
                     }" />
-                    <FormCreateAuthor v-else-if="props.data == 'author'" :isUpdate="false" @add-author="(n) =>{
+                    <FormCreateAuthor v-else-if="props.data == 'author'" :isUpdate="false" @add-author="(n)=>{
                         addForm = false;
                         data.data.content.push(n)
                     }" />
-                    <FormCreateBook v-else-if="props.data == 'books'" :isUpdate="false" @add-book="(n) =>{
+                    <FormCreateBook v-else-if="props.data == 'books'" :isUpdate="false" @add-book="(n)=>{
                         addForm = false;
                         data.data.content.push(n)
                     }" />
-                    <FormCreateArticle v-else-if="props.data == 'articles'" :isUpdate="false" @add-article="(n) =>{
+                    <FormCreateArticle v-else-if="props.data == 'articles'" :isUpdate="false" @add-article="(n)=>{
                         addForm = false;
-                        if (data.data.content.length == 9) data.content.pop();
-                        data.data.content.unshift(n)
+                        data.data.content.push(n)
                     }" />
-                    {{props.data}}
                 </template>
             </UModal>
             <h2 v-if="props.data == 'author'" class="text-3xl font-extrabold text-purple-900 mb-6">Gestion des auteurs</h2>
@@ -51,10 +49,10 @@
                     </div>
                 </div>
             </div>
-            <p v-else-if="data.data.totalElements == 0 && data.error == false">Le panier est vide.</p>
-            <p v-else-if="data.error == true" class="font-bold mb-5">Erreur durant le chargement du panier. Veuillez réessayer plus tard.</p>
+            <p v-else-if="data.data.totalElements == 0 && !data.error">Aucun article a été créer</p>
+            <p v-else-if="data.error" class="font-bold text-red mb-5">Erreur durant le chargement du panier. Veuillez réessayer plus tard.</p>
             <div v-else>
-                <div v-for="(item,index) in data.data.content" :key="index"
+                <div  v-for="(item,index) in data.data.content" :key="index"
                     class="space-y-2 md:space-x-0 flex flex-col my-[1em] mx-auto md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
                     <template v-if="props.data == 'author'">
                         <div class="flex-1 px-8 text-center md:text-left">
@@ -120,7 +118,7 @@ import IconTrash from '~/svg/IconTrash.vue';
 const route = useRoute(),
     config = useRuntimeConfig().public.urlBackend,
     backendUrl = config == "" ? "http://localhost:8080/m2l" :config,
-    {user} = useUserSession(),
+    {user}= useUserSession(),
     props = defineProps(['data']),
     loading = ref(true),
     deleteId = ref([]),
@@ -138,8 +136,8 @@ const route = useRoute(),
             }
         }
         loading.value = false;
-    },
-    deleteAdminData=async()=>{
+    };
+    const deleteAdminData=async()=>{
         let delData = await deleteData(`${backendUrl}/${props.data}/${deleteId.value[0]}`);
         if(delData.error == true){
             await refreshAuth();

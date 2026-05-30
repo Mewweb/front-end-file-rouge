@@ -4,7 +4,7 @@
             <div v-for="i in 2" class="bg-linear-to-r w-full h-14 mt-[.5em] m-auto animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4"></div>
         </div>
     <div v-else-if="data.error">
-        <p>Une erreur a été rencontré</p>
+        <p class="text-red">Une erreur a été rencontré</p>
     </div>
     <UForm v-else :state="data.data" :schema="schema" class="flex justify-between space-y-2 flex-wrap">
         <UFormField label="Nom de famille" name="lastname" required class="w-full sm:w-[48%]">

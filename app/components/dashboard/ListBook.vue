@@ -10,12 +10,11 @@ const config = useRuntimeConfig().public.urlBackend,
         filters.value = page;
         if(page.search != ''){
             data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9/${encodeURI(page.search.replaceAll('/', '-'))}`);
-            loading.value = false;
         }
         else{
             data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9`);
-            loading.value = false;
         }
+        loading.value = false;
     }
 let offsetPage = ref(1);
 callData(offsetPage.value - 1,filters.value);
@@ -39,7 +38,7 @@ watch(offsetPage,(newOffset)=>{callData(newOffset - 1,filters.value)})
                 </div>
             </div>
             <div v-else-if="data.error">
-                <p class="text-center font-bold">Une erreur a été rencontré</p>
+                <p class="text-center text-red font-bold">Une erreur a été rencontré</p>
             </div>
             <div v-else>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

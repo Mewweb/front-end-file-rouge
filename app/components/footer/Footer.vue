@@ -14,6 +14,6 @@
       </nav>
     </div>
     <!-- Ligne de séparation -->
-    <div class="border-t border-purple-500/40 mt-6 pt-4 text-center text-sm text-purple-200">© 2025 2I Library. Tous droits réservés.</div>
+    <div class="border-t border-purple-500/40 mt-6 pt-4 text-center text-sm text-purple-200">© 2026 2I Library. Tous droits réservés.</div>
   </footer>
 </template>
