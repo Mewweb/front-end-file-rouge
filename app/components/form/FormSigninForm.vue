@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage">{{errorMessage}}</p>
+        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
         <UForm @submit.prevent="Register" :schema="schema" :state="credentials" class="space-y-6 flex justify-between flex-wrap text-left">
             <!--Input nom -->
             <UFormField label="Nom" class="w-full md:w-[48%]" name="lastname" required>
@@ -156,6 +156,7 @@ const config = useRuntimeConfig().public.urlBackend,
             }
         }else{
             try{
+                v.parse(schema, credentials.value);
                 const data = await $fetch(`${backendUrl}/register`,{
                     method:'POST',
                     body:credentials.value,

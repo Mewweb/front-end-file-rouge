@@ -16,7 +16,7 @@
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Modifier mes données personnelles</h2>
             <!-- Onglets -->
             <div v-if="data.error">
-                <p>Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
+                <p class="text-red">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
             </div>
             <div v-else-if="loading">
                 <div class="flex animate-pulse from-indigo-50 to-purple-50 justify-between flex-wrap">

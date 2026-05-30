@@ -17,7 +17,7 @@ loading.value = false;
 <template>
     <section class="py-8 m-auto max-w-300 w-[90%]">
         <div v-if="data.error == true">
-            <p class="text-center font-bold">Erreur de chargement</p>
+            <p class="text-center text-red font-bold">Erreur de chargement</p>
         </div>
         <div v-else-if="loading == true">
             <div class="flex flex-col animate-pulse from-indigo-50 to-purple-50 py-[2em] md:flex-row-reverse items-center h-full">

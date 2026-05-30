@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage">{{errorMessage}}</p>
+        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
         <p v-else-if="successMessage">L'éditeur à bien été ajouté</p>
-        <p v-if="error">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
+        <p v-if="error" class="text-red">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
         <div v-else-if="loading" class="flex justify-between flex-wrap w-full">
             <div v-for="i in 2" class="bg-linear-to-r w-[48%] h-14 my-[.5em] animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4"></div>
             <div class="bg-linear-to-r w-full h-14 mt-[.5em] m-auto animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4"></div>
@@ -96,40 +96,45 @@ const config = useRuntimeConfig().public.urlBackend,
         successMessage.value = false;
         if(!props.isUpdate){
             try{
-                v.parse(schema,data.value);
-                let authorData = await postData(`${backendUrl}/author`,data.value);
-                if(authorData.error){
-                    await refreshAuth();
-                    authorData = await postData(`${backendUrl}/author`,data.value);
-                }
-                if(authorData.error)errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard";
+                if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas été rempli correctement."
                 else{
-                    successMessage.value = true;
-                    emit("addAuthor",authorData.value);
+                    let authorData = await postData(`${backendUrl}/author`,data.value);
+                    if(authorData.error){
+                        await refreshAuth();
+                        authorData = await postData(`${backendUrl}/author`,data.value);
+                    }
+                    if(authorData.error) errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard";
+                    else{
+                        successMessage.value = true;
+                        emit("addAuthor",authorData.data);
+                    }
                 }
             }catch(e){
-                errorMessage.value = "Le formulaire n'est pas rempli correctement. Veuillez respecter les indications";
+                errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard.";
             }
         }else{
             try{
-                v.parse(schema,data.value);
+                if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas été rempli correctement."
                 let authorData = await putData(`${backendUrl}/author/${data.value.id}`,data.value);
-                if(authorData == false)authorData = await putData(`${backendUrl}/author/${data.value.id}`,data.value);
+                if(authorData == false){
+                    await refreshAuth();
+                    authorData = await putData(`${backendUrl}/author/${data.value.id}`,data.value);
+                }
                 navigateTo('/admin/editor/all');
             }catch(e){
-                errorMessage.value = "Le formulaire n'est pas rempli correctement. Veuillez respecter les indications";
+                errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard.";
             }
         }
     }
 onMounted(async()=>{
-    if(user.value != null && props.isUpdate == true){
+    if (user.value != null && props.isUpdate == true){
         const id = useRoute().params.id;
         let getData = await accessData(`${backendUrl}/author/${id}`);
         if(getData.error){
             await refreshAuth();
             getData = await accessData(`${backendUrl}/author/${id}`);
         }
-        if(!getData.error)data.value = getData.data;
+        if(!getData.error) data.value = getData.data;
         else error.value = true;
     }
     loading.value = false;

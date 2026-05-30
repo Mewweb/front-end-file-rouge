@@ -1,4 +1,5 @@
 <template>
+    <p v-if="errorMessage" class="text-bold bg-red py-[.5em] text-center">{{ errorMessage }}</p>
     <UForm @submit.prevent="Login" :schema="schema" :state="credentials" class="flex justify-between flex-wrap">
         <!-- Email -->
         <UFormField label="Adresse mail" name="email" required class="w-full md:w-[48%]">
@@ -40,6 +41,7 @@ const errorMessage = ref(),
     Login=async(e)=>{
         e.preventDefault();
         try{
+            v.parse(schema, credentials.value);
             const data = await $fetch(`${backendUrl}/authenticate`,{
                 method:'POST',
                 body:credentials.value,

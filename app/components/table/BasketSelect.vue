@@ -23,8 +23,8 @@
                     </div>
                 </div>
             </div>
-            <p v-else-if="data.data.length == 0 && error == false">Le panier est vide. </p>
-            <p v-else-if="data.error == true" class="font-bold mb-5">Erreur durant le chargement du panier. Veuillez réessayer plus tard.</p>
+            <p v-else-if="data.data.length == 0 && !error">Le panier est vide. </p>
+            <p v-else-if="data.error" class="font-bold text-red mb-5">Erreur durant le chargement du panier. Veuillez réessayer plus tard.</p>
             <div v-else v-for="(item,index) in data.data" :key="index" class="flex flex-col my-[1em] mx-auto  md:flex-row items-center justify-between bg-white rounded-xl shadow-md border border-gray-200 p-4 mb-4">
                 <!--Image-->
                 <NuxtImg :src="config +'/files/' + item.article.book.image" :alt="'Couverture du livre ' + item.article.book.title" class="max-h-[15em] object-cover rounded-lg mb-4 md:mb-0" />

@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage">{{errorMessage}}</p>
+        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
         <p v-else-if="successMessage">{{successMessage}}</p>
-        <p v-if="error">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
+        <p v-if="error" class="text-red">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
         <div v-else-if="loading" class="flex justify-between flex-wrap w-full">
             <div v-for="i in 8" class="bg-linear-to-r w-[48%] h-14 my-[.5em] animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4">
             </div>
@@ -119,19 +119,19 @@ const config = useRuntimeConfig().public.urlBackend,
     successMessage = ref(),
     bookItems = ref(),
     editorItems = ref(),
-    submit = async()=>{
+    submit=async()=>{
         errorMessage.value = false;
         successMessage.value = false;
         if(!props.isUpdate){
             try{
-                if(!v.safeParse(schema,data.value))errorMessage.value = "Le formulaire n'a pas bien été rempli.";
+                if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas bien été rempli.";
                 else{
                     let articleData = await postData(`${backendUrl}/articles`,data.value);
                     if(articleData.error){
                         await refreshAuth();
                         articleData = await postData(`${backendUrl}/articles`,data.value);
                     }
-                    if(articleData.error)errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard.";
+                    if(articleData.error) errorMessage.value = "Une erreur a été rencontré. Veuillez réessayer plus tard.";
                     else{
                         successMessage.value = true;
                         emit("addArticle",articleData.data);
@@ -142,10 +142,10 @@ const config = useRuntimeConfig().public.urlBackend,
             }
         }else{
             try{
-                if(!v.safeParse(schema,data.value))errorMessage.value = "Le formulaire n'a pas bien été rempli."
+                if(!v.safeParse(schema,data.value)) errorMessage.value = "Le formulaire n'a pas bien été rempli."
                 else{
                     let articleData = await putData(`${backendUrl}/articles/${data.value.id}`,data.value);
-                    if(articleData == false){
+                    if (articleData == false){
                         await refreshAuth();
                         articleData = await putData(`${backendUrl}/articles/${data.value.id}`,data.value);
                     }
@@ -156,7 +156,7 @@ const config = useRuntimeConfig().public.urlBackend,
             }
         }
     }
-onMounted(async()=>{
+onMounted(async () =>{
     const id = useRoute().params.id;
     if(user.value != null){
         let getBook = await accessData(`${backendUrl}/books/all`);
@@ -164,27 +164,33 @@ onMounted(async()=>{
             await refreshAuth();
             getBook.value = await accessData(`${backendUrl}/books/all`);
         }
+        if(!getBook.error){
+            bookItems.value = getBook.data.content.map(book => ({
+                label:book[1],
+                id:book[0]
+            }))
+        }else error.value = true;
         let getEditor = await accessData(`${backendUrl}/editor/admin/all`);
         if(getEditor.error){
             await refreshAuth();
             getEditor.value = await accessData(`${backendUrl}/editor/admin/all`);
         }
+        if(!getEditor.error){
+            editorItems.value = getEditor.data.content.map(editor => ({
+                label:editor[1],
+                id:editor[0]
+            }))
+        }else{
+            error.value = true;
+            return;
+        }
         if(props.isUpdate == true){
             let getData = await accessData(`${backendUrl}/articles/admin/${id}`);
-            if(getData.error){
+            if (getData.error){
                 await refreshAuth();
                 getData.value = accessData(`${backendUrl}/articles/admin/${id}`);
             }
-            if(!getEditor.error){
-                editorItems.value = getEditor.data.content.map(editor=>({
-                    label:editor[1],
-                    id:editor[0]
-                }))
-                data.value = getData.data;
-            }else{
-                error.value = true;
-                return;
-            }
+            data.value = getData.data;
         }
         loading.value = false;
     }
