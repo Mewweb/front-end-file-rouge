@@ -55,4 +55,5 @@ const errorMessage = ref(),
             navigateTo('/');
         }catch(e){errorMessage.value = "Une erreur a été rencontré,veuillez réessayer plus tard."}
     }
+    
 </script>
