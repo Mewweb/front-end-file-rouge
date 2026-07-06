@@ -5,15 +5,7 @@ export default defineNuxtConfig({
   ssr:true,
   devtools:{ enabled:true },
   css:["~/assets/css/main.css"],
-  modules:[
-    '@nuxt/image',
-    '@nuxt/fonts',
-    '@nuxt/ui',
-    '@vueuse/nuxt',
-    'nuxt-auth-utils',
-    /*'nuxt-security'*/,
-    'nuxt-charts'
-  ],
+  modules:['@nuxt/image','@nuxt/fonts','@nuxt/ui','@vueuse/nuxt','nuxt-auth-utils','nuxt-security','nuxt-charts'],
   imports:{
     global:true
   },
@@ -21,12 +13,11 @@ export default defineNuxtConfig({
     public:{
       urlBackend:""
     },
-
     session:{
       password:"",
       name:"front-end-file-rouge-session",
       cookie:{
-        maxAge:60 * 60 * 24 * 7,// 1 week
+        maxAge:60 * 60 * 24 * 7,
       }
     }
   },
@@ -43,13 +34,20 @@ export default defineNuxtConfig({
   ui:{
     colorMode:false
   },
+  security:{
+    headers:{
+      contentSecurityPolicy:{
+        'img-src': ["'self'",'data:', 'http://localhost:8080/']
+      }
+    }
+  },
   app:{
     head:{
       charset:'utf-8',
       viewport:'width=device-width,initial-scale=1',
       title:'File Rouge - E-commerce',
       meta:[
-        { name:'description', content:'Projet de fin d\'études - E-commerce' }
+        { name:'description', content:"2IL est une librairie spécialisée dans le domaine de la formation, disposant d'un magasin situé à Lyon." }
       ],
       htmlAttrs:{
         lang:'fr'
