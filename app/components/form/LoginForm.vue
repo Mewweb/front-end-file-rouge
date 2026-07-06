@@ -42,14 +42,15 @@ const errorMessage = ref(),
         e.preventDefault();
         try{
             v.parse(schema, credentials.value);
-            const data = await $fetch(`${backendUrl}/authenticate`,{
+            /*const data = await $fetch(`${backendUrl}/authenticate`,{
                 method:'POST',
                 body:credentials.value,
                 credentials:'include'
-            });
+            });*/
+            const data = await postDataNoJwt(`${backendUrl}/authenticate`, credentials.value);
             await $fetch('/api/auth/login',{
                 method:'POST',
-                body:data
+                body:data.data
             })
             await refreshSession();
             navigateTo('/');

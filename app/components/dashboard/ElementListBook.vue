@@ -1,6 +1,6 @@
 <template>
     <div class="bg-linear-to-r h-full w-full m-auto from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg p-4 flex flex-col">
-        <NuxtImg :src="backendUrl + '/files/' + book.book.image" :alt="'Couverture du livre ' + book.book.title + ' en ' + book.title" loading="lazy" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />
+        <img :src="backendUrl + '/files/' + book.book.image" :alt="'Couverture du livre ' + book.book.title + ' en ' + book.title" class="h-auto w-[15em] m-auto md:w-auto  object-contain object-top rounded" />
         <div class="mt-4 flex-1 flex flex-col justify-between">
             <h3 class="text-lg font-semibold text-gray-800">{{ book.book.title }}</h3>
             <p class="text-sm text-gray-500">{{ formatDate(book.book.date) }}</p>
@@ -8,11 +8,12 @@
         </div>
         <div>
             <NuxtLink :to="`/book/${book.book.id}`" class="mt-4 inline-block w-full px-4 py-2 bg-[#cc3399] text-white rounded hover:opacity-50 cursor-pointer transition text-center">En savoir plus</NuxtLink>
-            <NuxtLink v-if="loggedIn" :to="'#'" class="mt-[.5em] inline-block w-full px-4 py-2 bg-[#3B2A7F] text-white rounded hover:opacity-50 cursor-pointer transition text-center items-center justify-center gap-2" @click="addToCart(book)"><span>Ajouter au panier</span></NuxtLink>
+            <p v-if="loggedIn" class="mt-[.5em] inline-block w-full px-4 py-2 bg-[#3B2A7F] text-white rounded hover:opacity-50 cursor-pointer transition text-center items-center justify-center gap-2" @click="addToCart(book)">Ajouter au panier</p>
         </div>
     </div>
 </template>
 <script setup>
+const {user} = useUserSession();
 const config = useRuntimeConfig().public.urlBackend,
     backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     {loggedIn} = useUserSession("loggedIn"),
@@ -24,4 +25,12 @@ const config = useRuntimeConfig().public.urlBackend,
             day:'numeric'
         })
     };
-</script>
+    const addToCart = async () => {
+        const dataCart = {article:props.book.id, quantity:1, user:user.value.email}
+        let addCart = await postData(`${backendUrl}/cartItem/panier/add`,dataCart);
+        if(addCart.error){
+            await refreshAuth();
+            addCart = await postData(`${backendUrl}/cartItem/panier/add`,dataCart);
+        }
+        
+    }</script>
