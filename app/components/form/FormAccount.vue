@@ -1,6 +1,3 @@
-<!--
-- Ajouter une pop-up quand les données ont changé ou non
--->
 <template>
     <section class="sectionAccountEdit relative py-10">
         <div class="absolute top-0 left-0 text-center text-white font-bold w-full" v-if="errorPassword != null">
@@ -12,9 +9,7 @@
             <p class="bg-green-500 py-[.5em]" v-else>L'utilisateur a bien été mise à jour.</p>
         </div>
         <div class="m-auto max-w-300 mt-[1em] w-[90%] container mx-auto px-6 sm:px-12">
-            <!-- Titre -->
             <h2 class="text-3xl font-extrabold text-purple-900 mb-6">Modifier mes données personnelles</h2>
-            <!-- Onglets -->
             <div v-if="data.error">
                 <p class="text-red">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
             </div>
@@ -28,7 +23,6 @@
             </div>
             <UTabs v-else :items="items" variant="link" :ui="{trigger:'grow',indicator:'hidden',content:'rounded-b-lg p-6',root:'gap-0',label:'',list:'p-0'}" class="bg-white rounded-xl shadow-lg">
                 <template #infos="{item}">
-                    <!-- Onglet 1 :Infos personnelles -->
                     <div v-if="item.slot === 'infos'">
                         <UForm :schema="schemaItem" @submit="updateUser" :state="formData" class="space-y-5 flex justify-between flex-wrap">
                             <UFormField class="w-full sm:w-[48%] inline-block" label="Nom de famille" name="lastname" required>
@@ -48,7 +42,6 @@
                     </div>
                 </template>
                 <template #adresses="{item}">
-                    <!-- Onglet 2 :Adresses -->
                     <div v-if="item.slot === 'adresses'">
                         <UForm @submit="updateUser" :schema="schemaAdresse" :state="formData" class="space-y-5 flex justify-between flex-wrap">
                             <UFormField class="w-full sm:w-[48%]" label="Adresse de facturation" name="delivery_address" required>
@@ -62,7 +55,6 @@
                     </div>
                 </template>
                 <template #securite="{item}">
-                    <!-- Onglet 3 :Sécurité -->
                     <div v-if="item.slot === 'securite'">
                         <UForm :schema="schemaPassword" @submit="updatePasswordUser" :state="formPassword" class="space-y-5 flex justify-between flex-wrap">
                             <UFormField class="w-full" name="oldPassword" label="Ancien mot de passe" required>
