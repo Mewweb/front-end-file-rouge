@@ -8,12 +8,8 @@ const config = useRuntimeConfig().public.urlBackend,
     data = ref(),
     callData = async (offset,page)=>{
         filters.value = page;
-        if(page.search != ''){
-            data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9/${encodeURI(page.search.replaceAll('/', '-'))}`);
-        }
-        else{
-            data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9`);
-        }
+        if(page.search != '') data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9/${encodeURI(page.search.replaceAll('/', '-'))}`);
+        else data.value = await accessDataNoJwt(`${backendUrl}/articles/${offset}/9`);
         loading.value = false;
     }
 let offsetPage = ref(1);

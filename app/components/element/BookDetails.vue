@@ -6,7 +6,7 @@
             </div>
             <div class="order-2 w-full md:w-[48%]">
                 <h1 class="text-2xl md:text-3xl font-extrabold text-purple-900 mb-4">{{ props.title }}</h1>
-                <p class="text-gray-600 mb-2"><span class="font-semibold text-purple-700"><template v-for="(author,index) in authors">{{ author.lastname + " " + author.firstname + (author.length == index-1?"":"") }} </template></span> • {{ formatDate(props.date) }}</p>
+                <p class="text-gray-600 mb-2"><span class="font-semibold text-purple-700"><template v-for="(author,index) in authors">{{  author.firstname + " " + author.lastname }}{{ index != authors.length - 1 ? ", " : "" }} </template></span> • {{ formatDate(props.date) }}</p>
                 <p class="text-gray-700 leading-relaxed mb-6">{{ props.description }}</p>
                 <div class="flex flex-wrap gap-4">
                     <UButton class="px-6 py-3 block w-full text-lg font-semibold rounded-lg shadow-md bg-purple-800 text-white cursor-pointer transition duration-300 hover:opacity-50" color="primary" variant="solid">Acheter <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" /></UButton>
