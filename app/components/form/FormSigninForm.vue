@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
+        <p v-if="errorMessage" style="font-weight:bold; color:red;text-align:center; padding:1em 0;">{{errorMessage}}</p>
         <UForm @submit.prevent="Register" :schema="schema" :state="credentials" class="space-y-6 flex justify-between flex-wrap text-left">
             <UFormField label="Nom" class="w-full md:w-[48%]" name="lastname" required>
                 <UInput v-model="credentials.lastname" class="w-full" type="text" placeholder="Votre nom" size="lg" />

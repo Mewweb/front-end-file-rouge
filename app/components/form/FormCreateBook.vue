@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
+        <p v-if="errorMessage" style="font-weight:bold; color:red;text-align:center; padding:1em 0;">{{errorMessage}}</p>
         <p v-if="successMessage">{{successMessage}}</p>
         <div v-else-if="loading" class="flex justify-between flex-wrap w-full">
             <div v-for="i in 4" class="bg-linear-to-r w-[48%] h-14 my-[.5em] animate-pulse from-indigo-50 to-purple-50 rounded-lg shadow hover:shadow-lg transition p-4">
