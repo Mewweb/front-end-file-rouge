@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
+        <p v-if="errorMessage" style="font-weight:bold; color:red;text-align:center; padding:1em 0;">{{errorMessage}}</p>
         <p v-else-if="successMessage">L'éditeur à bien été ajouté</p>
         <UForm class="flex justify-between space-y-2 w-full flex-wrap" :schema="schema" :state="data">
             <UFormField label="Le titre" name="title" required class="w-full sm:w-[48%]">

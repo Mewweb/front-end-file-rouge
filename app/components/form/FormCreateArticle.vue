@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
-        <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
+        <p v-if="errorMessage"  style="font-weight:bold; color:red;text-align:center; padding:1em 0;">{{errorMessage}}</p>
         <p v-else-if="successMessage">{{successMessage}}</p>
         <p v-if="error" class="text-red">Une erreur a été rencontré. Veuillez réessayer plus tard.</p>
         <div v-else-if="loading" class="flex justify-between flex-wrap w-full">
