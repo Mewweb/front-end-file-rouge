@@ -37,7 +37,7 @@
             <UFormField label="L'ISBN de l'article" name="number_isbn" required class="w-full" :ui="{label:'mb-[.5em]'}">
                 <UInput type="text" name="number_isbn" id="number_isbn" v-model="data.number_isbn" class="w-full" placeholder="L'ISBN de l'article" size="lg" />
             </UFormField>
-            <UButton type="submit" @click.prevent="submit()" class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">{{props.isUpdate == false ? 'Ajouter' :'Modifier'}}</UButton>
+            <UButton type="submit" @click.prevent="submit()" class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">{{props.isUpdate == false ? 'Ajouter' :'Modifier'}}</UButton>
         </UForm>
     </div>
 </template>

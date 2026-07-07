@@ -16,7 +16,7 @@
         <UFormField label="Langue" name="langue" required class="w-full">
             <USelectMenu class="w-full" v-model="data.data.langue" placeholder="Langue" value-key="id" :items="contentLangue" size="lg" />
         </UFormField>
-        <UButton type="submit" @click="editAuthor(data.data.id,index)" class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">Modifier
+        <UButton type="submit" @click="editAuthor(data.data.id,index)" class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">Modifier
             <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" />
         </UButton>
     </UForm>

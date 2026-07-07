@@ -9,8 +9,8 @@
                 <p class="text-gray-600 mb-2"><span class="font-semibold text-purple-700"><template v-for="(author,index) in authors">{{ author.lastname + " " + author.firstname + (author.length == index-1?"":"") }} </template></span> • {{ formatDate(props.date) }}</p>
                 <p class="text-gray-700 leading-relaxed mb-6">{{ props.description }}</p>
                 <div class="flex flex-wrap gap-4">
-                    <UButton class="px-6 py-3 block w-full text-lg font-semibold rounded-lg shadow-md bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer transition duration-300 hover:opacity-50" color="primary" variant="solid">Acheter <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" /></UButton>
-                    <UButton @click="addToCart()" class="px-6 py-3 text-lg block w-full font-semibold rounded-lg shadow-md border-2 border-purple-600 text-purple-600 cursor-pointer transition duration-300 hover:bg-transparent hover:opacity-50" variant="outline">Ajouter <IconCartShopping class="w-[1em] ml-[1em] fill-purple-600 h-[1em] inline-block" /></UButton>
+                    <UButton class="px-6 py-3 block w-full text-lg font-semibold rounded-lg shadow-md bg-purple-800 text-white cursor-pointer transition duration-300 hover:opacity-50" color="primary" variant="solid">Acheter <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" /></UButton>
+                    <UButton @click="addToCart()" class="px-6 py-3 text-lg block w-full font-semibold rounded-lg shadow-md border-2 border-purple-800 text-purple-800 cursor-pointer transition duration-300 hover:bg-transparent hover:opacity-50" variant="outline">Ajouter <IconCartShopping class="w-[1em] ml-[1em] fill-purple-800 h-[1em] inline-block" /></UButton>
                 </div>
             </div>
         </div>

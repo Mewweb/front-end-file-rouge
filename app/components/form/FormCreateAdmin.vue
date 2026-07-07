@@ -22,7 +22,7 @@
                     <UInput v-model="form.confirmPassword" class="w-full" type="password" placeholder="Confirmez le mot de passe" size="lg" />
                 </UFormField>
                 <div class="pt-4 text-right w-full">
-                    <UButton class="px-6 py-2 bg-[#cc3399] hover:opacity-50 transition duration-300 text-white rounded hover:bg-[#cc3399] cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
+                    <UButton class="px-6 py-2 bg-fuchsia-800 hover:opacity-50 transition duration-300 text-white rounded hover:bg-fuchsia-800 cursor-pointer" variant="solid" @click="applySearch"> Ajouter un administrateur</UButton>
                 </div>
             </UForm>
         </div>
