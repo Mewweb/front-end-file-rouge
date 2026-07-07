@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-700"><span v-for="author, index in book.book.authors">{{ author.firstname }} {{ author.lastname }} {{ index != book.book.authors.length - 1 ? "," :"" }}</span></p>
         </div>
         <div>
-            <NuxtLink :to="`/book/${book.id}`" class="mt-4 inline-block w-full px-4 py-2 bg-[#cc3399] text-white rounded hover:opacity-50 cursor-pointer transition text-center">En savoir plus</NuxtLink>
+            <NuxtLink :to="`/book/${book.id}`" class="mt-4 inline-block w-full px-4 py-2 bg-fuchsia-800 text-white rounded hover:opacity-50 cursor-pointer transition text-center">En savoir plus</NuxtLink>
             <p v-if="loggedIn" class="mt-[.5em] inline-block w-full px-4 py-2 bg-[#3B2A7F] text-white rounded hover:opacity-50 cursor-pointer transition text-center items-center justify-center gap-2" @click="addToCart(book)">Ajouter au panier</p>
         </div>
     </div>

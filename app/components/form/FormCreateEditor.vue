@@ -12,7 +12,7 @@
             <UFormField label="La description" name="description" required class="w-full">
                 <UTextarea name="description" id="description" :value="data.description" v-model="data.description" class="w-full" placeholder="Description" size="lg"></UTextarea>
             </UFormField>
-            <UButton type="submit" @click="submit(data,index)" class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">{{props.isUpdate == false ? 'Ajouter' :'Modifier'}}</UButton>
+            <UButton type="submit" @click="submit(data,index)" class="w-auto py-3 mt-[1em] hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">{{props.isUpdate == false ? 'Ajouter' :'Modifier'}}</UButton>
         </UForm>
     </div>
 </template>

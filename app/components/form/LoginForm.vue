@@ -10,7 +10,7 @@
                 type="password" placeholder="********" size="lg" />
         </UFormField>
         <UButton type="submit"
-            class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-linear-to-r from-pink-500 to-purple-600 text-white cursor-pointer font-semibold rounded-lg shadow-md"
+            class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md"
             color="primary" variant="solid">Se connecter
             <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" />
         </UButton>

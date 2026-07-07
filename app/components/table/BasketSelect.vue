@@ -42,9 +42,9 @@
                 </div>
             </div>
             <div class="block text-right">
-                <UButton class="inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition">Annuler</UButton>
-                <UButton @click="editCartItems" :active="isEdited" :class="[!isEdited ? 'opacity-50' : '', 'inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-600 text-purple-600 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition']">Mettre à jour</UButton>
-                <UButton class="inline-block mt-4 px-6 py-3 hover:opacity-50 cursor-pointer rounded-lg bg-linear-to-r from-pink-500 to-purple-600 text-white font-semibold shadow transition">Acheter</UButton>
+                <UButton class="inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-800 text-purple-800 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition">Annuler</UButton>
+                <UButton @click="editCartItems" :active="isEdited" :class="[!isEdited ? 'opacity-50' : '', 'inline-block mt-4 px-6 py-3 mr-[1em] hover:opacity-50 rounded-lg border-2 outline-0 border-purple-800 text-purple-800 font-semibold shadow bg-transparent hover:bg-transparent cursor-pointer transition']">Mettre à jour</UButton>
+                <UButton class="inline-block mt-4 px-6 py-3 hover:opacity-50 cursor-pointer rounded-lg bg-purple-800 text-white font-semibold shadow transition">Acheter</UButton>
             </div>
         </div>
     </section>
