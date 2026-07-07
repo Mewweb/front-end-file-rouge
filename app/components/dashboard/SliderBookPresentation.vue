@@ -43,7 +43,7 @@ loading.value = false;
                         <h2 class="text-xl md:text-3xl  m-0 font-extrabold text-purple-900">{{ item.item.book.title }}</h2>
                         <p class="text-sm text-gray-600">Publié le {{ formatDate(item.item.book.date) }}</p>
                         <p class="text-gray-800 font-medium">Par <span v-for="author in item.item.book.authors">{{ author.lastname }} {{ author.firstname }}</span></p>
-                        <NuxtLink :to="`/book/${item.item.book.id}`" class="inline-block mt-4 px-6 py-3 hover:opacity-50 rounded-lg bg-linear-to-r from-pink-500 to-purple-600 text-white font-semibold shadow transition">En savoir plus <IconsArrowRight class="h-[1em] w-[1em] fill-white inline-block ml-[.5em]" /></NuxtLink>
+                        <NuxtLink :to="`/book/${item.item.id}`" class="inline-block mt-4 px-6 py-3 hover:opacity-50 rounded-lg bg-linear-to-r from-pink-500 to-purple-600 text-white font-semibold shadow transition">En savoir plus <IconsArrowRight class="h-[1em] w-[1em] fill-white inline-block ml-[.5em]" /></NuxtLink>
                     </div>
                 </div>
             </UCarousel>
