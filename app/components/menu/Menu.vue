@@ -112,5 +112,4 @@ const {user} = useUserSession(),
             }
         ]
     ];
-    console.log(user);
 </script>

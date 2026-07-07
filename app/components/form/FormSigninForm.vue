@@ -12,7 +12,7 @@
                 <UInput v-model="credentials.phone_number" class="w-full" type="tel" placeholder="Votre numéro de téléphone" size="lg" />
             </UFormField>
             <UFormField label="Adresse email" class="w-full md:w-[48%]" name="email" required>
-                <UInput v-model="credentials.email" class="w-full" type="email" placeholder="Votr adresse email" size="lg" />
+                <UInput v-model="credentials.email" class="w-full" type="email" placeholder="Votre adresse email" size="lg" />
             </UFormField>
             <UFormField label="Adresse de livraison" class="w-full md:w-[48%]" name="billingAddress" required>
                 <UInput v-model="credentials.billing_address" class="w-full" type="text" placeholder="Votre adresse de livraison" size="lg" />
