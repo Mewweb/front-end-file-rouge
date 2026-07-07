@@ -28,7 +28,6 @@
             <h2 v-else-if="props.data == 'editor'" class="text-3xl font-extrabold text-purple-900 mb-6">Gestion des éditeurs</h2>
             <h2 v-else-if="props.data == 'books'" class="text-3xl font-extrabold text-purple-900 mb-6">Gestion des livres</h2>
             <h2 v-else-if="props.data == 'articles'" class="text-3xl font-extrabold text-purple-900 mb-6">Gestion des articles</h2>
-            <!--Liste des articles-->
             <div v-if="loading == true">
                 <div v-for="n in 3" :key="n"
                     class="flex flex-col animate-pulse from-indigo-50 to-purple-50 my-[1em] mx-auto md:flex-row items-center justify-between bg-white rounded-xl p-4 mb-4">

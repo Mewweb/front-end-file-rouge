@@ -21,11 +21,9 @@ loading.value = false;
         </div>
         <div v-else-if="loading == true">
             <div class="flex flex-col animate-pulse from-indigo-50 to-purple-50 py-[2em] md:flex-row-reverse items-center h-full">
-                <!-- Image -->
                 <div class="w-full md:w-1/2">
                     <div class="p-0 rounded-lg m-auto w-[75%] max-w-[20em] md:h-[30em] h-[25em] bg-gray-200"></div>
                 </div>
-                <!-- Contenu texte -->
                 <div class="w-full md:w-1/2  p-8 flex flex-col justify-start items-start text-left md:text-left space-y-4">
                     <div class="h-10 rounded-lg w-full bg-gray-200"></div>
                     <div class="h-3 rounded-lg w-20 bg-gray-200"></div>
@@ -36,11 +34,9 @@ loading.value = false;
         </div>
         <div v-else class="container py-6 px-6 sm:px-12 clr mx-auto">
             <UCarousel class="rounded-lg bg-linear-to-r from-indigo-50 to-purple-50 shadow-lg" :items="data.data.content" auto-height dots :autoplay="{ delay:5000 }" loop v-slot="item" :ui="{ container:'transition-[height]', controls:'h-[2em] flex justify-center items-center inset-x-12', dots:'initial!', dot:'w-6 h-3' }">
-                <!-- Slide principal -->
                 <div class="flex flex-col py-[2em] md:flex-row-reverse items-center h-full">
-                    <!-- Image -->
                     <div class="w-full md:w-1/2 p-8">
-                        <NuxtImg :src="backendUrl + '/files/' + item.item.book.image" :alt="'Couverture du livre ' + item.item.book.title + ' en ' + item.item.title" class="h-auto w-[75%] max-w-[15em] md:max-w-max md:w-full md:h-auto m-auto object-cover" />
+                        <NuxtImg :src="backendUrl + '/files/' + item.item.book.image" :alt="'Couverture du livre ' + item.item.book.title + ' en ' + item.item.title" class="h-auto w-[75%] max-w-[15em] md:max-w-max md:w-full md:h-[18em] m-auto object-cover" />
                     </div>
                     <!-- Contenu texte -->
                     <div class="w-full md:w-1/2  p-8 flex flex-col justify-start items-start text-left md:text-left space-y-4">

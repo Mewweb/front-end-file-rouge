@@ -2,31 +2,24 @@
     <div class="flex items-center flex-col p-[1em] gap-0 bg-white rounded-xl shadow-lg">
         <p v-if="errorMessage" class="text-red">{{errorMessage}}</p>
         <UForm @submit.prevent="Register" :schema="schema" :state="credentials" class="space-y-6 flex justify-between flex-wrap text-left">
-            <!--Input nom -->
             <UFormField label="Nom" class="w-full md:w-[48%]" name="lastname" required>
                 <UInput v-model="credentials.lastname" class="w-full" type="text" placeholder="Votre nom" size="lg" />
             </UFormField>
-            <!-- Input prénom -->
             <UFormField label="Prénom" class="w-full md:w-[48%]" name="firstname" required>
                 <UInput v-model="credentials.firstname" class="w-full" type="text" placeholder="Votre prénom" size="lg" />
             </UFormField>
-            <!-- Input numéro de téléphone -->
             <UFormField label="Numéro de téléphone" class="w-full md:w-[48%]" name="phone" required>
                 <UInput v-model="credentials.phone_number" class="w-full" type="tel" placeholder="Votre numéro de téléphone" size="lg" />
             </UFormField>
-            <!-- Input Adresse email -->
             <UFormField label="Adresse email" class="w-full md:w-[48%]" name="email" required>
                 <UInput v-model="credentials.email" class="w-full" type="email" placeholder="Votr adresse email" size="lg" />
             </UFormField>
-            <!--Input Adresse de livraison-->
             <UFormField label="Adresse de livraison" class="w-full md:w-[48%]" name="billingAddress" required>
                 <UInput v-model="credentials.billing_address" class="w-full" type="text" placeholder="Votre adresse de livraison" size="lg" />
             </UFormField>
-            <!-- Input Adresse de facturation -->
             <UFormField label="Adresse de facturation" class="w-full md:w-[48%]" name="deliveryAddress" required>
                 <UInput v-model="credentials.delivery_address" class="w-full" type="text" placeholder="Votre adresse de facturation" size="lg" />
             </UFormField>
-            <!-- Input Mot de passe -->
             <div class="w-full mb-[1em] md:w-[48%]">
                 <UFormField label="Mot de passe" name="password" required>
                     <UInput v-model="credentials.password" class="w-full" placeholder="Votre mot de passe" size="lg" :color="color" :type="showPassword ? 'text' :'password'" :aria-invalid="score < 4" aria-describedby="password-strength">
@@ -47,7 +40,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- Input Confirmation mot de passe -->
             <UFormField label="Confirmer le mot de passe" class="w-full md:w-[48%]" name="confirmPassword" required>
                 <UInput v-model="credentials.confirmPassword" class="w-full" :type="showConfirmPassword ? 'text' :'password'" placeholder="Confirmer le mot de passe" size="lg">
                     <template #trailing>
@@ -55,7 +47,6 @@
                     </template>
                 </UInput>
             </UFormField>
-            <!-- Bouton -->
             <UButton type="submit" class="w-auto ml-auto cursor-pointer hover:opacity-50 duration-300 transition py-3 font-semibold text-lg rounded-lg shadow-md" color="primary" variant="solid" :ui="{color:{primary:'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:opacity-90'}}">S’inscrire →</UButton>
         </UForm>
     </div>
@@ -137,14 +128,14 @@ const config = useRuntimeConfig().public.urlBackend,
         )
     }),
     credentials = ref({
-        lastname:"qsdf",
-        firstname:"dsf",
-        phone_number:"01 02 03 04 05",
-        email:"test@test.fr",
-        billing_address:"adresse d",
-        delivery_address:"e facturation",
-        password:"Azerty123",
-        confirmPassword:"Azerty123"
+        lastname:"",
+        firstname:"",
+        phone_number:"",
+        email:"",
+        billing_address:"",
+        delivery_address:"",
+        password:"",
+        confirmPassword:""
     }),
     Register=async(e)=>{
         e.preventDefault();

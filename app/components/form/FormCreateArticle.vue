@@ -10,7 +10,7 @@
             </div>
         </div>
         <UForm v-else class="flex justify-between space-y-2 flex-wrap" :schema="schema" :state="data">
-            <UFormField label="Le format de l'article" name="title" required class="w-full sm:w-[48%]" :ui="{label:'mb-[.5em]'}">
+            <UFormField label="Le titre de l'article" name="title" required class="w-full sm:w-[48%]" :ui="{label:'mb-[.5em]'}">
                 <UInput type="text" name="title" id="title" v-model="data.title" class="w-full" placeholder="Le titre de l'article" size="lg" />
             </UFormField>
             <UFormField label="La longueur de l'article" name="width" required class="w-full sm:w-[48%]" :ui="{label:'mb-[.5em]'}">
@@ -32,7 +32,7 @@
                 <USelectMenu value-key="id" name="editor" id="editor" :items="editorItems" v-model="data.editor" class="w-full" placeholder="L'éditeur de l'article" />
             </UFormField>
             <UFormField label="Le livre de l'article" name="book" required class="w-full sm:w-[48%]" :ui="{label:'mb-[.5em]'}">
-                <USelectMenu value-key="id" name="book" id="book" :items="bookItems" v-model="data.book" class="w-full" placeholder="L'éditeur de l'article" size="lg" />
+                <USelectMenu value-key="id" name="book" id="book" :items="bookItems" v-model="data.book" class="w-full" placeholder="Le livre de l'article" size="lg" />
             </UFormField>
             <UFormField label="L'ISBN de l'article" name="number_isbn" required class="w-full" :ui="{label:'mb-[.5em]'}">
                 <UInput type="text" name="number_isbn" id="number_isbn" v-model="data.number_isbn" class="w-full" placeholder="L'ISBN de l'article" size="lg" />

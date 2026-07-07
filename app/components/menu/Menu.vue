@@ -3,16 +3,12 @@
         <nav class="bg-white fixed z-99999 w-full shadow-md border-b border-gray-200">
             <div class="m-auto max-w-300 w-[90%]">
                 <div class="container flex items-center justify-between px-6 py-3 mx-auto">
-                    <!-- Logo -->
                     <NuxtLink to="/" class="flex items-center hover:opacity-50 transition duration-300 gap-2">
                         <NuxtImg src="img/logo.webp" alt="Logo de 2I Library" loading="lazy" class="h-10 w-auto" />
                         <span class="text-xl sm:inline-block hidden font-bold text-purple-800">2I Library</span>
                     </NuxtLink>
-                    <!-- Actions à droite -->
                     <div class="flex items-center gap-4" v-if="loggedIn">
-                        <!-- Lien gestion panier -->
                         <NuxtLink to="/shopping" class="text-purple-700 font-medium hover:opacity-50 duration-300 transition">Gestion de panier</NuxtLink>
-                        <!-- Dropdown utilisateur -->
                         <UDropdownMenu class="cursor-pointer" :items="userMenu" :popper="{placement:'bottom-end'}">
                             <UButton color="gray" variant="ghost" icon="i-heroicons-user-circle" title="Voir le compte utilisateur" class="rounded-full hover:opacity-50 transition duration-300" />
                         </UDropdownMenu>
@@ -116,4 +112,5 @@ const {user} = useUserSession(),
             }
         ]
     ];
+    console.log(user);
 </script>
