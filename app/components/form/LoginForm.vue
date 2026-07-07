@@ -1,26 +1,26 @@
 <template>
-    <p v-if="errorMessage" style="font-weight:bold; color:red;text-align:center; padding:1em 0;" >{{ errorMessage }}</p>
+    <p v-if="errorMessage" style="font-weight:bold; color:red;text-align:center; padding:1em 0;">{{ errorMessage }}</p>
     <UForm @submit.prevent="Login" :schema="schema" :state="credentials" class="flex justify-between flex-wrap">
         <UFormField label="Adresse mail" name="email" required class="w-full md:w-[48%]">
-            <UInput name="emailInput" id="emailInput" v-model="credentials.email" class="w-full" type="email"
-                placeholder="exemple@email.com" size="lg" />
+            <UInput name="emailInput" id="emailInput" v-model="credentials.email" class="w-full" type="email" placeholder="exemple@email.com" size="lg" />
         </UFormField>
         <UFormField label="Le mot de passe" name="password" required class="w-full md:w-[48%]">
-            <UInput name="passwordInput" id="passwordInput" v-model="credentials.password" class="w-full"
-                type="password" placeholder="********" size="lg" />
+            <UInput name="passwordInput" id="passwordInput" v-model="credentials.password" class="w-full" placeholder="********" size="lg" :type="showPassword ? 'text' : 'password'">
+                <template #trailing>
+                    <UButton color="neutral" variant="link" size="sm" :icon="showPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'" :aria-label="showPassword ? 'Cacher le mot de passe' : 'Voir le mot de passe'" :aria-pressed="showPassword" aria-controls="password" @click="showPassword = !showPassword" />
+                </template>
+            </UInput>
         </UFormField>
-        <UButton type="submit"
-            class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md"
-            color="primary" variant="solid">Se connecter
+        <UButton type="submit" class="w-full py-3 mt-[1em] block hover:opacity-50 transition duration-300 m-[2em_auto_0] bg-purple-800 text-white cursor-pointer font-semibold rounded-lg shadow-md" color="primary" variant="solid">Se connecter
             <IconsArrowRight class="w-[1em] ml-[1em] fill-white h-[1em] inline-block" />
         </UButton>
     </UForm>
 </template>
 <script setup>
-import { error } from '#build/ui';
 import * as v from 'valibot';
 import IconsArrowRight from '~/svg/IconsArrowRight.vue'
-const errorMessage = ref(),
+const showPassword = ref(false),
+    errorMessage = ref(),
     config = useRuntimeConfig().public.urlBackend,
     backendUrl = config == "" ? "http://localhost:8080/m2l" : config,
     { fetch: refreshSession } = useUserSession(),
@@ -55,8 +55,7 @@ const errorMessage = ref(),
             }else{
                 errorMessage.value = "Votre email ou votre mot de passe est éronné"
             }
-
-        } catch (e) { errorMessage.value = "Une erreur a été rencontré,veuillez réessayer plus tard." }
+        }catch(e){errorMessage.value = "Une erreur a été rencontré, veuillez réessayer plus tard."}
     }
 
 </script>

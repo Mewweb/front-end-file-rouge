@@ -160,11 +160,11 @@ const config = useRuntimeConfig().public.urlBackend,
         password: "",
         confirmPassword: ""
     }),
-    Register = async (e) => {
+    Register=async(e)=>{
         e.preventDefault();
         if (props.isAdmin) {
             let data = await postData(`${backendUrl}/create/admin`, credentials.value);
-            if (data.error) {
+            if(data.error){
                 await refreshAuth();
                 data = await postData(`${backendUrl}/create/admin`, credentials.value);
             }
@@ -192,7 +192,7 @@ const config = useRuntimeConfig().public.urlBackend,
             } catch (e) { errorMessage.value = "Une erreur a été rencontré ! Veuillez réessayer plus tard." }
         }
     },
-    checkStrength = (str) => {
+    checkStrength=(str)=>{
         const requirements = [
             { regex: /.{8}/, text: 'Doit contenir 8 caractères minimum' },
             { regex: /\d/, text: "Doit contenir 1 nombre minimum" },

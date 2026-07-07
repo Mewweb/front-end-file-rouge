@@ -155,7 +155,6 @@ const config = useRuntimeConfig().public.urlBackend,
         if(score.value === 3) return 'Mot de passe moyen'
         return 'Mot de passe fort'
     }),
-    // Définition des onglets
     items = [
         {
             label:"Infos personnelles",
